@@ -13,6 +13,7 @@ function Layot(props) {
                     <li><Link to={"/feedback"}> Отзывы</Link></li>
                     <li><Link to={"/personalActions"}> Акции</Link></li>
                     <li><Link to={"/AboutUs"}> Контакты</Link></li>
+                    <li><Link to={"/account"}> Войти</Link></li>
                 </ul>
             </nav>
             <div className="about-person">

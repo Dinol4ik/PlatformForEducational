@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
 import Counets from "./components/counets";
-import Input from "./components/input";
 import './styles/main/style.css';
-import PostItem from "./components/postItem";
 import PostList from "./components/postList";
-import Mainpage from "./components/mainPage";
 import Layot from "./components/layot";
 import CursesAPI from "./API/CursesAPI";
 import SubjectApi from "./API/subjectApi";
 import {Route, Routes} from "react-router-dom";
+import Login from "./components/login";
+import {AuthContext} from "./context";
 
 
 function App (){
@@ -28,16 +26,23 @@ function App (){
         const subject = await SubjectApi.getAllSubject()
         setSubject(subject)
     }
+    const [isAuth,setIsAuth] = useState(false)
      return(
+
          <>
+         <AuthContext.Provider value={{
+            isAuth,
+             setIsAuth: setIsAuth
+         }}>
     <Routes>
         <Route path="/" element={<Layot/>}>
             <Route index element={<PostList post={posts} subject = {subjects}/>}/>
             <Route path={'buy'} element={<Counets/>}></Route>
+            <Route path={'account'} element={<Login/>}></Route>
         </Route>
 </Routes>
+             </AuthContext.Provider>
          </>
-
         );
 }
 export default App;

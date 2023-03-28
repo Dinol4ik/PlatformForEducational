@@ -14,6 +14,7 @@ function Layot(props) {
                     <li><Link to={"/personalActions"}> Акции</Link></li>
                     <li><Link to={"/AboutUs"}> Контакты</Link></li>
                     <li><Link to={"/account"}> Войти</Link></li>
+                    <li><Link to={"/sheldue"}> Календарь</Link></li>
                 </ul>
             </nav>
             <div className="about-person">

@@ -8,6 +8,8 @@ import SubjectApi from "./API/subjectApi";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/login";
 import {AuthContext} from "./context";
+import Calendar from "./components/Calendar";
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 function App (){
@@ -34,13 +36,16 @@ function App (){
             isAuth,
              setIsAuth: setIsAuth
          }}>
-    <Routes>
-        <Route path="/" element={<Layot/>}>
-            <Route index element={<PostList post={posts} subject = {subjects}/>}/>
+             <ChakraProvider>
+            <Routes>
+                <Route path="/" element={<Layot/>}>
+                    <Route index element={<PostList post={posts} subject = {subjects}/>}/>
             <Route path={'buy'} element={<Counets/>}></Route>
             <Route path={'account'} element={<Login/>}></Route>
+                    <Route path={'sheldue'} element={<Calendar/>}></Route>
         </Route>
 </Routes>
+                 </ChakraProvider>
              </AuthContext.Provider>
          </>
         );

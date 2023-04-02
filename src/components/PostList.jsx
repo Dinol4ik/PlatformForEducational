@@ -28,7 +28,6 @@ const PostList = (post) => {
 
     return (
         <Container
-            minH={'100vh'}
             w={'100%'}
             maxW={'container.xl'}
             display={'flex'}

@@ -8,8 +8,9 @@ import {Route, Routes} from "react-router-dom";
 import Login from "./components/Login";
 import {AuthContext} from "./context/AuthContext";
 import Calendar from "./components/Calendar";
-import { ChakraProvider } from '@chakra-ui/react'
+import {Box, ChakraProvider} from '@chakra-ui/react'
 import RequireAuth from "./context/RequireAuth";
+import NotFoundPage from "./pages/NotFoundPage";
 // import RequireAuth, { RecuireAuth } from './context/RequireAuth'
 
 
@@ -48,6 +49,7 @@ function App (){
                                 <Calendar/>
                             </RequireAuth>
                         }/>
+                        <Route path={'*'} element={<NotFoundPage/>} />
                     </Route>
                 </Routes>
             </AuthContext.Provider>

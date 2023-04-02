@@ -32,7 +32,7 @@ const Login = () => {
         <Container
                 display={'flex'}
                 w={'100%'}
-                h={'50vh'}
+                h={'500px'}
                 alignItems={'center'}
                 justifyContent={'center'}
                 flexWrap={'wrap'}

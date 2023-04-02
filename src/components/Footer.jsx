@@ -7,9 +7,10 @@ const FooterItem = ({children, to, ...props}) => {
         <Box
             as={ReactLink}
             to={to}
-            p={2}
-            marginX={3}
-            _hover={{bg: ''}}
+            paddingY={2}
+            paddingX={3}
+            marginX={2}
+            _hover={{bg: '#0399E9'}}
             color={'whitesmoke'}
             textDecor={'underline'}
             {...props}
@@ -19,11 +20,13 @@ const FooterItem = ({children, to, ...props}) => {
     )
 }
 
-const Footer = () => {
+const Footer = ({...props}) => {
     return (
         <Container
+            alignItems={'flex-end'}
             minW={'container.lg'}
             mb={2}
+            {...props}
         >
             <Flex
                 w={'100%'}
@@ -35,7 +38,7 @@ const Footer = () => {
                     marginX={3}
                     color={'lightgrey'}
                 >
-                    &copy; Все права принадлежат нам :)
+                    &copy;Все права принадлежат нам :)
                 </Box>
                 <FooterItem to={'/'}>Отзывы</FooterItem>
                 <FooterItem to={'/'}>Акции</FooterItem>

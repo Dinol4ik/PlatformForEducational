@@ -1,0 +1,17 @@
+.App{
+    width: 800px;
+}
+#root{
+    display: flex;
+    justify-content: center;
+}
+.second__div{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #61dafb;
+    width: 800px;
+    margin: 10px;
+    padding: 10px;
+}
+.btn_post{
+}

@@ -4,6 +4,7 @@ import CalendarDay from "./CalendarDay";
 import {ChevronLeftIcon, ChevronRightIcon} from "@chakra-ui/icons";
 import LessonAPI from "../API/lessonAPI";
 
+
 const date = new Date()
 const named_day = {0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт', 4: 'пт', 5: 'сб', 6: 'вс'}
 const month = new Map([
@@ -63,6 +64,7 @@ const count_day_in_month = {
 }
 
 const Month = ({month, monthBack, monthNext, ...props}) => {
+
     return (
         <GridItem
             colSpan={7}
@@ -102,17 +104,15 @@ const DayOfWeek = ({name, ...props}) => {
 
 const Calendar = () => {
 
-     useEffect(()=>{
+    const [lessons,setLessons] = useState([])
+      useEffect(()=>{
         fetchLessons()
     },[])
-
-    const [lessons,setLessons] = useState([])
-
     async function fetchLessons(){
         const lesson = await LessonAPI.getAll();
         setLessons(lesson)
     }
-
+    console.log(lessons)
     const firstDayInMonth = new Date(date.getFullYear(), date.getMonth(), 1)
     const [maxDayInMonth, setMaxDayInMonth] = useState(count_day_in_month[month_name[date.getMonth()]])
     const [currentMonth, setCurrentMonth] = useState(month_name[date.getMonth()])
@@ -131,6 +131,7 @@ const Calendar = () => {
     }
 
     const changeMonthNext = () =>{
+        console.log(idToMonth[currentMonth])
         if (idToMonth[currentMonth] > 10)
             setCurrentMonth(month_name["0"])
         else

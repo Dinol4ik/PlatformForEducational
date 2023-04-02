@@ -1,0 +1,102 @@
+.profile{
+        padding: 100px 60px;
+    margin: 0 auto;
+    width: 100%;
+}
+.profile-information{
+    display: flex;
+    flex-wrap: wrap;
+}
+.main-content{
+    margin-top: 20px;
+}
+.item-information{
+
+    margin: 40px 20px 0 0;
+    float: left;
+}
+.btn-profile{
+    border: none;
+    outline: none;
+    font-family: 'Open Sans',sans-serif;
+    display: inline-block;
+    font-weight: 600;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 22px;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    text-align: center;
+    background: var(--accent,#0399E9);
+    border-radius: 3px;
+    cursor: pointer;
+    -webkit-transition: background 0.2s linear 0s;
+    transition: background 0.2s linear 0s;
+}
+.btn-profile:hover{
+    background: #09a6fb;
+    text-decoration: none;
+    color:#FFFFFF;
+}
+.profile h1{
+    color: #FFFFFF;
+}
+.dropdown-toggle::after{
+    display: none !important;
+}
+.title{
+    font-family: 'Montserrat',sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 40px;
+    color: #FFFFFF;
+}
+.subject-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px -20px
+}
+.profile-subject-name{
+    width: 25%;
+    float: left;
+    padding: 0 20px;
+    margin-top: 40px;
+}
+.profile-subject-name a{
+    background: #383838;
+    border-radius: 8px;
+    display: block;
+    padding: 25px 40px;
+    height: 100%;
+    font-weight: 600;
+    color: #FFFFFFE6;
+    font-family: 'Montserrat',sans-serif;
+    text-decoration: none;
+    position: relative;
+    -webkit-transition: box-shadow 0.2s linear 0s;
+    transition: box-shadow 0.2s linear 0s;
+}
+.subject-user{
+        margin-top: 80px;
+}
+.subj-url{
+        position: relative;
+    min-height: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-right: 64px;
+}
+.subject-user a:hover{
+    color: #FFFFFF;
+}
+.logo-img{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 48px;
+    line-height: 48px;
+}

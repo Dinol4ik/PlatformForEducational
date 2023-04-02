@@ -30,14 +30,14 @@ const CalendarDay = (props) => {
                 <CardHeader marginX={2} mt={1} p={0}>
                     <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
                         <Badge colorScheme='green' mr={1}>
-                            12:00
+                            20:17
                         </Badge>
                         Математика
                     </Flex>
                 </CardHeader>
                 <CardBody paddingX={2} paddingY={1}>
                     <Text fontSize='12px'>
-
+                        Параметр занятие номер 3
                     </Text>
                 </CardBody>
             </Card>

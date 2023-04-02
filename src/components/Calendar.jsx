@@ -131,7 +131,6 @@ const Calendar = () => {
     }
 
     const changeMonthNext = () =>{
-        console.log(idToMonth[currentMonth])
         if (idToMonth[currentMonth] > 10)
             setCurrentMonth(month_name["0"])
         else

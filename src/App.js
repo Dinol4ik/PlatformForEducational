@@ -1,53 +1,57 @@
 import React, {useEffect, useState} from 'react';
-import Counets from "./components/counets";
 import './styles/main/style.css';
-import PostList from "./components/postList";
-import Layot from "./components/layot";
+import PostList from "./components/PostList";
+import Layout from "./components/Layout";
 import CursesAPI from "./API/CursesAPI";
 import SubjectApi from "./API/subjectApi";
 import {Route, Routes} from "react-router-dom";
-import Login from "./components/login";
-import {AuthContext} from "./context";
+import Login from "./components/Login";
+import {AuthContext} from "./context/AuthContext";
 import Calendar from "./components/Calendar";
 import { ChakraProvider } from '@chakra-ui/react'
+import RequireAuth from "./context/RequireAuth";
+// import RequireAuth, { RecuireAuth } from './context/RequireAuth'
 
 
 function App (){
+    const [posts,setPost] = useState([])
+    const [subjects,setSubject] = useState([])
+    const [isAuth,setIsAuth] = useState(false)
+
     useEffect(()=>{
         fetchSubject()
         fetchApp()
-
     },[])
-    const [posts,setPost] = useState([])
-    const [subjects,setSubject] = useState([])
+
     async function fetchApp(){
         const post = await CursesAPI.getAll();
         setPost(post)
     }
+
     async function fetchSubject() {
         const subject = await SubjectApi.getAllSubject()
         setSubject(subject)
     }
-    const [isAuth,setIsAuth] = useState(false)
-     return(
 
-         <>
-         <AuthContext.Provider value={{
-            isAuth,
-             setIsAuth: setIsAuth
-         }}>
-             <ChakraProvider>
-            <Routes>
-                <Route path="/" element={<Layot/>}>
-                    <Route index element={<PostList post={posts} subject = {subjects}/>}/>
-            <Route path={'buy'} element={<Counets/>}></Route>
-            <Route path={'account'} element={<Login/>}></Route>
-                    <Route path={'sheldue'} element={<Calendar/>}></Route>
-        </Route>
-</Routes>
-                 </ChakraProvider>
-             </AuthContext.Provider>
-         </>
-        );
+    return(
+        <ChakraProvider>
+            <AuthContext.Provider value={{
+                isAuth,
+                setIsAuth: setIsAuth
+            }}>
+                <Routes>
+                    <Route path={"/"} element={<Layout/>}>
+                        <Route index element={<PostList post={posts} subject = {subjects}/>}/>
+                        <Route path={'account'} element={<Login/>} />
+                        <Route path={'schedule'} element={
+                            <RequireAuth>
+                                <Calendar/>
+                            </RequireAuth>
+                        }/>
+                    </Route>
+                </Routes>
+            </AuthContext.Provider>
+        </ChakraProvider>
+    );
 }
 export default App;

@@ -67,7 +67,7 @@ function App (){
             <Route path={'login'} element={<Login/>}></Route>
                      <Route path={'account'} element={
                          <RequireAuth>
-                         <AuthWithVk/>
+                             <AuthWithVk/>
                          </RequireAuth>
                      }></Route>
                     <Route path={'sheldue'} element={<Calendar/>}></Route>

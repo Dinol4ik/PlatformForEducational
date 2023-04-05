@@ -5,7 +5,7 @@ import PostList from "./components/postList";
 import Layot from "./components/layot";
 import CursesAPI from "./API/CursesAPI";
 import SubjectApi from "./API/subjectApi";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "./components/login";
 import {AuthContext} from "./context";
 import Calendar from "./components/Calendar";
@@ -64,7 +64,9 @@ function App (){
                 <Route path="/" element={<Layot/>}>
                     <Route index element={<PostList post={posts} subject = {subjects}/>}/>
             <Route path={'buy'} element={<Counets/>}></Route>
-            <Route path={'login'} element={<Login/>}></Route>
+            <Route path={'login'} element={
+                !isAuth ? <Login/>: <Navigate to='/'/>
+                }></Route>
                      <Route path={'account'} element={
                          <RequireAuth>
                              <AuthWithVk/>

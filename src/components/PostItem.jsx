@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
+import {post} from "axios";
 
 const PostItem = (props) => {
     const [active,setActive] = useState(false)
+     const [keys,setKeys] = useState(0)
     function modalView() {
         setActive(true)
     }
@@ -48,9 +50,15 @@ const PostItem = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <MyModal visible={active} setVisible={setActive}>
-                            <div className="hui">Скоро</div>
-                            <div className="pizda">Тут будет контент</div>
+                        <MyModal  visible={active} setVisible={setActive}>
+                            <div className="hui" style={{border:"1px solid red"}}>{props.post.title}</div>
+                            <div className="pizda">
+                                <div className="contentInModal">
+                                    {props.post.information.split('/').map((item,i)=>{ return  <div key={i}>{item}</div>})}
+                                </div>
+                                <button>КУПИТЬ</button>
+
+                            </div>
                         </MyModal>
                     </div>
     );

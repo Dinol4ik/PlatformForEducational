@@ -27,7 +27,9 @@ const Login = () => {
     console.log(localStorage.getItem('profileId'))
     return (
         <div>
-              <a href='https://oauth.vk.com/authorize?client_id=51587230&display=page&redirect_uri=http://127.0.0.1:8000/token&scope=friends,email&response_type=code&v=5.131'>Войти</a>
+            <div className="auth" style={{justifyContent:"center", display:"flex"}}>
+              <a style={{fontSize:"30px", marginTop:"25%"}} href='https://oauth.vk.com/authorize?client_id=51587230&display=page&redirect_uri=http://127.0.0.1:8000/token&scope=friends,email&response_type=code&v=5.131'>Войти</a>
+            </div>
         </div>
     );
 };

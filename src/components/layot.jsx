@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Link, Outlet, useNavigate} from 'react-router-dom'
 import {AuthContext} from "../context";
+import NavBar from "./NavBar";
 function Layot(props) {
     const {isAuth,setIsAuth}= useContext(AuthContext)
     const navigate = useNavigate();

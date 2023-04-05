@@ -11,7 +11,6 @@ import {AuthContext} from "./context";
 import Calendar from "./components/Calendar";
 import { ChakraProvider } from '@chakra-ui/react'
 import AuthWithVk from "./components/authWithVk";
-import getProfileId from "./API/profileAPI";
 import UserNameAPI from "./API/userNameAPi";
 import RequireAuth from "./hoc/requireAuth";
 
@@ -51,8 +50,7 @@ function App (){
      return(
          <AuthContext.Provider value={{
              profileId,
-
-            isAuth,
+             isAuth,
              token,
              setToken: setToken,
              setIsAuth: setIsAuth,
@@ -60,23 +58,29 @@ function App (){
 
          }}>
              <ChakraProvider>
-            <Routes>
-                <Route path="/" element={<Layot/>}>
-                    <Route index element={<PostList post={posts} subject = {subjects}/>}/>
-            <Route path={'buy'} element={<Counets/>}></Route>
-            <Route path={'login'} element={
-                !isAuth ? <Login/>: <Navigate to='/'/>
-                }></Route>
-                     <Route path={'account'} element={
-                         <RequireAuth>
-                             <AuthWithVk/>
-                         </RequireAuth>
-                     }></Route>
-                    <Route path={'sheldue'} element={<Calendar/>}></Route>
-        </Route>
-</Routes>
-                 </ChakraProvider>
-             </AuthContext.Provider>
-        );
+                 <Routes>
+                    <Route path="/" element={<Layot/>}>
+                        <Route index element={<PostList post={posts} subject = {subjects}/>}/>
+                        <Route path={'buy'} element={<Counets/>}></Route>
+                        <Route path={'login'} element={
+                            !isAuth
+                                ? <Login/>
+                                : <Navigate to='/'/>
+                        }></Route>
+                            <Route path={'account'} element={
+                            <RequireAuth>
+                                <AuthWithVk/>
+                            </RequireAuth>
+                        }></Route>
+                        <Route path={'schedule'} element={
+                            <RequireAuth>
+                                <Calendar/>
+                            </RequireAuth>
+                        }></Route>
+                    </Route>
+                 </Routes>
+             </ChakraProvider>
+         </AuthContext.Provider>
+     );
 }
 export default App;

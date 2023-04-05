@@ -13,6 +13,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import AuthWithVk from "./components/authWithVk";
 import UserNameAPI from "./API/userNameAPi";
 import RequireAuth from "./hoc/requireAuth";
+import Profile from "./components/Profile";
+import Subject from "./components/Subject";
 
 
 function App (){
@@ -72,11 +74,9 @@ function App (){
                                 <AuthWithVk/>
                             </RequireAuth>
                         }></Route>
-                        <Route path={'schedule'} element={
-                            <RequireAuth>
-                                <Calendar/>
-                            </RequireAuth>
-                        }></Route>
+                        <Route path={'schedule'} element={<Calendar/>}></Route>
+                        <Route path={'profile'} element={<Profile/>}></Route>
+                        <Route path={'profile/subject'} element={<Subject/>}></Route>
                     </Route>
                  </Routes>
              </ChakraProvider>

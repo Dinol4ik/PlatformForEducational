@@ -3,7 +3,7 @@ import {Link, Outlet, useNavigate} from 'react-router-dom'
 import {AuthContext} from "../context";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import {Box} from "@chakra-ui/react";
+import {Box, Flex} from "@chakra-ui/react";
 
 function Layot(props) {
     const {isAuth,setIsAuth}= useContext(AuthContext)
@@ -59,13 +59,16 @@ function Layot(props) {
         //         </div>
         //     </div>
         //     </div>
-        <Box>
+        <Flex
+            flexDir={'column'}
+            minH={'100vh'}
+        >
             <NavBar/>
 
             <Outlet/>
 
-            <Footer/>
-        </Box>
+            <Footer flex={1} display={'flex'}/>
+        </Flex>
     );
 }
 

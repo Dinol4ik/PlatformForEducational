@@ -40,18 +40,12 @@ const LoginMenu = () => {
                     </MenuButton>
                     <MenuList>
                         <MenuItem>
-                            <Link
-                                as={ReactLink}
-                                to=''
-                            >
+                            <Link as={ReactLink} to='/profile'>
                                 Личный кабинет
                             </Link>
                         </MenuItem>
                         <MenuItem>
-                            <Link
-                                as={ReactLink}
-                                to='/schedule'
-                            >
+                            <Link as={ReactLink} to='/schedule'>
                                 <Text>
                                     Календарь
                                     <CalendarIcon ml={5}/>

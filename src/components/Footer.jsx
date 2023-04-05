@@ -1,16 +1,17 @@
 import React from 'react';
 import {Link as ReactLink} from 'react-router-dom'
-import {Box, Container, Flex} from "@chakra-ui/react";
+import {Box, Container, Flex, useColorModeValue} from "@chakra-ui/react";
 
 const FooterItem = ({children, to, ...props}) => {
     return(
         <Box
             as={ReactLink}
             to={to}
-            p={2}
-            marginX={3}
-            _hover={{bg: ''}}
-            color={'whitesmoke'}
+            paddingY={2}
+            paddingX={3}
+            marginX={2}
+            _hover={{bg: '#0399E9', color: 'white'}}
+            color={useColorModeValue('grey', 'whitesmoke')}
             textDecor={'underline'}
             {...props}
         >
@@ -19,11 +20,13 @@ const FooterItem = ({children, to, ...props}) => {
     )
 }
 
-const Footer = () => {
+const Footer = (props) => {
     return (
         <Container
+            alignItems={'flex-end'}
             minW={'container.lg'}
             mb={2}
+            {...props}
         >
             <Flex
                 w={'100%'}
@@ -33,7 +36,7 @@ const Footer = () => {
                 <Box
                     p={2}
                     marginX={3}
-                    color={'lightgrey'}
+                    color={useColorModeValue('grey', 'lightgrey')}
                 >
                     &copy; Все права принадлежат нам
                 </Box>
@@ -42,7 +45,7 @@ const Footer = () => {
                 <Box
                     p={2}
                     marginX={3}
-                    color={'lightgrey'}
+                    color={useColorModeValue('grey', 'lightgrey')}
                     flex={1}
                     align="right"
                 >

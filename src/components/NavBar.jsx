@@ -37,7 +37,7 @@ const NavBar = () => {
             justify="center"
             >
                 <Box as='h1' mr={10}>
-                    <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Не школково</Heading>
+                    <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
                 </Box>
                 <Stack
                     direction='row'

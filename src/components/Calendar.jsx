@@ -112,7 +112,7 @@ const Calendar = () => {
         const lesson = await LessonAPI.getAll();
         setLessons(lesson)
     }
-    console.log(lessons)
+
     const firstDayInMonth = new Date(date.getFullYear(), date.getMonth(), 1)
     const [maxDayInMonth, setMaxDayInMonth] = useState(count_day_in_month[month_name[date.getMonth()]])
     const [currentMonth, setCurrentMonth] = useState(month_name[date.getMonth()])

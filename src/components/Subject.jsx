@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Container, Flex, Grid, GridItem, HStack, Link, Text} from "@chakra-ui/react";
-import {Link as ReactLink} from 'react-router-dom'
-
+import {Link as ReactLink, useParams} from 'react-router-dom'
+import CurseInProfile from "../API/CurseInProfile";
+import SubectInProfile from "../API/SubjectInProfile";
 const LinkItem = ({title, ...props}) => {
     return(
         <Link
@@ -16,13 +17,23 @@ const LinkItem = ({title, ...props}) => {
     )
 }
 
-const Subject = () => {
+const Subject = (props) => {
+    const [curseInProfile, setCurseInProfie] = useState()
+    const params = useParams()
+useEffect(()=>{
+    fetchProfileCurse()
+},[])
+    async function  fetchProfileCurse(){
+            const result = await SubectInProfile.getCurseInSubject(params.id)
+              setCurseInProfie(result)
+              }
     return (
         <Container
             mt={20}
             minW={'100%'}
             minH={'100%'}
         >
+
             <Grid
                 h={'100%'}
                 minH={'600px'}
@@ -42,8 +53,14 @@ const Subject = () => {
                 </GridItem>
 
                 <GridItem>
-                    <Text fontSize={'md'}>Предмет: Математика</Text>
-                    <Text fontSize={'3xl'}>Тут какой-то текст</Text>
+                    {curseInProfile
+
+                        ?<>
+                        <Text fontSize={'md'}>Предмет: {curseInProfile.title} </Text>
+                            {curseInProfile.curses.map((curses,id)=>{ return <div key={id}>{curses}</div>})}
+                        </>
+                            :<Text fontSize={'3xl'}>Ничего нету</Text>
+                        }
                 </GridItem>
             </Grid>
         </Container>

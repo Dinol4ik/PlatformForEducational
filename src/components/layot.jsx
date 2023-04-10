@@ -11,12 +11,7 @@ function Layot(props) {
     const {token,setToken}= useContext(AuthContext)
     const {profileName,setProfileName}= useContext(AuthContext)
     const {profileId, setProfileId} = useContext(AuthContext)
-    console.log(localStorage.getItem('profileId'))
 
-    for(let i=0; i<localStorage.length; i++) {
-        let key = localStorage.key(i);
-        console.log(`${key}: ${localStorage.getItem(key)}`);
-    }
 
         // function menuAuth(){
         // if(isAuth)

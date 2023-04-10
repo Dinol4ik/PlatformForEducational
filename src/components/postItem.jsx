@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
 import {post} from "axios";
 import {Card, CardBody, CardHeader, Flex, Text} from "@chakra-ui/react";
+import AddCurseInProfile from "../API/AddCurseInProfile";
 
 const PostItem = (props) => {
     const [active, setActive] = useState(false)
@@ -9,6 +10,9 @@ const PostItem = (props) => {
 
     function modalView() {
         setActive(true)
+    }
+    function getIdCurse(){
+        AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'),props.post.id)
     }
 
     return (
@@ -60,12 +64,11 @@ const PostItem = (props) => {
                         </Flex>
                     </CardHeader>
                     <CardBody paddingX={2} paddingY={1}>
-                        <Text fontSize='12px'>
+
                             {props.post.information.split('/').map((item, i) => {
                                 return <div key={i}>{item}</div>
                             })}
-                        </Text>
-                        <button>КУПИТЬ</button>
+                        <button onClick={getIdCurse}>КУПИТЬ</button>
                     </CardBody>
                 </Card>
                 {/*<div className="hui" style={{border: "1px solid red"}}>{props.post.title}</div>*/}

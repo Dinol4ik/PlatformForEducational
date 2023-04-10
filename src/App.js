@@ -15,6 +15,7 @@ import UserNameAPI from "./API/userNameAPi";
 import RequireAuth from "./hoc/requireAuth";
 import Profile from "./components/Profile";
 import Subject from "./components/Subject";
+import CurseInProfile from "./API/CurseInProfile";
 
 
 function App (){
@@ -42,9 +43,11 @@ function App (){
     }
     async function fetchProfileName(){
         const profileName = await UserNameAPI.getUserName();
+        localStorage.setItem('UserProfileId',profileName.profile)
          localStorage.setItem('profileName', profileName.first_name)
         localStorage.setItem('profileSecondName', profileName.last_name)
     }
+
     async function fetchSubject() {
         const subject = await SubjectApi.getAllSubject()
         setSubject(subject)
@@ -75,8 +78,8 @@ function App (){
                             </RequireAuth>
                         }></Route>
                         <Route path={'schedule'} element={<Calendar/>}></Route>
-                        <Route path={'profile'} element={<Profile/>}></Route>
-                        <Route path={'profile/subject'} element={<Subject/>}></Route>
+                        <Route path={'profile'}  element={<Profile/>}></Route>
+                        <Route path={'profile/subject/:id'}  element={<Subject/>}></Route>
                     </Route>
                  </Routes>
              </ChakraProvider>

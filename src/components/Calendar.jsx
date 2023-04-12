@@ -8,7 +8,7 @@ import LessonAPI from "../API/lessonAPI";
 const date = new Date()
 const named_day = {0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт', 4: 'пт', 5: 'сб', 6: 'вс'}
 const month = new Map([
-    {'id': 0, 'name': 'Январь', 'countDay': '31'},
+    {'id': 1, 'name': 'Январь', 'countDay': '31'},
     {'id': 1, 'name': 'Февраль', 'countDay': '28'},
     {'id': 2, 'name': 'Март', 'countDay': '31'},
     {'id': 3, 'name': 'Апрель', 'countDay': '30'},
@@ -36,18 +36,18 @@ const month_name = {
     10: 'Ноябрь',
     11: 'Декабрь',}
 const idToMonth = {
-    'Январь': 0,
-    'Февраль': 1,
-    'Март': 2,
-    'Апрель': 3,
-    'Май': 4,
-    'Июнь': 5,
-    'Июль': 6,
-    'Август': 7,
-    'Сентябрь': 8,
-    'Октябрь': 9,
-    'Ноябрь': 10,
-    'Декабрь': 11,}
+    'Январь': 1,
+    'Февраль': 2,
+    'Март': 3,
+    'Апрель': 4,
+    'Май': 5,
+    'Июнь': 6,
+    'Июль': 7,
+    'Август': 8,
+    'Сентябрь': 9,
+    'Октябрь': 10,
+    'Ноябрь': 11,
+    'Декабрь': 12,}
 const count_day_in_month = {
     'Январь': 31,
     'Февраль': 28,
@@ -104,7 +104,7 @@ const DayOfWeek = ({name, ...props}) => {
 
 const Calendar = () => {
 
-    const [lessons,setLessons] = useState([])
+    const [lessons,setLessons] = useState()
       useEffect(()=>{
         fetchLessons()
     },[])
@@ -121,7 +121,7 @@ const Calendar = () => {
     const changeMonthBack = () => {
         console.log(idToMonth[currentMonth])
         if (idToMonth[currentMonth] < 0)
-            setCurrentMonth(month_name["11"])
+            setCurrentMonth(month_name["12"])
         else
             setCurrentMonth(month_name[idToMonth[currentMonth] - 1])
 
@@ -141,10 +141,15 @@ const Calendar = () => {
         setColStart(newFirstDayInMonth.getDay())
         setMaxDayInMonth(count_day_in_month[ month_name[idToMonth[currentMonth] + 1] ])
     }
+const [dayLesson,setDay] =useState()
 
     return (
-        <Box maxW="container.xl" marginX={"auto"} paddingX={'40px'}>
-            <Heading fontSize={'28px'}>
+        <>
+            {lessons
+                ?
+                <>
+                    <Box maxW="container.xl" marginX={"auto"} paddingX={'40px'}>
+                  <Heading fontSize={'28px'}>
                 Календарь занятий
             </Heading>
             <Grid templateColumns='repeat(7, 1fr)' templateRows='repeat(2, 1fr)' gap={1}>
@@ -160,12 +165,19 @@ const Calendar = () => {
                 {Array(maxDayInMonth).fill('').map((_, i) => (
                     <CalendarDay
                         date={i + 1}
+                        month={idToMonth[currentMonth]}
+                        year = {date.getFullYear()}
                         key={i}
                         lessons={lessons}
                         colStart={(colStart + i) % 7 === 0 ? 7 : (colStart + i) % 7}/>
                 ))}
             </Grid>
-        </Box>
+                        </Box>
+                </>
+                :<>Подгрузка</>
+            }
+
+        </>
     );
 };
 

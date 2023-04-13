@@ -76,6 +76,7 @@ const Subject = (props) => {
                                         <GridItem
                                             key={id}
                                             boxSize={'100%'}
+                                            maxW={'300px'}
                                         >
                                             <Link
                                                 as={ReactLink}

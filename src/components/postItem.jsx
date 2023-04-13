@@ -3,16 +3,18 @@ import MyModal from "../UI/ModalWindow/MyModal";
 import {post} from "axios";
 import {Card, CardBody, CardHeader, Flex, Text} from "@chakra-ui/react";
 import AddCurseInProfile from "../API/AddCurseInProfile";
+import {useNavigate} from "react-router-dom";
 
 const PostItem = (props) => {
     const [active, setActive] = useState(false)
     const [keys, setKeys] = useState(0)
-
+const navigate = useNavigate()
     function modalView() {
         setActive(true)
     }
     function getIdCurse(){
         AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'),props.post.id)
+        navigate('/profile')
     }
 
     return (

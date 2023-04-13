@@ -36,18 +36,18 @@ const month_name = {
     10: 'Ноябрь',
     11: 'Декабрь',}
 const idToMonth = {
-    'Январь': 1,
-    'Февраль': 2,
-    'Март': 3,
-    'Апрель': 4,
-    'Май': 5,
-    'Июнь': 6,
-    'Июль': 7,
-    'Август': 8,
-    'Сентябрь': 9,
-    'Октябрь': 10,
-    'Ноябрь': 11,
-    'Декабрь': 12,}
+    'Январь': 0,
+    'Февраль': 1,
+    'Март': 2,
+    'Апрель': 3,
+    'Май': 4,
+    'Июнь': 5,
+    'Июль': 6,
+    'Август': 7,
+    'Сентябрь': 8,
+    'Октябрь': 9,
+    'Ноябрь': 10,
+    'Декабрь': 11,}
 const count_day_in_month = {
     'Январь': 31,
     'Февраль': 28,
@@ -165,7 +165,7 @@ const [dayLesson,setDay] =useState()
                 {Array(maxDayInMonth).fill('').map((_, i) => (
                     <CalendarDay
                         date={i + 1}
-                        month={idToMonth[currentMonth]}
+                        month={idToMonth[currentMonth] + 1}
                         year = {date.getFullYear()}
                         key={i}
                         lessons={lessons}

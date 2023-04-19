@@ -13,7 +13,6 @@ function Layot() {
         >
             <NavBar/>
             <Outlet/>
-
             <Footer flex={1} display={'flex'}/>
         </Flex>
     );

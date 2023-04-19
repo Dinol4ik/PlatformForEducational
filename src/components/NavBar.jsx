@@ -28,7 +28,6 @@ const NavBar = () => {
     return (
         <Container
             as={'nav'}
-            // pos={'fixed'}
             css={{backdropFilter: 'blur(10px)'}}
             display="flex"
             p={2}

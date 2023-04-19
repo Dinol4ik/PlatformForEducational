@@ -68,11 +68,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layot/>}>
                         <Route index element={<PostList post={posts} subject={subjects}/>}/>
-                        <Route path={'login'} element={
-                            <RequireAuth>
-                                <Login/>
-                            </RequireAuth>
-                        }>
+                        <Route path={'login'} element={<Login/>}>
                         </Route>
                         <Route path={'schedule'} element={<Calendar/>}></Route>
                         <Route path={'profile'} element={<Profile/>}></Route>

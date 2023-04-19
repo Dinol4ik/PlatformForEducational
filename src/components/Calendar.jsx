@@ -133,8 +133,7 @@ const Calendar = () => {
 
     return (
         <AnimationLayout>
-            {lessons
-                ?
+            {lessons &&
                 <>
                     <Box maxW="container.xl" marginX={"auto"} paddingX={'40px'}>
                         <Heading fontSize={'28px'}>
@@ -162,7 +161,6 @@ const Calendar = () => {
                         </Grid>
                     </Box>
                 </>
-                : <>Подгрузка</>
             }
         </AnimationLayout>
     );

@@ -31,8 +31,7 @@ const Profile = (props) => {
     return (
         <AnimationLayout>
             <Container minW={'container.xl'} mt={20}>
-                {profileInCurse
-                    ?
+                {profileInCurse &&
                     <>
                         <Text fontSize={'4xl'} fontWeight={'semi-bold'}>Мои предметы</Text>
                         <Flex gap={5}>
@@ -63,12 +62,6 @@ const Profile = (props) => {
                                 )
                             })}
                         </Flex>
-                    </>
-                    :
-                    <>
-                        <LoadingIcon/>
-                        <Text>У вас нет купленных курсов, вернитесь на главную и приобретите курс</Text>
-                        <Link as={ReactLink} to={'/'}>На главную</Link>
                     </>
                 }
             </Container>

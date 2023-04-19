@@ -32,7 +32,7 @@ const Subject = (props) => {
 
     return (
         <Container
-            mt={20}
+            mt={10}
             minW={'100%'}
             minH={'100%'}
         >
@@ -42,12 +42,13 @@ const Subject = (props) => {
                 minH={'600px'}
                 templateColumns='250px 1fr'
                 gap={10}
+                pt={4}
+                borderTop={'1px solid white'}
             >
-                <GridItem minH={'100%'}>
+                <GridItem minH={'100%'} borderRight={'1px solid white'}>
                     <Flex
                         flexDir={'column'}
                         align={'left'}
-                        borderRight={'1px solid white'}
                     >
                         <LinkItem as={ReactLink} to={'/'} title={'Видео уроки'}/>
                         <LinkItem as={ReactLink} to={'/'} title={'Домашние задания'}/>

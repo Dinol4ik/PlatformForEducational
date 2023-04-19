@@ -7,9 +7,9 @@ import {
     Heading,
 } from '@chakra-ui/react'
 import LoginMenu from "../UI/LoginMenu";
-import { Link as ReactLink } from "react-router-dom"
+import {Link as ReactLink} from "react-router-dom"
 
-const LinkItem = ({ to, children, ...props }) => {
+const LinkItem = ({to, children, ...props}) => {
     return (
         <Link
             as={ReactLink}
@@ -28,28 +28,30 @@ const NavBar = () => {
     return (
         <Container
             as={'nav'}
+            // pos={'fixed'}
+            css={{backdropFilter: 'blur(10px)'}}
             display="flex"
             p={2}
             w={'100%'}
-            maxW="container.xl"
+            maxW="container.lg"
             wrap="wrap"
             align="center"
             justify="center"
+        >
+            <Box as='h1' mr={10}>
+                <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
+            </Box>
+            <Stack
+                direction='row'
+                display='flex'
+                width='auto'
+                alignItems="center"
+                flexGrow={1}
+                mt={0}
             >
-                <Box as='h1' mr={10}>
-                    <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
-                </Box>
-                <Stack
-                    direction='row'
-                    display='flex'
-                    width='auto'
-                    alignItems="center"
-                    flexGrow={1}
-                    mt={0}
-                >
-                    <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
-                    <LoginMenu/>
-                </Stack>
+                <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
+                <LoginMenu/>
+            </Stack>
         </Container>
     );
 };

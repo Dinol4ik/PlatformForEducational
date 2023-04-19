@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import ThemeToggleButton from "./ThemeToggleButton";
-import {Box, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
+import {Box, Icon, Link, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue} from "@chakra-ui/react";
 import {CalendarIcon, ChevronDownIcon} from "@chakra-ui/icons";
 import {AuthContext} from '../context/index'
 import {Link as ReactLink, useNavigate} from 'react-router-dom'
@@ -9,13 +9,10 @@ const LoginMenu = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate();
     const {token,setToken}= useContext(AuthContext)
-    const {profileName,setProfileName}= useContext(AuthContext)
-    const {profileId, setProfileId} = useContext(AuthContext)
 
     function disconnect(){
         setIsAuth(false)
         setToken(false)
-        // localStorage.clear()
         localStorage.removeItem('auth')
         localStorage.removeItem('token')
         localStorage.removeItem('profileName')
@@ -26,7 +23,7 @@ const LoginMenu = () => {
     }
 
     return (
-        <Box display={'flex'} w={'100%'} justifyContent={'flex-end'}>
+        <Box display={'flex'} w={'100%'} justifyContent={'flex-end'} maxH={10}>
             <ThemeToggleButton/>
             {isAuth
                 ?
@@ -45,20 +42,19 @@ const LoginMenu = () => {
                             </Link>
                         </MenuItem>
                         <MenuItem>
-                            <Link as={ReactLink} to='/schedule'>
-                                <Text>
-                                    Календарь
-                                    <CalendarIcon ml={5}/>
-                                </Text>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
                             <Link as={'a'} key='1' onClick={disconnect}>Выйти</Link>
                         </MenuItem>
                     </MenuList>
                 </Menu>
                 :
-                <Link href={'/account'}>Войти</Link>}
+                <Link
+                    href={'/login'}
+                    pt={2} paddingX={4}
+                    padddingY={2}
+                >
+                    Войти
+                </Link>
+            }
         </Box>
     );
 };

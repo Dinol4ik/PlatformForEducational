@@ -1,24 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
-import {post} from "axios";
-import {Card, CardBody, CardHeader, Flex, Text} from "@chakra-ui/react";
+import {Card, CardBody, CardHeader, Flex} from "@chakra-ui/react";
 import AddCurseInProfile from "../API/AddCurseInProfile";
 import {useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
 
 const PostItem = (props) => {
     const [active, setActive] = useState(false)
-    const [keys, setKeys] = useState(0)
-const navigate = useNavigate()
+    const navigate = useNavigate()
+
     function modalView() {
         setActive(true)
     }
-    function getIdCurse(){
-        AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'),props.post.id)
+
+    function getIdCurse() {
+        AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), props.post.id)
         navigate('/profile')
     }
 
     return (
-        <div className="about-item">
+        <motion.div
+            className="about-item"
+            initial={{opacity: 0.4, y: '30'}}
+            animate={{opacity: 1, y: 0}}
+            transition={{duration: 0.3, type: 'easeInOut'}}
+        >
             <div className="some-info">
                 <div className="main-info">
                     <div className="delimer">
@@ -67,9 +73,9 @@ const navigate = useNavigate()
                     </CardHeader>
                     <CardBody paddingX={2} paddingY={1}>
 
-                            {props.post.information.split('/').map((item, i) => {
-                                return <div key={i}>{item}</div>
-                            })}
+                        {props.post.information.split('/').map((item, i) => {
+                            return <div key={i}>{item}</div>
+                        })}
                         <button onClick={getIdCurse}>КУПИТЬ</button>
                     </CardBody>
                 </Card>
@@ -83,7 +89,7 @@ const navigate = useNavigate()
                 {/*    <button>КУПИТЬ</button>*/}
                 {/*</div>*/}
             </MyModal>
-        </div>
+        </motion.div>
     );
 };
 

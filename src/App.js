@@ -4,7 +4,7 @@ import PostList from "./components/postList";
 import Layot from "./components/layot";
 import CursesAPI from "./API/CursesAPI";
 import SubjectApi from "./API/subjectApi";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Login from "./components/login";
 import {AuthContext} from "./context";
 import Calendar from "./components/Calendar";
@@ -13,10 +13,17 @@ import UserNameAPI from "./API/userNameAPi";
 import RequireAuth from "./hoc/requireAuth";
 import Profile from "./components/Profile";
 import Subject from "./components/Subject";
+import {AnimatePresence} from "framer-motion";
 
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
+    const [token, setToken] = useState('')
+    const [posts, setPost] = useState([])
+    const [subjects, setSubject] = useState([])
+    const [profileId, setProfileId] = useState([])
+    const location = useLocation()
+
     useEffect(() => {
         if (localStorage.getItem('auth')) {
             setIsAuth('true')
@@ -32,15 +39,13 @@ function App() {
         }, 1000)
 
     }, [])
-    const [token, setToken] = useState('')
-    const [posts, setPost] = useState([])
-    const [subjects, setSubject] = useState([])
-    const [profileId, setProfileId] = useState([])
 
     async function fetchApp() {
         const post = await CursesAPI.getAll();
         setPost(post)
     }
+
+    // localStorage.setItem('chakra-ui-color-mode', 'light')
 
     async function fetchProfileName() {
         const profileName = await UserNameAPI.getUserName();
@@ -65,20 +70,22 @@ function App() {
 
         }}>
             <ChakraProvider>
-                <Routes>
-                    <Route path="/" element={<Layot/>}>
-                        <Route index element={<PostList post={posts} subject={subjects}/>}/>
-                        <Route path={'login'} element={<Login/>}>
+                <AnimatePresence mode={'wait'}>
+                    <Routes location={location} key={location.key}>
+                        <Route path="/" element={<Layot/>}>
+                            <Route index element={<PostList post={posts} subject={subjects}/>}/>
+                            <Route path={'login'} element={<Login/>}>
+                            </Route>
+                            <Route path={'schedule'} element={<Calendar/>}></Route>
+                            <Route path={'profile'} element={<Profile/>}></Route>
+                            <Route path={'profile/subject/:id'} element={
+                                <RequireAuth>
+                                    <Subject/>
+                                </RequireAuth>
+                            }></Route>
                         </Route>
-                        <Route path={'schedule'} element={<Calendar/>}></Route>
-                        <Route path={'profile'} element={<Profile/>}></Route>
-                        <Route path={'profile/subject/:id'} element={
-                            <RequireAuth>
-                                <Subject/>
-                            </RequireAuth>
-                        }></Route>
-                    </Route>
-                </Routes>
+                    </Routes>
+                </AnimatePresence>
             </ChakraProvider>
         </AuthContext.Provider>
     );

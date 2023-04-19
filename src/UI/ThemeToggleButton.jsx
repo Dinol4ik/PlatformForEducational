@@ -10,7 +10,6 @@ const ThemeToggleButton = () => {
         <Box>
             <AnimatePresence mode={'wait'} initial={false}>
                 <motion.div
-                    mode='wait'
                     style={{display: 'block'}}
                     key={useColorModeValue('light', 'dark')}
                     initial={{y: -20, opacity: 0}}

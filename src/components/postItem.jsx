@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
-import {Box, Card, CardBody, CardHeader, Flex, Heading, useColorMode, useColorModeValue} from "@chakra-ui/react";
+import {Box, Card, CardBody, CardHeader, Flex, Heading, Text, useColorMode, useColorModeValue} from "@chakra-ui/react";
 import AddCurseInProfile from "../API/AddCurseInProfile";
 import {motion} from "framer-motion";
 import {useNavigate} from "react-router-dom";
@@ -23,24 +23,31 @@ const PostItem = (props) => {
     }
 
     return (
-        <motion.div
-            initial={{opacity: 0.4, y: '30'}}
-            animate={{opacity: 1, y: 0}}
-            transition={{duration: 0.3, type: 'easeInOut'}}
-        >
+        <>
             <Box
                 w={'100%'}
-                maxW={'200px'}
-                minH={'400px'}
+                p={5}
+                minH={'250px'}
+                bgColor={useColorModeValue('rgb(0, 0, 0, 0.25)', 'rgb(255, 255, 255, 0.5)')}
+                color={'black'}
+                borderRadius={10}
             >
-                <Flex flexDir={'column'} align={'center'} bgColor={useColorModeValue('purple.500', 'orange.200')}>
-                    <Box>
+                <Flex
+                    flexDir={'column'}
+                    align={'center'}
+                >
+                    <Text fontSize={'md'} >
                         {subjectTitle}
+                    </Text>
+                    <Box>
+                        {courseAbout}
                     </Box>
                 </Flex>
             </Box>
-            {/*                */}
-            {/* Модальное окно */}
+            {/*                */
+            }
+            {/* Модальное окно */
+            }
             <MyModal showModal={active} setShowModal={setActive}>
                 <Card p={0}>
                     <CardHeader marginX={2} mt={1} p={0}>
@@ -56,8 +63,8 @@ const PostItem = (props) => {
                     </CardBody>
                 </Card>
             </MyModal>
-        </motion.div>
-    );
+        </>
+    )
 };
 
 export default PostItem;

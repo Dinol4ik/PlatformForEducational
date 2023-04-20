@@ -9,10 +9,7 @@ import {
 import LoginMenu from "../UI/LoginMenu";
 import {Link as ReactLink} from "react-router-dom"
 
-
 const LinkItem = ({to, children, ...props}) => {
-    // const location = useLocation()
-
     return (
         <Link
             as={ReactLink}
@@ -52,6 +49,7 @@ const NavBar = () => {
                 mt={0}
             >
                 <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
+                <LinkItem as={ReactLink} to={'/'}>Задачи</LinkItem>
                 <LoginMenu/>
             </Stack>
         </Container>

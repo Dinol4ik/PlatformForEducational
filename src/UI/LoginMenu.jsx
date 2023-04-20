@@ -53,7 +53,8 @@ const LoginMenu = () => {
                 </Menu>
                 :
                 <Link
-                    href={'/login'}
+                    as={ReactLink}
+                    to={'/login'}
                     pt={2} paddingX={4}
                     padddingY={2}
                     borderRadius={'1em'}

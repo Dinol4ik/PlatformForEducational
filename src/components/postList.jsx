@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PostItem from "./postItem";
 import {Box, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
+import Loader from "./Loader";
 
 const PostList = (post) => {
     const [courseArray, setCourseArray] = useState([...post.post])
@@ -27,7 +28,7 @@ const PostList = (post) => {
 
     return (
         <AnimationLayout>
-            <Flex align={'center'} justify={'center'}>
+            <Flex align={'center'} justify={'center'} mt={10}>
                 <Text fontSize={'4xl'}>
                     Выберите направление и курс
                 </Text>
@@ -47,11 +48,20 @@ const PostList = (post) => {
                     ))}
                 </Flex>
             </Flex>
-            {courseArray && (
-                <Grid templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}>
+            {(courseArray.length > 0) ?
+                (<Grid
+                    templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}
+                    marginX={10}
+                    mt={7}
+                    gap={10}
+                >
                     {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
-                </Grid>
-            )}
+                </Grid>)
+                :
+                (<Flex align={'center'} justify={'center'} h={'300px'} w={'100%'}>
+                    <Text>Вы не авторизованы</Text>
+                </Flex>)
+            }
         </AnimationLayout>
     )
 };

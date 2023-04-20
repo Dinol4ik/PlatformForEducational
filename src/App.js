@@ -74,15 +74,14 @@ function App() {
                     <Routes location={location} key={location.key}>
                         <Route path="/" element={<Layot/>}>
                             <Route index element={<PostList post={posts} subject={subjects}/>}/>
-                            <Route path={'login'} element={<Login/>}>
-                            </Route>
-                            <Route path={'schedule'} element={<Calendar/>}></Route>
-                            <Route path={'profile'} element={<Profile/>}></Route>
+                            <Route path={'login'} element={<Login/>}/>
+                            <Route path={'schedule'} element={<Calendar/>}/>
+                            <Route path={'profile'} element={<Profile/>}/>
                             <Route path={'profile/subject/:id'} element={
                                 <RequireAuth>
                                     <Subject/>
                                 </RequireAuth>
-                            }></Route>
+                            }/>
                         </Route>
                     </Routes>
                 </AnimatePresence>

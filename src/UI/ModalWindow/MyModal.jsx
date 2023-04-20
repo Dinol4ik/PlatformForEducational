@@ -1,18 +1,19 @@
 import React from 'react';
-import cl from './MyModal.module.css'
+import {AnimatePresence} from "framer-motion";
 
-const MyModal = ({children, visible, setVisible}) => {
-    const rootClasses = [cl.myModal]
-    if (visible){
-        rootClasses.push(cl.active)
-    }
+const MyModal = ({children, showModal, setShowModal}) => {
     return (
-        <div className={rootClasses.join(' ')} onClick={()=>{setVisible(false)}}>
-            <div className={cl.myModalContent} onClick={event => {event.stopPropagation()}}>
-                {children}
-            </div>
-        </div>
-    );
+        <AnimatePresence>
+            {showModal && (
+                <div onClick={() => {setShowModal(false)}}>
+                    <div onClick={event => {event.stopPropagation()}}>
+                        {children}
+                    </div>
+                </div>
+            )}
+        </AnimatePresence>
+    )
+        ;
 };
 
 export default MyModal;

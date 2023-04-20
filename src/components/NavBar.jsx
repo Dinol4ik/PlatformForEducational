@@ -9,7 +9,10 @@ import {
 import LoginMenu from "../UI/LoginMenu";
 import {Link as ReactLink} from "react-router-dom"
 
+
 const LinkItem = ({to, children, ...props}) => {
+    // const location = useLocation()
+
     return (
         <Link
             as={ReactLink}

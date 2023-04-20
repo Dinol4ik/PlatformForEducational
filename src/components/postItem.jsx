@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
-import {Card, CardBody, CardHeader, Flex} from "@chakra-ui/react";
+import {Box, Card, CardBody, CardHeader, Flex, Heading, useColorMode, useColorModeValue} from "@chakra-ui/react";
 import AddCurseInProfile from "../API/AddCurseInProfile";
-import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
+import {useNavigate} from "react-router-dom";
 
 const PostItem = (props) => {
     const [active, setActive] = useState(false)
     const navigate = useNavigate()
+    const subjectTitle = props.post.subject.title
+    const courseTitle = props.post.title
+    const courseAbout = props.post.about
+    const coursePrice = props.post.price
 
     function modalView() {
         setActive(true)
@@ -20,51 +24,24 @@ const PostItem = (props) => {
 
     return (
         <motion.div
-            className="about-item"
             initial={{opacity: 0.4, y: '30'}}
             animate={{opacity: 1, y: 0}}
             transition={{duration: 0.3, type: 'easeInOut'}}
         >
-            <div className="some-info">
-                <div className="main-info">
-                    <div className="delimer">
-                        <div className="name-subj">
-                                <span className="name-subj-of-curse">
-                                    {props.post.subject.title}
-                                </span>
-                        </div>
-                        <div className="name">{props.post.title}</div>
-                    </div>
-                    <div className="delimer">
-                        <div className="information">
-                            {props.post.about}
-                        </div>
-                        <div className="bonus">
-                            <ul>
-                                <li>4 Онлайн занятий в неделю</li>
-                                <li>Записи всех занятий</li>
-                                <li>Еженедельное тематическое ДЗ по первой и второй части</li>
-                                <li>4 пробника с экспертной проверкой за месяц</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div className="bottom-fixed">
-                    <div className="p">
-                        <div className="price">
-                                <span className="month">
-                                    Месяц
-                                </span>
-                            <span className="price-curse">{props.post.price} рублей</span>
-                        </div>
-                    </div>
-                    <div className="button">
-                        <div className="buy" onClick={modalView}>Купить подписку</div>
-                    </div>
-                </div>
-            </div>
-            <MyModal visible={active} setVisible={setActive}>
+            <Box
+                w={'100%'}
+                maxW={'200px'}
+                minH={'400px'}
+            >
+                <Flex flexDir={'column'} align={'center'} bgColor={useColorModeValue('purple.500', 'orange.200')}>
+                    <Box>
+                        {subjectTitle}
+                    </Box>
+                </Flex>
+            </Box>
+            {/*                */}
+            {/* Модальное окно */}
+            <MyModal showModal={active} setShowModal={setActive}>
                 <Card p={0}>
                     <CardHeader marginX={2} mt={1} p={0}>
                         <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
@@ -72,22 +49,12 @@ const PostItem = (props) => {
                         </Flex>
                     </CardHeader>
                     <CardBody paddingX={2} paddingY={1}>
-
                         {props.post.information.split('/').map((item, i) => {
                             return <div key={i}>{item}</div>
                         })}
                         <button onClick={getIdCurse}>КУПИТЬ</button>
                     </CardBody>
                 </Card>
-                {/*<div className="hui" style={{border: "1px solid red"}}>{props.post.title}</div>*/}
-                {/*<div className="pizda">*/}
-                {/*    <div className="contentInModal">*/}
-                {/*        {props.post.information.split('/').map((item, i) => {*/}
-                {/*            return <div key={i}>{item}</div>*/}
-                {/*        })}*/}
-                {/*    </div>*/}
-                {/*    <button>КУПИТЬ</button>*/}
-                {/*</div>*/}
             </MyModal>
         </motion.div>
     );

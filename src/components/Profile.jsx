@@ -4,7 +4,7 @@ import {Link as ReactLink} from 'react-router-dom'
 import CurseInProfile from "../API/CurseInProfile";
 import AnimationLayout from "./AnimationLayout";
 import {SpinnerIcon} from "@chakra-ui/icons";
-import LoadingIcon from "./LoadingIcon";
+import Loader from "./Loader";
 
 const Profile = (props) => {
     const bgSubject = useColorModeValue('blackAlpha.700', '#383838')

@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PostItem from "./postItem";
-import MyModal from "../UI/ModalWindow/MyModal";
-import {Box, Flex, Text, useColorModeValue} from "@chakra-ui/react";
-import {AnimatePresence, motion} from "framer-motion";
+import {Box, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
 
 const PostList = (post) => {
-    const [curseArray, setCurseArray] = useState([])
+    const [courseArray, setCourseArray] = useState([...post.post])
 
     function hand(e) {
         const a = document.querySelector('.items')
@@ -22,7 +20,7 @@ const PostList = (post) => {
                 }
             ))
             e.target.id = 'active'
-            setCurseArray(testovii)
+            setCourseArray(testovii)
             testovii = []
         } else e.target.id = ''
     }
@@ -30,32 +28,30 @@ const PostList = (post) => {
     return (
         <AnimationLayout>
             <Flex align={'center'} justify={'center'}>
-                <Text fontSize={'6xl'}>
-                    Тут будут новости!
+                <Text fontSize={'4xl'}>
+                    Выберите направление и курс
                 </Text>
             </Flex>
             <Flex justify={'center'}>
-                <Box className="items" color={useColorModeValue('white', '')}>
-                    {post.subject.map(test =>
-                        test.title === "Математика"
-                            ? <div
-                                key={test.title}
-                                onClick={hand}
-                                className='name-items' id=''>{test.title}</div>
-                            : <div
-                                key={test.title}
-                                onClick={hand}
-                                className='name-items' id=''>{test.title}</div>
-                    )}
-                </Box>
+                <Flex className="items" gap={'1em'} color={useColorModeValue('white', '')}>
+                    {post.subject.map(test => (
+                        <Box
+                            key={test.title}
+                            onClick={hand}
+                            className='name-items'
+                            id=''
+                            p={3}
+                        >
+                            {test.title}
+                        </Box>
+                    ))}
+                </Flex>
             </Flex>
-            <Box>
-                <div className="item-info">
-                    <div className="item-info-inside">
-                        {curseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
-                    </div>
-                </div>
-            </Box>
+            {courseArray && (
+                <Grid templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}>
+                    {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
+                </Grid>
+            )}
         </AnimationLayout>
     )
 };

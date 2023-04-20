@@ -5,7 +5,7 @@ import CurseInProfile from "../API/CurseInProfile";
 import SubectInProfile from "../API/SubjectInProfile";
 import AnimationLayout from "./AnimationLayout";
 import {SpinnerIcon} from "@chakra-ui/icons";
-import LoadingIcon from "./LoadingIcon";
+import Loader from "./Loader";
 
 const LinkItem = ({title, ...props}) => {
     return (
@@ -104,7 +104,7 @@ const Subject = (props) => {
                                 </Grid>
                             </>
                             :
-                            <LoadingIcon/>
+                            <Loader/>
                         }
                     </GridItem>
                 </Grid>

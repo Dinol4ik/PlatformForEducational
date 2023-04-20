@@ -72,9 +72,7 @@ a{
     margin-top: 25%;
 }
 .items{
-    text-align: center;
-    overflow: visible;
-    padding: 30px;
+
 }
 .name{
     font-family: 'Montserrat',sans-serif;
@@ -103,20 +101,14 @@ a{
     background-color: #1D8CC7;
 }
 .name-items{
-display: inline-block;
-    vertical-align: top;
-    padding: 20px;
     background-color: #4d4c4c;
     border-radius: 8px;
     color:#FFFFFF99 ;
-    margin: 20px 10px 0px;
     cursor: pointer;
-    transition: color 0.2s linear 0s, background-color 0.2s linear 0s;
 }
 .name-items:hover{
     color: #FFFFFF;
     background-color: #1D8CC7;
-    transition: color 0.2s linear 0s, background-color 0.2s linear 0s;
 }
 .item-info{
     padding: 100px 140px;

@@ -1,16 +1,21 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import ThemeToggleButton from "./ThemeToggleButton";
-import {Box, Icon, Link, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue} from "@chakra-ui/react";
-import {CalendarIcon, ChevronDownIcon} from "@chakra-ui/icons";
+import {Box, Link, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
+import {ChevronDownIcon} from "@chakra-ui/icons";
 import {AuthContext} from '../context/index'
 import {Link as ReactLink, useNavigate} from 'react-router-dom'
 
 const LoginMenu = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate();
-    const {token,setToken}= useContext(AuthContext)
+    const {setToken} = useContext(AuthContext)
+    let loginColor = ''
 
-    function disconnect(){
+    useEffect(() => {
+        loginColor = (localStorage.getItem('chakra-ui-color-mode') === 'light') ? 'black' : 'white'
+    })
+
+    function disconnect() {
         setIsAuth(false)
         setToken(false)
         localStorage.removeItem('auth')
@@ -29,7 +34,7 @@ const LoginMenu = () => {
                 ?
                 <Menu>
                     <MenuButton>
-                        { localStorage.getItem('profileName')
+                        {localStorage.getItem('profileName')
                             ? localStorage.getItem('profileName') + ' ' + localStorage.getItem('profileSecondName')
                             : 'Войти'
                         }
@@ -37,12 +42,12 @@ const LoginMenu = () => {
                     </MenuButton>
                     <MenuList>
                         <MenuItem>
-                            <Link as={ReactLink} to='/profile'>
+                            <Link as={ReactLink} to='/profile' w={'100%'}>
                                 Личный кабинет
                             </Link>
                         </MenuItem>
                         <MenuItem>
-                            <Link as={'a'} key='1' onClick={disconnect}>Выйти</Link>
+                            <Link w={'100%'} as={'a'} key='1' onClick={disconnect}>Выйти</Link>
                         </MenuItem>
                     </MenuList>
                 </Menu>
@@ -51,6 +56,9 @@ const LoginMenu = () => {
                     href={'/login'}
                     pt={2} paddingX={4}
                     padddingY={2}
+                    borderRadius={'1em'}
+                    color={loginColor}
+                    _hover={{backgroundColor: '#1D8CC7', color: 'white'}}
                 >
                     Войти
                 </Link>

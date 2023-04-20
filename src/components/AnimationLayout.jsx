@@ -1,22 +1,22 @@
 import React from 'react';
-import {motion, AnimatePresence} from "framer-motion";
+import {motion} from "framer-motion";
 
 const AnimationLayout = ({children, ...props}) => {
     const variants = {
         hidden: {
-          y: -20,
+          y: 20,
           opacity: 0,
         },
         visible: {
             y: 0,
             opacity: 1,
             transition: {
-                duration: 0.4,
+                duration: 0.6,
                 ease: "easeInOut",
             }
         },
         exit: {
-            y: -20,
+            y: 20,
             opacity: 0,
         }
     }
@@ -26,7 +26,7 @@ const AnimationLayout = ({children, ...props}) => {
             variants={variants}
             initial="hidden"
             animate="visible"
-            exit="exit"
+            exit="hidden"
             {...props}
         >
             {children}

@@ -1,19 +1,16 @@
 import React from 'react';
-import {AnimatePresence} from "framer-motion";
+import {Box} from "@chakra-ui/react";
 
-const MyModal = ({children, showModal, setShowModal}) => {
+const MyModal = ({children, showModal, ...props}) => {
     return (
-        <AnimatePresence>
+        <>
             {showModal && (
-                <div onClick={() => {setShowModal(false)}}>
-                    <div onClick={event => {event.stopPropagation()}}>
-                        {children}
-                    </div>
-                </div>
+                <Box {...props}>
+                    {children}
+                </Box>
             )}
-        </AnimatePresence>
+        </>
     )
-        ;
 };
 
 export default MyModal;

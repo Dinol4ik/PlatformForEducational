@@ -9,7 +9,7 @@ function Layot() {
         <Flex
             flexDir={'column'}
             minH={'100vh'}
-            bgColor={useColorModeValue('#fcfaed' , '')}
+            bgColor={useColorModeValue('#fceabb', '')}
         >
             <NavBar/>
             <Outlet/>

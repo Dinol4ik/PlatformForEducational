@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../context";
 import ProfileId from "../API/profileAPI";
-import {Box, Flex, Link, Spacer, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, Link} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
 import {motion} from "framer-motion";
 
@@ -35,8 +35,8 @@ const Login = () => {
             x: [-30, -30, -30, -30, 0],
             opacity: 1,
             animate: {
-                duration: 2,
-                ease: "easeInOut",
+                duration: 5,
+                ease: "easeOut",
             }
         }
     }

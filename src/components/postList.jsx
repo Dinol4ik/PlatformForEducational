@@ -6,6 +6,12 @@ import Loader from "./Loader";
 
 const PostList = (post) => {
     const [courseArray, setCourseArray] = useState([...post.post])
+    const bgTitle = useColorModeValue('purple.400', 'orange.200')
+    const colorTitle = useColorModeValue('white', 'black')
+
+    useEffect(() => {
+        setCourseArray([...post.post])
+    }, [post])
 
     function hand(e) {
         const a = document.querySelector('.items')
@@ -39,7 +45,10 @@ const PostList = (post) => {
                         <Box
                             key={test.title}
                             onClick={hand}
-                            className='name-items'
+                            cursor={'pointer'}
+                            borderRadius={'10px'}
+                            bgColor={bgTitle}
+                            color={colorTitle}
                             id=''
                             p={3}
                         >
@@ -50,17 +59,20 @@ const PostList = (post) => {
             </Flex>
             {(courseArray.length > 0) ?
                 (<Grid
-                    templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}
-                    marginX={10}
+                    maxW={'container.xl'}
+                    marginX={'auto'}
+                    templateColumns={'repeat(auto-fit, minmax(250px, 1fr))'}
                     mt={7}
                     gap={10}
                 >
                     {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
                 </Grid>)
                 :
-                (<Flex align={'center'} justify={'center'} h={'300px'} w={'100%'}>
-                    <Text>Вы не авторизованы</Text>
-                </Flex>)
+                (
+                    <Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
+                        <Loader />
+                    </Flex>
+                )
             }
         </AnimationLayout>
     )

@@ -58,21 +58,21 @@ const PostList = (post) => {
                 </Flex>
             </Flex>
             {(courseArray.length > 0) ?
-                (<Grid
-                    maxW={'container.xl'}
-                    marginX={'auto'}
-                    templateColumns={'repeat(auto-fit, minmax(250px, 1fr))'}
-                    mt={7}
-                    gap={10}
-                >
-                    {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
-                </Grid>)
+                (<Box marginX={'2.5em'}>
+                    <Grid
+                        maxW={'container.xl'}
+                        marginX={'auto'}
+                        templateColumns={'repeat(auto-fit, minmax(250px, 1fr))'}
+                        mt={7}
+                        gap={10}
+                    >
+                        {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
+                    </Grid>
+                </Box>)
                 :
-                (
-                    <Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
-                        <Loader />
-                    </Flex>
-                )
+                (<Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
+                    <Loader/>
+                </Flex>)
             }
         </AnimationLayout>
     )

@@ -20,6 +20,9 @@ const Login = () => {
             pathLength: 1,
             fill: "#0399E9",
             transition: {
+                fill: {
+                  delay: 4,
+                },
                 duration: 1.5,
                 delay: 0.5,
                 ease: "easeInOut",

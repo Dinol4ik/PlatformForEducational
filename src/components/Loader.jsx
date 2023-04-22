@@ -7,11 +7,8 @@ const loaderVariants = {
     animation: {
         rotateZ: 360,
         transition: {
-            rotateZ: {
-                repeat: Infinity,
-                duration: 0.6,
-                ease: 'easeOut',
-            }
+            repeat: Infinity,
+            duration: 1,
         }
     }
 }

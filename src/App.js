@@ -14,6 +14,8 @@ import RequireAuth from "./hoc/requireAuth";
 import Profile from "./components/Profile";
 import Subject from "./components/Subject";
 import {AnimatePresence} from "framer-motion";
+import TaskList from "./components/Task/TaskList";
+import TaskItem from "./components/Task/TaskItem";
 
 
 function App() {
@@ -49,9 +51,10 @@ function App() {
 
     async function fetchProfileName() {
         const profileName = await UserNameAPI.getUserName();
-        localStorage.setItem('UserProfileId', profileName.profile)
+        if (profileName) {localStorage.setItem('UserProfileId', profileName.profile)
         localStorage.setItem('profileName', profileName.first_name)
-        localStorage.setItem('profileSecondName', profileName.last_name)
+        localStorage.setItem('profileSecondName', profileName.last_name)}
+
     }
 
     async function fetchSubject() {
@@ -82,6 +85,12 @@ function App() {
                                     <Subject/>
                                 </RequireAuth>
                             }/>
+                            <Route path={'taskList'} element={
+                                <RequireAuth>
+                                    <TaskList/>
+                                </RequireAuth>
+                                }/>
+                            <Route path={'taskList/theme/:id'} element={<TaskItem/>}/>
                         </Route>
                     </Routes>
                 </AnimatePresence>

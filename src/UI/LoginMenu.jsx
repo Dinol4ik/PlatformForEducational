@@ -45,6 +45,9 @@ const LoginMenu = () => {
                             <Link as={ReactLink} to='/profile' w={'100%'}>
                                 Личный кабинет
                             </Link>
+                            <Link as={ReactLink} to='/taskList' w={'100%'}>
+                                Задачи
+                            </Link>
                         </MenuItem>
                         <MenuItem>
                             <Link w={'100%'} as={'a'} key='1' onClick={disconnect}>Выйти</Link>

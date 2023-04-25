@@ -11,13 +11,14 @@ const TaskItem = () => {
         fetchTask()
         fetchSolveTask()
     }, [])
-    const [result,setResult]=useState([])
+    const [result, setResult] = useState()
 
     async function fetchTask() {
         const res = await TaskInTheme.getAllTask(idThem.id)
         setTask(res)
     }
-     async function fetchSolveTask() {
+
+    async function fetchSolveTask() {
         const result = await SolveTask.getAllSolveTask(localStorage.getItem('UserProfileId'))
         setResult(result)
     }
@@ -28,16 +29,25 @@ const TaskItem = () => {
             "idTask": event.target.idTask.value,
             "idProfile": localStorage.getItem('UserProfileId')
         })
-        res.then(t=>{if(t.data.answer === 'true'){
+        res.then(t => {
+            if (t.data.answer === 'true') {
 
-        }})
+            }
+        })
         event.preventDefault()
+    }
+
+    function analysTask(id) {
+        let sovpalo = 0
+        result['test'].map(e=>{if (e.task_id===id){
+            sovpalo = 1
+        }})
+        if (sovpalo) return<button style={{backgroundColor:"green"}}>Отправить</button>
+        else return<button onClick={fetchSolveTask()}>Отправить</button>
     }
 
     return (
         <div>
-            {result?console.log(result):console.log('netu')}
-            {/*<div>Решено задач = {result}</div>*/}
             {
                 task
                     ? task.theme.map(val =>
@@ -51,7 +61,7 @@ const TaskItem = () => {
                                     <form onSubmit={submit}>
                                         <input type='hidden' name="idTask" value={val.id}/>
                                         <input type="text" name='answer'/>
-                                        <button>Ответить</button>
+                                        {result && analysTask(val.id)}
                                     </form>
                                 </div>
                             </div>

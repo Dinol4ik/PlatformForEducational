@@ -7,11 +7,11 @@ import SolveTask from "../../API/TaskApi/SolveTask";
 const TaskItem = () => {
     const idThem = useParams()
     const [task, setTask] = useState()
+    const [result, setResult] = useState()
     useEffect(() => {
         fetchTask()
         fetchSolveTask()
     }, [])
-    const [result, setResult] = useState()
 
     async function fetchTask() {
         const res = await TaskInTheme.getAllTask(idThem.id)
@@ -21,6 +21,7 @@ const TaskItem = () => {
     async function fetchSolveTask() {
         const result = await SolveTask.getAllSolveTask(localStorage.getItem('UserProfileId'))
         setResult(result)
+        console.log('nawat')
     }
 
     function submit(event) {
@@ -36,14 +37,16 @@ const TaskItem = () => {
         })
         event.preventDefault()
     }
-
+function h(){
+        setTimeout(fetchSolveTask,100)
+}
     function analysTask(id) {
         let sovpalo = 0
         result['test'].map(e=>{if (e.task_id===id){
             sovpalo = 1
         }})
-        if (sovpalo) return<button style={{backgroundColor:"green"}}>Отправить</button>
-        else return<button onClick={fetchSolveTask()}>Отправить</button>
+        if (sovpalo) {return<button style={{backgroundColor:"green"}}>Отправить</button>}
+        else return<button onClick={h}>Отправить</button>
     }
 
     return (

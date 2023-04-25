@@ -49,7 +49,7 @@ const NavBar = () => {
                 mt={0}
             >
                 <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
-                <LinkItem as={ReactLink} to={'/'}>Задачи</LinkItem>
+                <LinkItem as={ReactLink} to={'/taskList'}>Задачи</LinkItem>
                 <LoginMenu/>
             </Stack>
         </Container>

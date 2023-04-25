@@ -1,5 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Badge, Box, Container, Flex, Grid, GridItem, HStack, Image, Link, Text} from "@chakra-ui/react";
+import {
+    Badge,
+    Box,
+    Container,
+    Flex,
+    Grid,
+    GridItem,
+    HStack,
+    Image,
+    Link,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
 import {Link as ReactLink, useParams} from 'react-router-dom'
 import CurseInProfile from "../API/CurseInProfile";
 import SubectInProfile from "../API/SubjectInProfile";
@@ -24,6 +36,9 @@ const LinkItem = ({title, ...props}) => {
 const Subject = (props) => {
     const [curseInProfile, setCurseInProfie] = useState()
     const params = useParams()
+    const borderColor = useColorModeValue('black', 'white')
+    // const folderName = (localStorage.getItem('chakra-ui-color-theme') === )
+
     useEffect(() => {
         fetchProfileCurse()
     }, [])
@@ -46,10 +61,10 @@ const Subject = (props) => {
                     minH={'600px'}
                     templateColumns='250px 1fr'
                     gap={10}
-                    pt={4}
-                    borderTop={'1px solid white'}
+                    mt={4}
+                    borderTop={'1px solid ' + borderColor.toString()}
                 >
-                    <GridItem minH={'100%'} borderRight={'1px solid white'}>
+                    <GridItem minH={'100%'} borderRight={'1px solid ' + borderColor.toString()}>
                         <Flex
                             flexDir={'column'}
                             align={'left'}
@@ -60,7 +75,7 @@ const Subject = (props) => {
                         </Flex>
                     </GridItem>
 
-                    <GridItem>
+                    <GridItem mt={4}>
                         {curseInProfile
                             ? <>
                                 <Text fontSize={'md'}>

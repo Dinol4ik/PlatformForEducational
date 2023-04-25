@@ -51,9 +51,11 @@ function App() {
 
     async function fetchProfileName() {
         const profileName = await UserNameAPI.getUserName();
-        if (profileName) {localStorage.setItem('UserProfileId', profileName.profile)
-        localStorage.setItem('profileName', profileName.first_name)
-        localStorage.setItem('profileSecondName', profileName.last_name)}
+        if (profileName) {
+            localStorage.setItem('UserProfileId', profileName.profile)
+            localStorage.setItem('profileName', profileName.first_name)
+            localStorage.setItem('profileSecondName', profileName.last_name)
+        }
 
     }
 
@@ -79,7 +81,11 @@ function App() {
                             <Route index element={<PostList post={posts} subject={subjects}/>}/>
                             <Route path={'login'} element={<Login/>}/>
                             <Route path={'schedule'} element={<Calendar/>}/>
-                            <Route path={'profile'} element={<Profile/>}/>
+                            <Route path={'profile'} element={
+                                <RequireAuth>
+                                    <Profile/>
+                                </RequireAuth>
+                            }/>
                             <Route path={'profile/subject/:id'} element={
                                 <RequireAuth>
                                     <Subject/>
@@ -89,7 +95,7 @@ function App() {
                                 <RequireAuth>
                                     <TaskList/>
                                 </RequireAuth>
-                                }/>
+                            }/>
                             <Route path={'taskList/theme/:id'} element={<TaskItem/>}/>
                         </Route>
                     </Routes>

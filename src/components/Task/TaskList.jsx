@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import SectionApi from "../../API/TaskApi/SectionApi";
 import {Link} from "react-router-dom";
+import AnimationLayout from "../AnimationLayout";
+import Loader from "../Loader";
+import {Flex} from "@chakra-ui/react";
 
 const TaskList = () => {
     const [section, setSection] = useState()
@@ -16,15 +19,15 @@ const TaskList = () => {
     }
 
     return (
-        <div>
+        <AnimationLayout>
             {section
                 ? <>
                     {console.log(section)}
                     {section.map(value => <div key={value.id}>
                         {value.title}
                         <div>{value.section.map(t =>
-                            <div  style={{paddingLeft: 30}}>
-                                <Link to={'theme/'+t.id}>
+                            <div style={{paddingLeft: 30}}>
+                                <Link to={'theme/' + t.id}>
                                     {t.title}
                                 </Link>
 
@@ -32,9 +35,12 @@ const TaskList = () => {
                         </div>
                     </div>)}
                 </>
-                : <div> Подгрузка</div>
+                :
+                <Flex w={'100%'} h={'400px'} aligh={'center'} justify={'center'}>
+                    <Loader/>
+                </Flex>
             }
-        </div>
+        </AnimationLayout>
     );
 };
 

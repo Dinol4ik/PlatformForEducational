@@ -32,7 +32,7 @@ const LoginMenu = () => {
             <ThemeToggleButton/>
             {isAuth
                 ?
-                <Menu>
+                <Menu p={0}>
                     <MenuButton>
                         {localStorage.getItem('profileName')
                             ? localStorage.getItem('profileName') + ' ' + localStorage.getItem('profileSecondName')
@@ -42,9 +42,11 @@ const LoginMenu = () => {
                     </MenuButton>
                     <MenuList>
                         <MenuItem>
-                            <Link as={ReactLink} to='/profile' w={'100%'}>
+                            <Link as={ReactLink} to='/profile' w={'100%'} h={'100%'}>
                                 Личный кабинет
                             </Link>
+                        </MenuItem>
+                        <MenuItem>
                             <Link as={ReactLink} to='/taskList' w={'100%'}>
                                 Задачи
                             </Link>

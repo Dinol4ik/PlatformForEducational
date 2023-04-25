@@ -71,7 +71,7 @@ const Subject = (props) => {
                         >
                             <LinkItem as={ReactLink} to={'/'} title={'Видео уроки'}/>
                             <LinkItem as={ReactLink} to={'/'} title={'Домашние задания'}/>
-                            <LinkItem as={ReactLink} to={'/'} title={'Каталог задач'}/>
+                            <LinkItem as={ReactLink} to={'/taskList'} title={'Каталог задач'}/>
                         </Flex>
                     </GridItem>
 

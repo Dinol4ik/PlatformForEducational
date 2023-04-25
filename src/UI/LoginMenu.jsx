@@ -61,7 +61,7 @@ const LoginMenu = () => {
                     as={ReactLink}
                     to={'/login'}
                     pt={2} paddingX={4}
-                    padddingY={2}
+                    paddingY={2}
                     borderRadius={'1em'}
                     color={loginColor}
                     _hover={{backgroundColor: '#1D8CC7', color: 'white'}}

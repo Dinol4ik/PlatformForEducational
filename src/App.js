@@ -16,6 +16,9 @@ import Subject from "./components/Subject";
 import {AnimatePresence} from "framer-motion";
 import TaskList from "./components/Task/TaskList";
 import TaskItem from "./components/Task/TaskItem";
+import SolvedTaskInStatistics from "./components/Task/SolvedTaskInStatistics";
+import LessonsList from "./components/Lessons/LessonsList";
+import LessonsItem from "./components/Lessons/lessonsItem";
 
 
 function App() {
@@ -75,7 +78,7 @@ function App() {
 
         }}>
             <ChakraProvider>
-                <AnimatePresence mode={'wait'}>
+                {/*<AnimatePresence mode={'wait'}> Ломает переходы по ссылкам!!!!!*/}
                     <Routes location={location} key={location.key}>
                         <Route path="/" element={<Layot/>}>
                             <Route index element={<PostList post={posts} subject={subjects}/>}/>
@@ -91,6 +94,21 @@ function App() {
                                     <Subject/>
                                 </RequireAuth>
                             }/>
+                             <Route path={'profile/statistic'} element={
+                                <RequireAuth>
+                                    <SolvedTaskInStatistics/>
+                                </RequireAuth>
+                            }/>
+                            <Route path={'profile/subject/:id/:id'} element={
+                                <RequireAuth>
+                                    <LessonsList/>
+                                </RequireAuth>
+                            }/>
+                            <Route path={'profile/subject/:id/:id/:id'} element={
+                                <RequireAuth>
+                                    <LessonsItem/>
+                                </RequireAuth>
+                            }/>
                             <Route path={'taskList'} element={
                                 <RequireAuth>
                                     <TaskList/>
@@ -99,7 +117,7 @@ function App() {
                             <Route path={'taskList/theme/:id'} element={<TaskItem/>}/>
                         </Route>
                     </Routes>
-                </AnimatePresence>
+                {/*</AnimatePresence>*/}
             </ChakraProvider>
         </AuthContext.Provider>
     );

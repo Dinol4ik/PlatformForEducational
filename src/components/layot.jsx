@@ -1,6 +1,6 @@
 import React from 'react';
 import {Outlet} from 'react-router-dom'
-import NavBar from "./NavBar";
+import NavBar from "./Navigation/NavBar";
 import Footer from "./Footer";
 import {Flex, useColorModeValue} from "@chakra-ui/react";
 

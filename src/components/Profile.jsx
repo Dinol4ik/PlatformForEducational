@@ -5,13 +5,16 @@ import CurseInProfile from "../API/CurseInProfile";
 import AnimationLayout from "./AnimationLayout";
 import {SpinnerIcon} from "@chakra-ui/icons";
 import Loader from "./Loader";
+import StatisticApi from "../API/TaskApi/StatisticApi";
 
 const Profile = (props) => {
     const bgSubject = useColorModeValue('blackAlpha.700', '#383838')
     const [profileInCurse, setProfileInCurse] = useState()
+    const [profileStatistic, setProfileStatistic] = useState()
 
     useEffect(() => {
         fetchProfileCurse()
+        fetchProfileStatistic()
     }, [])
 
     function fetchProfileCurse() {
@@ -27,6 +30,11 @@ const Profile = (props) => {
         // eslint-disable-next-line array-callback-return
         // result.curse.map((e)=>{setProfileInCurse([...profileInCurse,e.subject.title])})
     } /// получение всех курсов у пользователя
+
+    async function fetchProfileStatistic() {
+        const result = await StatisticApi.getStatisticsUser(localStorage.getItem('UserProfileId'))
+        setProfileStatistic(result)
+    }
 
     return (
         <AnimationLayout>
@@ -59,14 +67,20 @@ const Profile = (props) => {
                                             </Flex>
                                         </Link>
                                     </Flex>
+
                                 )
                             })}
                         </Flex>
                     </>
                 }
+                 {profileStatistic
+                                            ?<ReactLink to={'statistic'}><div style={{textAlign:'center', marginTop:'30%'}}>РЕШЕНО ЗАДАЧ - {profileStatistic.statistic}%</div></ReactLink>
+                                            :<div>Подгрузка</div>
+                                        }
             </Container>
         </AnimationLayout>
-    );
+    )
+        ;
 };
 
 export default Profile;

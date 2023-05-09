@@ -1,51 +1,22 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-    Badge,
-    Box,
-    Container,
-    Flex,
-    Grid,
-    GridItem,
-    HStack,
-    Image,
-    Link,
-    Text,
-    useColorModeValue
-} from "@chakra-ui/react";
-import {Link as ReactLink, useParams} from 'react-router-dom'
-import CurseInProfile from "../API/CurseInProfile";
-import SubjectInProfile from "../API/SubjectInProfile";
-import AnimationLayout from "./AnimationLayout";
-import {SpinnerIcon} from "@chakra-ui/icons";
-import Loader from "./Loader";
+import React, {useEffect, useState} from 'react';
+import {Link as ReactLink, useParams} from "react-router-dom";
+import LessonsApi from "../../API/Lessons/LessonsApi";
+import {Box, Container, Flex, Grid, GridItem, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
+import Loader from "../Loader";
+import AnimationLayout from "../AnimationLayout";
+import LeftBarInProfile from "../Navigation/leftBarInProfile";
 
-const LinkItem = ({title, ...props}) => {
-    return (
-        <Link
-            as={ReactLink}
-            to={'/'}
-            p={4}
-            _hover={{bg: '#0399E9', color: 'white'}}
-            {...props}
-        >
-            {title}
-        </Link>
-    )
-}
-
-const Subject = (props) => {
-    const [curseInProfile, setCurseInProfie] = useState()
-    const params = useParams()
-    const borderColor = useColorModeValue('black', 'white')
-    // const folderName = (localStorage.getItem('chakra-ui-color-theme') === )
-
+const LessonsList = () => {
+     const borderColor = useColorModeValue('black', 'white')
+    const idCourse = useParams()
+    const [lessons, setLessons] = useState()
     useEffect(() => {
-        fetchProfileCurse()
+        fetchLessonsInCurse()
     }, [])
 
-    async function fetchProfileCurse() {
-        const result = await SubjectInProfile.getCurseInSubject(params.id)
-        setCurseInProfie(result)
+    async function fetchLessonsInCurse() {
+        const result = await LessonsApi.getLessonsInCurse(idCourse.id)
+        setLessons(result)
     }
 
     return (
@@ -64,25 +35,15 @@ const Subject = (props) => {
                     mt={4}
                     borderTop={'1px solid ' + borderColor.toString()}
                 >
-                    <GridItem minH={'100%'} borderRight={'1px solid ' + borderColor.toString()}>
-                        <Flex
-                            flexDir={'column'}
-                            align={'left'}
-                        >
-                            <LinkItem as={ReactLink} to={'/'} title={'Видео уроки'}/>
-                            <LinkItem as={ReactLink} to={'/'} title={'Домашние задания'}/>
-                            <LinkItem as={ReactLink} to={'/taskList'} title={'Каталог задач'}/>
-                        </Flex>
-                    </GridItem>
+                    <LeftBarInProfile/>
 
                     <GridItem mt={4}>
-                        {curseInProfile
+                        {lessons
                             ? <>
-                                {console.log(curseInProfile)}
                                 <Text fontSize={'md'}>
                                     Предмет:
                                     <Box as={'span'} ml={'1em'} fontWeight={'semibold'}>
-                                        {curseInProfile.title}
+                                        Уроки
                                     </Box>
                                 </Text>
                                 <Grid
@@ -92,7 +53,7 @@ const Subject = (props) => {
                                     ml={10}
                                     mb={25}
                                 >
-                                    {curseInProfile.curses.map((curses, id) => {
+                                    {lessons.lessons.map((lesson, id) => {
                                         return (
                                             <GridItem
                                                 key={id}
@@ -101,7 +62,8 @@ const Subject = (props) => {
                                             >
                                                 <Link
                                                     as={ReactLink}
-                                                    to={''+curses.id}
+                                                    to={''+lesson.id}
+                                                    state={{ from: lesson }}
                                                     _hover={{
                                                         textDecoration: 'none',
                                                         borderColor: 'white',
@@ -111,7 +73,7 @@ const Subject = (props) => {
                                                         alt={'Тут была папка'}
                                                     />
                                                     <Text fontSize={'16px'} textAlign={'justify'}>
-                                                        {curses.title}
+                                                        {lesson.title}
                                                     </Text>
                                                 </Link>
                                             </GridItem>
@@ -126,7 +88,20 @@ const Subject = (props) => {
                 </Grid>
             </Container>
         </AnimationLayout>
+        // <div>
+        //     {lessons
+        //         ? <>{lessons.lessons.map(t => {
+        //             return <div key={t.id}>
+        //                <div>{t.title}</div>
+        //                 <video width="400" height="300" controls="controls">
+        //                     <source src={t.video}/>
+        //                 </video>
+        //             </div>
+        //         })}</>
+        //         : <>Подгрузка</>
+        //     }
+        // </div>
     );
 };
 
-export default Subject;
+export default LessonsList;

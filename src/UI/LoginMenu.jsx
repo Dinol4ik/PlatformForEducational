@@ -23,6 +23,7 @@ const LoginMenu = () => {
         localStorage.removeItem('profileName')
         localStorage.removeItem('profileSecondName')
         localStorage.removeItem('profileId')
+        localStorage.removeItem('UserProfileId')
 
         navigate("/")
     }

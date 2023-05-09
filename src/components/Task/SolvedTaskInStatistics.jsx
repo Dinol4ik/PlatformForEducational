@@ -1,28 +1,24 @@
 import React, {useEffect, useState} from 'react';
+import SolveTask from "../../API/TaskApi/SolveTask";
 import {useParams} from "react-router-dom";
 import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import axios from "axios";
-import SolveTask from "../../API/TaskApi/SolveTask";
 
-const TaskItem = () => {
-    const [solve, setSolve] = useState()
+const SolvedTaskInStatistics = () => {
+const [solve, setSolve] = useState()
     const idThem = useParams()
     const [task, setTask] = useState()
     const [result, setResult] = useState()
     useEffect(() => {
-        fetchTask()
         fetchSolveTask()
     }, [])
 
-    async function fetchTask() {
-        const res = await TaskInTheme.getAllTask(idThem.id)
-        setTask(res)
-    }
+
 
     async function fetchSolveTask() {
         const result = await SolveTask.getAllSolveTask(localStorage.getItem('UserProfileId'))
         setResult(result)
-        console.log('nawat')
+        console.log(result)
     }
 
     function submit(event) {
@@ -66,19 +62,19 @@ const TaskItem = () => {
     return (
         <div>
             {
-                task
-                    ? task.theme.map(val =>
+                result
+                    ? result.map(val =>
                         <div className='task-list'>
                             <div className='task'>
                                 <div>
-                                    {val.title}
+                                    {val.task.title}
                                 </div>
                                 <div>
-                                    <img src={val.imgTask}/>
+                                    <img src={val.task.imgTask}/>
                                     <form onSubmit={submit}>
-                                        <input type='hidden' name="idTask" value={val.id}/>
+                                        <input type='hidden' name="idTask" value={val.task.id}/>
                                         <input type="text" name='answer'/>
-                                        {result && analysTask(val.id)}
+                                        {result && analysTask(val.task.id)}
                                     </form>
                                 </div>
                             </div>
@@ -89,4 +85,5 @@ const TaskItem = () => {
     );
 };
 
-export default TaskItem;
+
+export default SolvedTaskInStatistics;

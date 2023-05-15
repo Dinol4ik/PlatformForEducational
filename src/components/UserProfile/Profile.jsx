@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Container, Flex, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import {Link as ReactLink} from 'react-router-dom'
-import CurseInProfile from "../API/CurseInProfile";
-import AnimationLayout from "./AnimationLayout";
+import CurseInProfile from "../../API/CurseInProfile";
+import AnimationLayout from "../AnimationLayout";
 import {SpinnerIcon} from "@chakra-ui/icons";
-import Loader from "./Loader";
-import StatisticApi from "../API/TaskApi/StatisticApi";
+import Loader from "../Loader";
+import StatisticApi from "../../API/TaskApi/StatisticApi";
 
 const Profile = (props) => {
     const bgSubject = useColorModeValue('blackAlpha.700', '#383838')

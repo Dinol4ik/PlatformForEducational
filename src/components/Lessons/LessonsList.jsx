@@ -63,7 +63,6 @@ const LessonsList = () => {
                                                 <Link
                                                     as={ReactLink}
                                                     to={''+lesson.id}
-                                                    state={{ from: lesson }}
                                                     _hover={{
                                                         textDecoration: 'none',
                                                         borderColor: 'white',

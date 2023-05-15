@@ -10,6 +10,7 @@ import {
     Text,
     useColorModeValue
 } from "@chakra-ui/react";
+import {Link} from "react-router-dom";
 
 const CalendarDay = (props) => {
 
@@ -18,7 +19,7 @@ const CalendarDay = (props) => {
     let testing = []
     props.lessons.map((value) => {
             let a = new Map()
-            const test = new Date(value.dateTime)
+            const test = new Date(value.date_time)
             const test3 = (test.toLocaleDateString('ko-KR'))
             const test5 = (test.toLocaleString('ru', {
                 hour: '2-digit',
@@ -27,6 +28,9 @@ const CalendarDay = (props) => {
             const test2 = new Date(test3)
             a.set('date', test2.getTime())
             a.set('time', test5)
+            a.set('courseId', value.curse.id)
+            a.set('lessonId', value.id)
+            a.set('subjectId', value.curse.subject.id)
             a.set('title', value.title)
             a.set('subject', value.curse.subject.title)
             a.set('curse', value.curse.title)
@@ -36,6 +40,7 @@ const CalendarDay = (props) => {
             }
         }
     )
+    console.log(props.lessons)
     return (
 
         <>
@@ -56,19 +61,19 @@ const CalendarDay = (props) => {
 
                     <Card marginX={3} ml={5} mt={2}>
                         {React.Children.toArray(testing.map((value) => {
-                            return <><CardHeader  marginX={2} mt={1} p={0}>
-                                <Flex  fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
-                                    <Badge  colorScheme='green' mr={1}>
+                            return <><CardHeader marginX={2} mt={1} p={0}>
+                                <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
+                                    <Badge colorScheme='green' mr={1}>
                                         {value.get('time')}
                                     </Badge>
                                     {value.get('subject')}
 
                                 </Flex>
                             </CardHeader>
-                                <CardBody  paddingX={2} paddingY={1}>
-                                    <Text  fontSize='12px'>
+                                <CardBody paddingX={2} paddingY={1}>
+                                    <Text fontSize='12px'>
                                         {value.get('title')}->
-                                        {value.get('curse')}
+                                        <Link to={`/profile/subject/${+value.get('subjectId')}/${value.get('courseId')}/${value.get('lessonId')}`}>{value.get('curse')}</Link>
                                     </Text>
                                 </CardBody>
                             </>

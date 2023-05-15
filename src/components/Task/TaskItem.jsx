@@ -74,7 +74,7 @@ const TaskItem = () => {
                                     {val.title}
                                 </div>
                                 <div>
-                                    <img src={val.imgTask}/>
+                                    <img src={val.img_task}/>
                                     <form onSubmit={submit}>
                                         <input type='hidden' name="idTask" value={val.id}/>
                                         <input type="text" name='answer'/>

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Box, Center, Grid, GridItem, Heading, useColorModeValue,} from "@chakra-ui/react";
 import CalendarDay from "./CalendarDay";
 import {ChevronLeftIcon, ChevronRightIcon} from "@chakra-ui/icons";
-import LessonAPI from "../API/lessonAPI";
-import AnimationLayout from "./AnimationLayout";
+import LessonAPI from "../../API/lessonAPI";
+import AnimationLayout from "../AnimationLayout";
 
 const date = new Date()
 const named_day = {0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт', 4: 'пт', 5: 'сб', 6: 'вс'}

@@ -1,8 +1,7 @@
 import React from 'react';
-import {Badge, Box, Button, Flex, List, ListItem, Text} from "@chakra-ui/react";
+import {Badge, Box, Flex, ListItem, Text, UnorderedList, useColorModeValue} from "@chakra-ui/react";
 import AddCurseInProfile from "../../API/AddCurseInProfile";
 import {useNavigate} from "react-router-dom";
-import {AnimatePresence, motion} from "framer-motion";
 
 const MyModal = ({showModal, post, ...props}) => {
     const courseTitle = post.title
@@ -11,25 +10,7 @@ const MyModal = ({showModal, post, ...props}) => {
     const coursePrice = post.price
     const navigate = useNavigate()
 
-    const modalVariants = {
-        hidden: {
-            opacity: 0,
-            position: 'absolute',
-            top: -10,
-            width: '100%',
-        },
-        visible: {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            opacity: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            animate: {
-                duration: 10,
-                ease: 'easeInOut'
-            }
-        }
-    }
+    const bgColor = useColorModeValue('white', '#383838')
 
     function buyCourse() {
         AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), post.id)
@@ -37,57 +18,49 @@ const MyModal = ({showModal, post, ...props}) => {
     }
 
     return (
-        <AnimatePresence mode={'wait'}>
+        <>
             {showModal && (
-                <motion.div
-                    style={{
-                        zIndex: 10,
-                        height: '100vh'
-                    }}
-                    variants={modalVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
+                <Box
+                    pos={'fixed'} top={0} left={0} bgColor={'rgba(0, 0, 0, .7)'} w={'100%'} minH={'100vh'}
+                    zIndex={100}
                     {...props}
                 >
-                    <Box
-                        marginX={'auto'}
-                        mt={'10%'}
-                        w={'300px'}
-                        h={'400px'}
-                        p={5}
-                        borderRadius={'10px'}
-                        border={'1px solid black'}
-                        bgColor={'red.100'}
-                    >
-                        <Flex flexDir={'column'} align={'center'} h={'100%'} fontSize={'md'} bgColor={'red.100'}>
-                            <Text>
-                                {courseTitle}
-                            </Text>
-                            <Text>
-                                {courseAbout}
-                            </Text>
-                            <Box flex={1} display={'flex'} alignItems={'flex-end'} w={'100%'}>
-                                <Flex flexDir={'column'} w={'100%'}>
-                                    <Text>
-                                        Цена: <Badge colorScheme={'green'} fontSize={'md'}>{coursePrice}</Badge>
-                                    </Text>
-                                    <Box
-                                        marginX={'auto'}
-                                        cursor={'pointer'}
-                                        p={'.75em 2em'}
-                                        bgColor={'blue.300'}
-                                        onClick={buyCourse}
-                                    >
-                                        Купить
-                                    </Box>
-                                </Flex>
-                            </Box>
-                        </Flex>
-                    </Box>
-                </motion.div>
+                    <Flex pos={'absolute'} top={'50%'} left={'50%'} transform={'translate(-50%, -50%)'}
+                          flexDir={'column'} align={'center'} h={'100%'} fontSize={'md'} bgColor={bgColor}
+                          maxH={'60vh'} w={'50vw'} p={5} borderRadius={'1em'}>
+                        <Text fontSize={'xl'} fontWeight={'bold'}>
+                            {courseTitle}
+                        </Text>
+                        <Text>
+                            {courseAbout}
+                        </Text>
+                        <UnorderedList fontSize={'md'} w={'100%'} textAlign={'left'} m={0} paddingX={5} maxH={'150px'}
+                                       overflowY={'hidden'} pos={'relative'} minH={'100px'} h={'100%'}>
+                            {courseInf.map((value, index) =>
+                                (value !== "") &&
+                                <ListItem key={index}>{value}</ListItem>
+                            )}
+                        </UnorderedList>
+                        <Box flex={1} display={'flex'} alignItems={'flex-end'} w={'100%'}>
+                            <Flex flexDir={'column'} w={'100%'}>
+                                <Text>
+                                    Цена: <Badge colorScheme={'green'} fontSize={'md'}>{coursePrice}</Badge>
+                                </Text>
+                                <Box
+                                    marginX={'auto'}
+                                    cursor={'pointer'}
+                                    p={'.75em 2em'}
+                                    bgColor={'blue.300'}
+                                    onClick={buyCourse}
+                                >
+                                    Купить
+                                </Box>
+                            </Flex>
+                        </Box>
+                    </Flex>
+                </Box>
             )}
-        </AnimatePresence>
+        </>
     )
 };
 

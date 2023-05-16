@@ -38,7 +38,7 @@ const Footer = (props) => {
                     marginX={3}
                     color={useColorModeValue('grey', 'lightgrey')}
                 >
-                    &copy; Все права принадлежат нам
+                    &copy; Copyright
                 </Box>
                 <FooterItem to={'/'}>Отзывы</FooterItem>
                 <FooterItem to={'/'}>Акции</FooterItem>

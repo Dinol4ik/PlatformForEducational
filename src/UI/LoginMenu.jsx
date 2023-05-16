@@ -24,7 +24,6 @@ const LoginMenu = () => {
         localStorage.removeItem('profileId')
         localStorage.removeItem('UserProfileId')
 
-
         navigate("/")
     }
 
@@ -52,8 +51,8 @@ const LoginMenu = () => {
                                 Задачи
                             </Link>
                         </MenuItem>
-                         <MenuItem>
-                            <Link w={'100%'} as={ReactLink} to='/profile/homework' >Домашние задания</Link>
+                        <MenuItem>
+                            <Link w={'100%'} as={ReactLink} to='/profile/homework'>Домашние задания</Link>
                         </MenuItem>
                         <MenuItem>
                             <Link w={'100%'} as={'a'} key='1' onClick={disconnect}>Выйти</Link>

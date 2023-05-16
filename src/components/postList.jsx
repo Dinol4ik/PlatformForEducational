@@ -40,7 +40,7 @@ const PostList = (post) => {
                 </Text>
             </Flex>
             <Flex justify={'center'}>
-                <Flex className="items" gap={'1em'} color={useColorModeValue('white', '')}>
+                <Flex className="items" gap={'1em'}>
                     {post.subject.map(test => (
                         <Box
                             key={test.title}

@@ -3,12 +3,16 @@ import {useParams} from "react-router-dom";
 import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import axios from "axios";
 import SolveTask from "../../API/TaskApi/SolveTask";
+import {Box, Container, Divider, Flex, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
 
 const TaskItem = () => {
     const [solve, setSolve] = useState()
     const idThem = useParams()
     const [task, setTask] = useState()
     const [result, setResult] = useState()
+    const bgColor = useColorModeValue('white', 'black') //#1f1f1f
+    const borderColor = useColorModeValue('black', 'rgba(255, 255, 255, .4)')
+
     useEffect(() => {
         fetchTask()
         fetchSolveTask()
@@ -64,28 +68,37 @@ const TaskItem = () => {
     }
 
     return (
-        <div>
-            {
-                task
-                    ? task.theme.map(val =>
-                        <div className='task-list'>
-                            <div className='task'>
-                                <div>
+        <Container maxW={'container.lg'}>
+            <Flex flexDir={'column'} marginY={10}>
+                {task
+                    ? task.theme.map((val, index) => (
+                        <Box bgColor={bgColor} marginX={20} mb={10} p={5}>
+                            <Text fontWeight={'bold'}>
+                                Задача №{index + 1}
+                            </Text>
+                            <Grid templateAreas={`"img title"
+                                                    "img answer"`}
+                            >
+                                <GridItem area={'title'}>
                                     {val.title}
-                                </div>
-                                <div>
-                                    <img src={val.img_task}/>
-                                    <form onSubmit={submit}>
+                                </GridItem>
+                                <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
+                                    <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                </GridItem>
+                                <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
+                                    <form onSubmit={submit} style={{width: '100%'}}>
                                         <input type='hidden' name="idTask" value={val.id}/>
-                                        <input type="text" name='answer'/>
+                                        <Input type="text" name='answer' w={'50%'} mr={5}
+                                               border={'1px solid ' + borderColor}/>
                                         {result && analysTask(val.id)}
                                     </form>
-                                </div>
-                            </div>
-                        </div>)
+                                </GridItem>
+                            </Grid>
+                        </Box>))
                     : <div>Подгрузка</div>
-            }
-        </div>
+                }
+            </Flex>
+        </Container>
     );
 };
 

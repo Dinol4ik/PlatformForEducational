@@ -6,8 +6,10 @@ import Loader from "../Loader";
 import AnimationLayout from "../AnimationLayout";
 import LessonAPI from "../../API/lessonAPI";
 import SomeLessonAPI from "../../API/Lessons/SomeLessonApi";
+import axios from "axios";
 
 const LessonsItem = () => {
+    let marker = 0
     const [is_staff, setStaff] = useState(JSON.parse(localStorage.getItem("profileName")).is_staff)
     const idLesson = useParams()
     const [from, setFrom] = useState()
@@ -22,10 +24,26 @@ const LessonsItem = () => {
 
     const borderColor = useColorModeValue('black', 'white')
     if (from) {
-
         const date = new Date(from.date_time)
+        const date_plus_two = new Date(from.date_time)
+        date_plus_two.setHours(date_plus_two.getHours()+2)
+        const date_plus_two_format = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
+        console.log(date_plus_two_format)
+        const nowDate = new Date()
+        const nowMonth = nowDate.toLocaleString('ru', {month: 'long', day: 'numeric'})
+        const nowHour = nowDate.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
         const month = date.toLocaleString('ru', {month: 'long', day: 'numeric'});
         const hour = date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
+         // const date_plus_two = date.setHours(date.getHours()+2)
+        // const date_plus_two1 = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
+        chekOut()
+function chekOut(){
+            if (nowHour>date_plus_two_format){
+                marker = 1
+                console.log(marker)
+
+            }
+}
         return (
             <AnimationLayout>
                 <Container
@@ -47,7 +65,6 @@ const LessonsItem = () => {
                         <GridItem mt={4}>
                             {from
                                 ? <>
-                                    {console.log(from)}
                                     <Text fontSize={'md'}>
                                         Тема урока:
                                         <Box as={'span'} ml={'1em'} fontWeight={'semibold'}>
@@ -73,9 +90,26 @@ const LessonsItem = () => {
                                         ml={10}
                                         mb={25}
                                     >
-                                        <video width="400" height="300" controls="controls">
-                                            <source src={from.video}/>
-                                        </video>
+                                        {from.video
+                                            ? <video width="400" height="300" controls="controls" preload="auto"
+                                                     controlsList="nodownload">
+                                                <source src={from.video}/>
+                                            </video>
+                                            : nowHour >= hour&&nowHour<=date_plus_two_format && nowMonth >= month
+                                                ? <div>
+                                                    <iframe
+
+                                                        src="https://player.twitch.tv/?channel=dinol_bot&parent=127.0.0.1&muted=true"
+                                                        height="720"
+                                                        width="1280"
+                                                        allowFullScreen>
+                                                    </iframe>
+                                                </div>
+                                                : marker
+                                                    ? <div>Стрим закончился!</div>
+                                                    :<div>Стрим скоро начнется!</div>
+
+                                        }
                                     </Grid>
                                     {is_staff === true
                                         ? <Link as={ReactLink} state={{
@@ -86,7 +120,14 @@ const LessonsItem = () => {
                                         }} to={'/create/homeTask'}>
                                             <div>Открыть генератор заданий</div>
                                         </Link>
-                                        : <div>Домашнее задание:</div>
+                                        : <div>
+                                            <div>
+                                                {from.video
+                                                    ? <Link as={ReactLink} to={'/profile/homework'}>Домашнее задание</Link>
+                                                    : <div>Домашнее задание появится после стрима!</div>
+                                                }
+                                            </div>
+                                        </div>
                                     }
                                 </>
                                 :

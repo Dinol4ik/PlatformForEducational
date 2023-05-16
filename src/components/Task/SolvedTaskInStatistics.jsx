@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SolveTask from "../../API/TaskApi/SolveTask";
-import {useParams} from "react-router-dom";
-import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import axios from "axios";
 
 const SolvedTaskInStatistics = () => {
 const [solve, setSolve] = useState()
-    const idThem = useParams()
-    const [task, setTask] = useState()
     const [result, setResult] = useState()
     useEffect(() => {
         fetchSolveTask()
@@ -50,7 +46,7 @@ const [solve, setSolve] = useState()
         }
         let sovpalo = 0
         result.map(e => {
-            if (e.task['id'] === id) {
+            if (e.task['id'] == id) {
                 sovpalo = 1
             }
         })
@@ -70,7 +66,7 @@ const [solve, setSolve] = useState()
                                     {val.task.title}
                                 </div>
                                 <div>
-                                    <img src={val.task.imgTask}/>
+                                    <img src={val.task.img_task}/>
                                     <form onSubmit={submit}>
                                         <input type='hidden' name="idTask" value={val.task.id}/>
                                         <input type="text" name='answer'/>

@@ -13,9 +13,9 @@ const loaderVariants = {
     }
 }
 
-const Loader = () => {
+const Loader = ({...props}) => {
     return (
-        <Flex align={'center'} justify={'center'}>
+        <Flex align={'center'} justify={'center'} {...props}>
             <motion.div
                 variants={loaderVariants}
                 animate="animation"

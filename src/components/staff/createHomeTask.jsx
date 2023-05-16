@@ -53,7 +53,7 @@ const CreateHomeTask = () => {
                                         return <div onClick={selectTask}>
 
                                             {value.title}
-                                            <div><img src={value.imgTask}/></div>
+                                            <div><img src={value.img_task}/></div>
                                             <div style={{textAlign: 'center'}}><input id={value.id} type="button"
                                                                                       value="Добавить"/></div>
                                             <div>

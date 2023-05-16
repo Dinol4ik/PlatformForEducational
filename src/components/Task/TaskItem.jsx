@@ -4,6 +4,7 @@ import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import axios from "axios";
 import SolveTask from "../../API/TaskApi/SolveTask";
 import {Box, Container, Divider, Flex, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
+import AnimationLayout from "../AnimationLayout";
 
 const TaskItem = () => {
     const [solve, setSolve] = useState()
@@ -68,37 +69,39 @@ const TaskItem = () => {
     }
 
     return (
-        <Container maxW={'container.lg'}>
-            <Flex flexDir={'column'} marginY={10}>
-                {task
-                    ? task.theme.map((val, index) => (
-                        <Box bgColor={bgColor} marginX={20} mb={10} p={5}>
-                            <Text fontWeight={'bold'}>
-                                Задача №{index + 1}
-                            </Text>
-                            <Grid templateAreas={`"img title"
+        <AnimationLayout>
+            <Container maxW={'container.lg'}>
+                <Flex flexDir={'column'} marginY={10}>
+                    {task
+                        ? task.theme.map((val, index) => (
+                            <Box bgColor={bgColor} marginX={20} mb={10} p={5}>
+                                <Text fontWeight={'bold'}>
+                                    Задача №{index + 1}
+                                </Text>
+                                <Grid templateAreas={`"img title"
                                                     "img answer"`}
-                            >
-                                <GridItem area={'title'}>
-                                    {val.title}
-                                </GridItem>
-                                <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
-                                    <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
-                                </GridItem>
-                                <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
-                                    <form onSubmit={submit} style={{width: '100%'}}>
-                                        <input type='hidden' name="idTask" value={val.id}/>
-                                        <Input type="text" name='answer' w={'50%'} mr={5}
-                                               border={'1px solid ' + borderColor}/>
-                                        {result && analysTask(val.id)}
-                                    </form>
-                                </GridItem>
-                            </Grid>
-                        </Box>))
-                    : <div>Подгрузка</div>
-                }
-            </Flex>
-        </Container>
+                                >
+                                    <GridItem area={'title'}>
+                                        {val.title}
+                                    </GridItem>
+                                    <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
+                                        <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                    </GridItem>
+                                    <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
+                                        <form onSubmit={submit} style={{width: '100%'}}>
+                                            <input type='hidden' name="idTask" value={val.id}/>
+                                            <Input type="text" name='answer' w={'50%'} mr={5}
+                                                   border={'1px solid ' + borderColor}/>
+                                            {result && analysTask(val.id)}
+                                        </form>
+                                    </GridItem>
+                                </Grid>
+                            </Box>))
+                        : <div>Подгрузка</div>
+                    }
+                </Flex>
+            </Container>
+        </AnimationLayout>
     );
 };
 

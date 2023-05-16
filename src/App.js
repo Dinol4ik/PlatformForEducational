@@ -111,9 +111,7 @@ function App() {
 
                         }/>
                         <Route path={'taskList'} element={
-                            <RequireAuth>
                                 <TaskList/>
-                            </RequireAuth>
                         }/>
                          <Route path={'profile/homework'} element={
                             <RequireAuth>

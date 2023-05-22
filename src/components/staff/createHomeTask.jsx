@@ -77,7 +77,7 @@ const CreateHomeTask = () => {
                             {homeTaskId}
                         </div>
                     </div>
-                    <div onClick={sendHomeWork} style={{textAlign:'center', fontSize:'30px'}}>Отправить</div>
+                    <div onClick={sendHomeWork} style={{textAlign:'center', fontSize:'30px', cursor: 'pointer'}}>Отправить</div>
                 </div>
                 : <div>Загрузка</div>
             }

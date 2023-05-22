@@ -103,12 +103,12 @@ function App() {
                             </RequireAuth>
                         }/>
                         <Route path={'profile/subject/:id/:id'} element={
-                            <LessonsList/>
+                           <RequireAuth> <LessonsList/></RequireAuth>
 
                         }/>
                         <Route path={'profile/subject/:id/:id/:id'} element={
 
-                            <LessonsItem/>
+                           <RequireAuth> <LessonsItem/></RequireAuth>
 
                         }/>
                         <Route path={'taskList'} element={

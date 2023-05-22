@@ -92,7 +92,9 @@ const TaskItem = (props) => {
                                         {val.title}
                                     </GridItem>
                                     <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
-                                        <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                        {val.img_task && <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                        }
+
                                     </GridItem>
                                     <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
                                         <form onSubmit={submit} style={{width: '100%'}}>

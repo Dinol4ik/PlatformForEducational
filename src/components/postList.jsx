@@ -71,7 +71,7 @@ const PostList = (post) => {
                 </Box>)
                 :
                 (<Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
-                    <Loader/>
+                    <Text>Нет курсов по этому предмету</Text>
                 </Flex>)
             }
         </AnimationLayout>

@@ -73,10 +73,14 @@ const Profile = (props) => {
                         </Flex>
                     </>
                 }
-                 {profileStatistic
-                                            ?<ReactLink to={'statistic'}><div style={{textAlign:'center', marginTop:'30%'}}>РЕШЕНО ЗАДАЧ - {profileStatistic.statistic}%</div></ReactLink>
-                                            :<div>Подгрузка</div>
-                                        }
+                {profileStatistic
+                    ? <ReactLink to={'statistic'}>
+                        <div style={{textAlign: 'center', marginTop: '30%'}}>РЕШЕНО ЗАДАЧ
+                            - {Math.round(profileStatistic.statistic, 2)}%
+                        </div>
+                    </ReactLink>
+                    : <div>Подгрузка</div>
+                }
             </Container>
         </AnimationLayout>
     )

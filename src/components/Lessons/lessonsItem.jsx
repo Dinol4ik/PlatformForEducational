@@ -38,7 +38,7 @@ const LessonsItem = () => {
         // const date_plus_two1 = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
         chekOut()
 function chekOut(){
-            if (nowHour>date_plus_two_format){
+            if (nowHour>date_plus_two_format && nowMonth < month){
                 marker = 1
                 console.log(marker)
 
@@ -90,26 +90,28 @@ function chekOut(){
                                         ml={10}
                                         mb={25}
                                     >
+                                        <Box maxW={'400px'}>
                                         {from.video
                                             ? <video width="400" height="300" controls="controls" preload="auto"
                                                      controlsList="nodownload">
                                                 <source src={from.video}/>
                                             </video>
                                             : nowHour >= hour&&nowHour<=date_plus_two_format && nowMonth >= month
-                                                ? <div>
+                                                ? <Box maxW={'400px'}>
                                                     <iframe
 
                                                         src="https://player.twitch.tv/?channel=dinol_bot&parent=127.0.0.1&muted=true"
                                                         height="720"
-                                                        width="1280"
+                                                        width="1000"
                                                         allowFullScreen>
                                                     </iframe>
-                                                </div>
+                                                </Box>
                                                 : marker
                                                     ? <div>Стрим закончился!</div>
                                                     :<div>Стрим скоро начнется!</div>
 
-                                        }
+                                        }</Box>
+
                                     </Grid>
                                     {is_staff === true
                                         ? <Link as={ReactLink} state={{

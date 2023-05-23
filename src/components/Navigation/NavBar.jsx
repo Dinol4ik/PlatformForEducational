@@ -4,7 +4,7 @@ import {
     Link,
     Box,
     Stack,
-    Heading,
+    Heading, useColorModeValue,
 } from '@chakra-ui/react'
 import LoginMenu from "../../UI/LoginMenu";
 import {Link as ReactLink} from "react-router-dom"
@@ -26,33 +26,37 @@ const LinkItem = ({to, children, ...props}) => {
 
 const NavBar = () => {
     return (
-        <Container
-            as={'nav'}
-            css={{backdropFilter: 'blur(10px)'}}
-            display="flex"
-            p={2}
+        <Box
+            pos={'fixed'} top={0} left={0} right={0}
+            bgColor={useColorModeValue('#dce3e6', '#0c131c')}
             w={'100%'}
-            maxW="container.lg"
-            wrap="wrap"
-            align="center"
-            justify="center"
-        >
-            <Box as='h1' mr={10}>
-                <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
-            </Box>
-            <Stack
-                direction='row'
-                display='flex'
-                width='auto'
-                alignItems="center"
-                flexGrow={1}
-                mt={0}
-            >
-                <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
-                <LinkItem as={ReactLink} to={'/taskList'}>Задачи</LinkItem>
-                <LoginMenu/>
-            </Stack>
-        </Container>
+            h={'max-content'}
+            zIndex={100}>
+            <Container
+                as={'nav'}
+                display="flex"
+                p={2}
+                w={'100%'}
+                maxW="container.lg"
+                wrap="wrap"
+                align="center"
+                justify="center">
+                <Box as='h1' mr={10}>
+                    <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
+                </Box>
+                <Stack
+                    direction='row'
+                    display='flex'
+                    width='auto'
+                    alignItems="center"
+                    flexGrow={1}
+                    mt={0}>
+                    <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
+                    <LinkItem as={ReactLink} to={'/taskList'}>Задачи</LinkItem>
+                    <LoginMenu/>
+                </Stack>
+            </Container>
+        </Box>
     );
 };
 

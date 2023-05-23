@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AllUsersInCourse from "../../API/Lessons/homeWork/AllUsersInCourse";
 import {useLocation} from "react-router-dom";
-import TaskList from "../Task/TaskList";
 import CreateHomeWork from "../../API/Lessons/homeWork/CreateHomeWork";
 
 const CreateHomeTask = () => {

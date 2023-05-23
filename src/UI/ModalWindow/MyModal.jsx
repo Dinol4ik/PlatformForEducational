@@ -9,6 +9,8 @@ const MyModal = ({showModal, post, ...props}) => {
     const courseInf = [...post.information.split('/')]
     const coursePrice = post.price
     const navigate = useNavigate()
+    const bgButtonBuy = useColorModeValue('purple.400', 'orange.200')
+    const colorButtonBuy = useColorModeValue('white', 'black')
 
     const bgColor = useColorModeValue('white', '#383838')
 
@@ -50,7 +52,8 @@ const MyModal = ({showModal, post, ...props}) => {
                                     marginX={'auto'}
                                     cursor={'pointer'}
                                     p={'.75em 2em'}
-                                    bgColor={'blue.300'}
+                                    bgColor={bgButtonBuy}
+                                    color={colorButtonBuy}
                                     onClick={buyCourse}
                                 >
                                     Купить

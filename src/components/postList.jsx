@@ -34,7 +34,7 @@ const PostList = (post) => {
 
     return (
         <AnimationLayout>
-            <Flex align={'center'} justify={'center'} mt={10}>
+            <Flex align={'center'} justify={'center'}>
                 <Text fontSize={'4xl'}>
                     Выберите направление и курс
                 </Text>

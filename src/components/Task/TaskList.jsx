@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import AnimationLayout from "../AnimationLayout";
 import Loader from "../Loader";
 import {Box, Container, Flex, useColorModeValue} from "@chakra-ui/react";
+import Title from "../Title";
 
 const TaskList = () => {
     const [section, setSection] = useState()
@@ -24,8 +25,8 @@ const TaskList = () => {
         <AnimationLayout>
             {section
                 ?
-                <Container maxW={'container.xl'} mt={10}>
-                    {/*{console.log(section)}*/}
+                <Container maxW={'7xl'}>
+                    <Title>Задачи</Title>
                     {section.map(value =>
                         <Box key={value.id} mb={1}>
                             {value.title}

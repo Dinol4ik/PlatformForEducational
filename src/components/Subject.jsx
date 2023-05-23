@@ -1,22 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-    Badge,
-    Box,
-    Container,
-    Flex,
-    Grid,
-    GridItem,
-    HStack,
-    Image,
-    Link,
-    Text,
-    useColorModeValue
-} from "@chakra-ui/react";
+import React, {useEffect, useState} from 'react';
+import {Box, Container, Flex, Grid, GridItem, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import {Link as ReactLink, useParams} from 'react-router-dom'
-import CurseInProfile from "../API/CurseInProfile";
 import SubjectInProfile from "../API/SubjectInProfile";
 import AnimationLayout from "./AnimationLayout";
-import {SpinnerIcon} from "@chakra-ui/icons";
 import Loader from "./Loader";
 
 const LinkItem = ({title, ...props}) => {
@@ -37,7 +23,7 @@ const Subject = (props) => {
     const [curseInProfile, setCurseInProfie] = useState()
     const params = useParams()
     const borderColor = useColorModeValue('black', 'white')
-    // const folderName = (localStorage.getItem('chakra-ui-color-theme') === )
+    const folderName = useColorModeValue('no-folder-light.png', 'no-folder-dark-transformed.png')
 
     useEffect(() => {
         fetchProfileCurse()
@@ -55,7 +41,6 @@ const Subject = (props) => {
                 minW={'100%'}
                 minH={'100%'}
             >
-
                 <Grid
                     h={'100%'}
                     minH={'600px'}
@@ -79,12 +64,6 @@ const Subject = (props) => {
                         {curseInProfile
                             ? <>
                                 {console.log(curseInProfile)}
-                                <Text fontSize={'md'}>
-                                    Предмет:
-                                    <Box as={'span'} ml={'1em'} fontWeight={'semibold'}>
-                                        {curseInProfile.title}
-                                    </Box>
-                                </Text>
                                 <Grid
                                     templateColumns={'repeat(auto-fit, minmax(300px, 1fr))'}
                                     gap={20}
@@ -107,7 +86,7 @@ const Subject = (props) => {
                                                         borderColor: 'white',
                                                     }}>
                                                     <Image
-                                                        src={process.env.PUBLIC_URL + "/no-folder-dark-transformed.png"}
+                                                        src={process.env.PUBLIC_URL + `/${folderName}`}
                                                         alt={'Тут была папка'}
                                                     />
                                                     <Text fontSize={'16px'} textAlign={'justify'}>

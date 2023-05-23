@@ -42,80 +42,63 @@ const CalendarDay = (props) => {
     )
     console.log(props.lessons)
     return (
-
         <>
             {sovpadenie
                 ?
-                <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'}
-                    // bg={useColorModeValue('blackAlpha.200', 'whiteAlpha.400')}
-                          {...props}>
+                <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'} {...props}>
                     <Box
                         as={'span'}
                         position={'absolute'} top={1} left={1}
                         fontSize={'12px'}
                         fontWeight={'semibold'}
-                        // color={useColorModeValue('light', 'dark')}
                     >
                         {props.date}
                     </Box>
-
-                    <Card marginX={3} ml={5} mt={2}>
-                        {React.Children.toArray(testing.map((value) => {
-                            return <><CardHeader marginX={2} mt={1} p={0}>
-                                <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
-                                    <Badge colorScheme='green' mr={1}>
-                                        {value.get('time')}
-                                    </Badge>
-                                    {value.get('subject')}
-
-                                </Flex>
-                            </CardHeader>
+                    {React.Children.toArray(testing.map((value) => {
+                        return <>
+                            <Card marginX={3} ml={5} mt={2}>
+                                <CardHeader marginX={2} mt={1} p={0}>
+                                    <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
+                                        <Badge colorScheme='green' mr={1}>
+                                            {value.get('time')}
+                                        </Badge>
+                                        {value.get('subject')}
+                                    </Flex>
+                                </CardHeader>
                                 <CardBody paddingX={2} paddingY={1}>
                                     <Text fontSize='12px'>
                                         {value.get('title')}->
-                                        <Link to={`/profile/subject/${+value.get('subjectId')}/${value.get('courseId')}/${value.get('lessonId')}`}>{value.get('curse')}</Link>
+                                        <Link
+                                            to={`/profile/subject/${+value.get('subjectId')}/${value.get('courseId')}/${value.get('lessonId')}`}>{value.get('curse')}</Link>
                                     </Text>
                                 </CardBody>
-                            </>
-                        }))}
-
-                    </Card>
-
+                            </Card>
+                        </>
+                    }))}
                 </GridItem>
-                : <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'}
-                    // bg={useColorModeValue('blackAlpha.200', 'whiteAlpha.400')}
-                            {...props}>
+                :
+                <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'} {...props}>
                     <Box
                         as={'span'}
                         position={'absolute'} top={1} left={1}
                         fontSize={'12px'}
                         fontWeight={'semibold'}
-                        // color={useColorModeValue('light', 'dark')}
                     >
                         {props.date}
                     </Box>
                     <Card marginX={3} ml={5} mt={2}>
                         <CardHeader marginX={2} mt={1} p={0}>
                             <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
-                                <Badge colorScheme='green' mr={1}>
-
-                                </Badge>
-
+                                <Badge colorScheme='green' mr={1}/>
                             </Flex>
                         </CardHeader>
                         <CardBody paddingX={2} paddingY={1}>
-                            <Text fontSize='12px'>
-
-
-                            </Text>
+                            <Text fontSize='12px'></Text>
                         </CardBody>
                     </Card>
                 </GridItem>
-
             }
-
         </>
-
     );
 };
 

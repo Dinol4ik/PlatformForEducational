@@ -82,7 +82,7 @@ const CreateHomeTask = () => {
                         <GridItem area={'text1'} fontSize={'2xl'} fontWeight={'semibold'}>
                             Выбранные задачи
                         </GridItem>
-                        <GridItem area={'box1'} overflowY={'scroll'}>
+                        <GridItem area={'box1'}>
                             <UnorderedList>
                                 {homeTaskId.map(value => (
                                     <ListItem>{value}</ListItem>

@@ -6,11 +6,17 @@ import TaskItem from "../Task/TaskItem";
 import axios from "axios";
 import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import SolveTask from "../../API/TaskApi/SolveTask";
+import AnimationLayout from "../AnimationLayout";
+import Loader from "../Loader";
+import {Box, Button, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
 
 const ListHomeTask = () => {
     const [homeTask, setHomeTask] = useState()
     const [allTask, setAllTask] = useState()
     const idLesson = useParams()
+    const borderColor = useColorModeValue('black', 'white')
+    const bgColor = useColorModeValue('white', 'black') //#1f1f1f
+
     useEffect(() => {
         fetchSolveTask()
         fetchSomeLessons()
@@ -22,7 +28,8 @@ const ListHomeTask = () => {
         const task = await TaskApi.getAllTask()
         setAllTask(task)
     }
-        const [solve, setSolve] = useState()
+
+    const [solve, setSolve] = useState()
     const [result, setResult] = useState()
 
     async function fetchSolveTask() {
@@ -30,6 +37,7 @@ const ListHomeTask = () => {
         setResult(result)
         console.log('nawat')
     }
+
     function submit(event) {
         const res = axios.post('http://127.0.0.1:8000/analys', {
             "answer": event.target.answer.value,
@@ -50,7 +58,7 @@ const ListHomeTask = () => {
 
     function analysTask(id) {
         if (solve) {
-            if (solve['id'] == id) {
+            if (solve['id'] === id) {
                 console.log(id)
                 return <>
                     <button style={{backgroundColor: solve['color']}}>Отправить</button>
@@ -64,38 +72,47 @@ const ListHomeTask = () => {
             }
         })
         if (sovpalo) {
-            return <button style={{backgroundColor: "green"}}>Отправить</button>
-        } else return <button onClick={h}>Отправить</button>
+            return <Button bgColor={'green'} color={'white'}>Отправить</Button>
+        } else return <Button onClick={h}>Отправить</Button>
     }
+
     return (
-        <div>
+        <AnimationLayout>
             {homeTask && allTask
-                ? <div>{allTask.map((value, id) => {
-                    return <div>
-                        {homeTask.home_task.includes(`${value.id}`)&&
-                             <div>
-                               <div className='task-list'>
-                            <div className='task'>
-                                <div>
-                                    <span style={{marginRight: '30px'}}>{id}</span> {value.title}
-                                </div>
-                                <div>
-                                    <img src={value.img_task}/>
-                                    <form onSubmit={submit}>
-                                        <input type='hidden' name="idTask" value={value.id}/>
-                                        <input type="text" name='answer'/>
-                                        {result && analysTask(value.id)}
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                            </div>
+                ? <>
+                    {allTask.map((val, id) => {
+                        return <Box key={id}>
+                            {homeTask.home_task.includes(`${val.id}`) &&
+                                <Grid
+                                    key={id + 1000}
+                                    marginX={'auto'} mb={10} p={5}
+                                    bgColor={bgColor}
+                                    maxW={'3xl'}
+                                    templateAreas={`"img title"
+                                                    "img answer"`}>
+                                    <GridItem area={'title'}>
+                                        <Text>{val.title}</Text>
+                                    </GridItem>
+                                    <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
+                                        {val.img_task &&
+                                            <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                        }
+                                    </GridItem>
+                                    <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
+                                        <form onSubmit={submit} style={{width: '100%', display: 'flex'}}>
+                                            <Input type='hidden' name="idTask" value={val.id}/>
+                                            <Input type="text" name='answer' w={'50%'} mr={5}
+                                                   border={'1px solid ' + borderColor}/>
+                                            {result && analysTask(val.id)}
+                                        </form>
+                                    </GridItem>
+                                </Grid>
                             }
-                    </div>
-                })}</div>
-                : <div>чего то нет</div>
+                        </Box>
+                    })}</>
+                : <Loader/>
             }
-        </div>
+        </AnimationLayout>
     );
 };
 

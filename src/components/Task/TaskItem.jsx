@@ -3,7 +3,19 @@ import {useLocation, useParams} from "react-router-dom";
 import TaskInTheme from "../../API/TaskApi/TaskInTheme";
 import axios from "axios";
 import SolveTask from "../../API/TaskApi/SolveTask";
-import {Box, Container, Divider, Flex, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Container,
+    Divider,
+    Flex,
+    Grid,
+    GridItem,
+    Image,
+    Input,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
 import AnimationLayout from "../AnimationLayout";
 
 const TaskItem = (props) => {
@@ -71,8 +83,8 @@ const TaskItem = (props) => {
             }
         })
         if (sovpalo) {
-            return <button style={{backgroundColor: "green"}}>Отправить</button>
-        } else return <button onClick={h}>Отправить</button>
+            return <Button bgColor={'green'}>Отправить</Button>
+        } else return <Button onClick={h}>Отправить</Button>
     }
 
     return (

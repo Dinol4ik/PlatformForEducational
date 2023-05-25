@@ -10,12 +10,6 @@ import AnimationLayout from "../AnimationLayout";
 const HomeWorkItem = ({borderColor, value, homeWork}) => {
     return (
         <>
-            <Text marginX={3} mt={.5} mb={1} fontWeight={'semibold'} display={'inline-block'}>
-                Предмет: &nbsp;
-                <Text textDecor={'underline'} display={'inline-block'} mb={1}>
-                    {value.subject.title}
-                </Text>
-            </Text>
             <Link
                 p={4}
                 border={`.1rem dashed ${borderColor}`}
@@ -25,6 +19,12 @@ const HomeWorkItem = ({borderColor, value, homeWork}) => {
                 as={ReactLink}
                 to={`/homework/lesson/${homeWork.id}`}
             >
+                <Text mb={1} fontWeight={'semibold'} display={'inline-block'}>
+                    Предмет: &nbsp;
+                    <Text textDecor={'underline'} display={'inline-block'} mb={1}>
+                        {value.subject.title}
+                    </Text>
+                </Text>
                 <Text m={0} fontWeight={'semibold'}>Урок: &nbsp; &nbsp; {homeWork.title}</Text>
             </Link>
         </>

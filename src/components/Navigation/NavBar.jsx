@@ -29,7 +29,7 @@ const NavBar = () => {
         <Box
             pos={'fixed'} top={0} left={0} right={0}
             bgColor={useColorModeValue('#dce3e6', '#0c131c')}
-            w={'100%'}
+            maxW={'100%'}
             h={'max-content'}
             zIndex={100}>
             <Container
@@ -37,10 +37,11 @@ const NavBar = () => {
                 display="flex"
                 p={2}
                 w={'100%'}
-                maxW="container.lg"
                 wrap="wrap"
                 align="center"
-                justify="center">
+                justify="center"
+                maxW={'6xl'}
+            >
                 <Box as='h1' mr={10}>
                     <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
                 </Box>

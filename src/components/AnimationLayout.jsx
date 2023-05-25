@@ -1,11 +1,12 @@
 import React from 'react';
 import {motion} from "framer-motion";
+import {Container} from "@chakra-ui/react";
 
 const AnimationLayout = ({children, ...props}) => {
     const variants = {
         hidden: {
-          y: 20,
-          opacity: 0,
+            y: 20,
+            opacity: 0,
         },
         visible: {
             y: 0,
@@ -30,7 +31,9 @@ const AnimationLayout = ({children, ...props}) => {
             exit="hidden"
             {...props}
         >
-            {children}
+            <Container maxW={'6xl'} p={'8px'}>
+                {children}
+            </Container>
         </motion.div>
     );
 };

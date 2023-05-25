@@ -39,8 +39,8 @@ const PostList = (post) => {
                     Выберите направление и курс
                 </Text>
             </Flex>
-            <Flex justify={'center'}>
-                <Flex className="items" gap={'1em'}>
+            <Flex justify={'center'} marginX={'auto'}>
+                <Flex className="items" gap={'1em'} flexWrap={{sm: 'nowrap', base: 'wrap'}}>
                     {post.subject.map(test => (
                         <Box
                             key={test.title}
@@ -58,7 +58,7 @@ const PostList = (post) => {
                 </Flex>
             </Flex>
             {(courseArray.length > 0) ?
-                (<Box marginX={'2.5em'}>
+                (<Box>
                     <Grid
                         maxW={'container.xl'}
                         marginX={'auto'}

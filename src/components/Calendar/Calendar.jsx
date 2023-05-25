@@ -135,7 +135,7 @@ const Calendar = () => {
         <AnimationLayout>
             {lessons &&
                 <>
-                    <Box maxW="container.xl" marginX={"auto"} paddingX={'40px'}>
+                    <Box maxW="container.xl" marginX={"auto"}>
                         <Heading fontSize={'28px'}>
                             Календарь занятий
                         </Heading>

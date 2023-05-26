@@ -77,8 +77,7 @@ const TaskItem = (props) => {
         }
         let sovpalo = 0
         result.map(e => {
-            console.log(e);
-            if (e.task['id'] === id) {
+            if (e.task['id'] == id) {
                 sovpalo = 1
             }
         })

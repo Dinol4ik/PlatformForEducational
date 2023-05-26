@@ -94,19 +94,24 @@ const Profile = (props) => {
                     })}
                 </Grid>
             }
-            <Text fontSize={'4xl'} fontWeight={'semi-bold'} mt={10}>Моя статистика</Text>
+            <Text fontSize={'4xl'} fontWeight={'semi-bold'} mt={10} mb={7}>Моя статистика</Text>
             {profileStatistic &&
                 <>
-                    <Flex justify={'space-between'}>
+                    <Flex gap={6}>
                         <Text m={0} p={0}>
-                            РЕШЕНО ЗАДАЧ - {Math.round(profileStatistic.statistic, 2)}%
+                            Решено задач - {Math.round(profileStatistic.statistic, 2)}%
                         </Text>
-                        <NavigationLink mb={2} p={0} type={'forward'} to={'statistic'}>Подробнее</NavigationLink>
+                        <NavigationLink mb={0} p={0} type={'forward'} to={'statistic'}>Подробнее</NavigationLink>
                     </Flex>
-                    <Progress
-                        value={Math.round(profileStatistic.statistic, 2)}
-                        colorScheme={'green'}
-                        bgColor={bgColorForProgress}/>
+                    <Flex w={'100%'} align={'center'}>
+                        <Text m={2}>0%</Text>
+                        <Progress
+                            value={Math.round(profileStatistic.statistic, 2)}
+                            colorScheme={'green'}
+                            w={'100%'}
+                            bgColor={bgColorForProgress}/>
+                        <Text m={2}>100%</Text>
+                    </Flex>
                 </>
             }
         </AnimationLayout>

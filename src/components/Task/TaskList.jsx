@@ -4,7 +4,7 @@ import SectionApi from "../../API/TaskApi/SectionApi";
 import {Link} from "react-router-dom";
 import AnimationLayout from "../AnimationLayout";
 import Loader from "../Loader";
-import {Box, Container, Flex, useColorModeValue} from "@chakra-ui/react";
+import {Box, Container, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import Title from "../Title";
 
 const TaskList = () => {
@@ -24,13 +24,12 @@ const TaskList = () => {
     return (
         <AnimationLayout>
             {section
-                ?
-                <Container maxW={'7xl'}>
+                ? <>
                     <Title>Задачи</Title>
                     {section.map(value =>
-                        <Box key={value.id} mb={1}>
-                            {value.title}
-                            <Box>
+                        <Box key={value.id}>
+                            <Text m={0}>{value.title}</Text>
+                            <>
                                 {value.section.map(theme =>
                                     <Box
                                         w={'max-content'} paddingX={3} ml={'30px'} mb={1} key={theme.id}
@@ -41,9 +40,9 @@ const TaskList = () => {
                                         </Link>
                                     </Box>)
                                 }
-                            </Box>
+                            </>
                         </Box>)}
-                </Container>
+                </>
                 :
                 <Flex w={'100%'} h={'400px'} aligh={'center'} justify={'center'}>
                     <Loader/>

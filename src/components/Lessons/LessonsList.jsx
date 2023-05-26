@@ -16,6 +16,7 @@ import {
 import Loader from "../Loader";
 import AnimationLayout from "../AnimationLayout";
 import LinkItem from "../Navigation/LinkItem";
+import NavigationLink from "../../UI/NavigationLink";
 
 const LessonsList = () => {
     const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
@@ -35,6 +36,7 @@ const LessonsList = () => {
 
     return (
         <AnimationLayout>
+            <NavigationLink to={'/profile/subject/' + idCourse.idSubject} type={'back'}>Купленные курсы</NavigationLink>
             <Grid templateColumns='250px 1fr' gap={6}>
                 <GridItem
                     h={'max-content'}
@@ -60,7 +62,7 @@ const LessonsList = () => {
                             minH={'70vh'}
                         >
                             <Text fontSize={'xl'}>Уроки по выбранному курсу</Text>
-                            <Grid templateColumns={'repeat(4, 1fr)'} gap={6}>
+                            <Grid templateColumns={'repeat(4, minmax(100px, 1fr))'} gap={6}>
                                 {lessons.lessons.map((lesson, id) => {
                                     return (
                                         <GridItem

@@ -24,7 +24,7 @@ const AnimationLayout = ({children, ...props}) => {
 
     return (
         <motion.div
-            style={{marginTop: '7em'}}
+            style={{marginTop: '6em'}}
             variants={variants}
             initial="hidden"
             animate="visible"

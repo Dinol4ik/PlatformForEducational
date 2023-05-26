@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import SolveTask from "../../API/TaskApi/SolveTask";
 import axios from "axios";
+import Loader from "../Loader";
+import {Box, Button, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
+import AnimationLayout from "../AnimationLayout";
 
 const SolvedTaskInStatistics = () => {
-const [solve, setSolve] = useState()
+    const [solve, setSolve] = useState()
     const [result, setResult] = useState()
+    const bgColor = useColorModeValue('white', 'black') //#1f1f1f
+    const borderColor = useColorModeValue('black', 'rgba(255, 255, 255, .4)')
     useEffect(() => {
         fetchSolveTask()
     }, [])
-
 
 
     async function fetchSolveTask() {
@@ -37,7 +41,7 @@ const [solve, setSolve] = useState()
 
     function analysTask(id) {
         if (solve) {
-            if (solve['id'] == id) {
+            if (solve['id'] === id) {
                 console.log(id)
                 return <>
                     <button style={{backgroundColor: solve['color']}}>Отправить</button>
@@ -46,38 +50,46 @@ const [solve, setSolve] = useState()
         }
         let sovpalo = 0
         result.map(e => {
-            if (e.task['id'] == id) {
+            if (e.task['id'] === id) {
                 sovpalo = 1
             }
         })
         if (sovpalo) {
-            return <button style={{backgroundColor: "green"}}>Отправить</button>
-        } else return <button onClick={h}>Отправить</button>
+            return <Button bgColor={'green'} color={'white'}>Ответ верный</Button>
+        } else return <Button onClick={h}>Отправить</Button>
     }
 
     return (
-        <div>
-            {
-                result
-                    ? result.map(val =>
-                        <div className='task-list'>
-                            <div className='task'>
-                                <div>
-                                    {val.task.title}
-                                </div>
-                                <div>
-                                    <img src={val.task.img_task}/>
-                                    <form onSubmit={submit}>
-                                        <input type='hidden' name="idTask" value={val.task.id}/>
-                                        <input type="text" name='answer'/>
-                                        {result && analysTask(val.task.id)}
-                                    </form>
-                                </div>
-                            </div>
-                        </div>)
-                    : <div>Подгрузка</div>
+        <AnimationLayout>
+            {result
+                ? result.map(val =>
+                    <Box bgColor={bgColor} marginX={20} mb={10} p={5}>
+                        <Grid templateAreas={`"img title"
+                                                    "img answer"`}
+                        >
+                            <GridItem area={'title'}>
+                                {val.task.title}
+                            </GridItem>
+                            <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
+                                {val.task.img_task &&
+                                    <Image src={val.task.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                }
+
+                            </GridItem>
+                            <GridItem area={'answer'} display={'flex'} alignItems={'flex-end'} minW={'100%'}>
+                                <form onSubmit={submit} style={{width: '100%'}}>
+                                    <Input type='hidden' name="idTask" value={val.task.id}/>
+                                    <Input type="text" name='answer' w={'50%'} mr={5}
+                                           border={'1px solid ' + borderColor}/>
+                                    {result &&
+                                        analysTask(val.task.id)}
+                                </form>
+                            </GridItem>
+                        </Grid>
+                    </Box>)
+                : <Loader/>
             }
-        </div>
+        </AnimationLayout>
     );
 };
 

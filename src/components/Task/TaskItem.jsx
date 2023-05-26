@@ -83,7 +83,7 @@ const TaskItem = (props) => {
             }
         })
         if (sovpalo) {
-            return <Button bgColor={'green'}>Отправить</Button>
+            return <Button bgColor={'green'} color={'white'}>Отправить</Button>
         } else return <Button onClick={h}>Отправить</Button>
     }
 

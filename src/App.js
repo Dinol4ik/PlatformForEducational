@@ -102,17 +102,18 @@ function App() {
                                 <SolvedTaskInStatistics/>
                             </RequireAuth>
                         }/>
-                        <Route path={'profile/subject/:id/:id'} element={
-                           <RequireAuth> <LessonsList/></RequireAuth>
-
+                        <Route path={'profile/subject/:idSubject/:id'} element={
+                           <RequireAuth>
+                               <LessonsList/>
+                           </RequireAuth>
                         }/>
-                        <Route path={'profile/subject/:id/:id/:id'} element={
-
-                           <RequireAuth> <LessonsItem/></RequireAuth>
-
+                        <Route path={'profile/subject/:idSubject/:idCourse/:id'} element={
+                           <RequireAuth>
+                               <LessonsItem/>
+                           </RequireAuth>
                         }/>
                         <Route path={'taskList'} element={
-                                <TaskList/>
+                            <TaskList/>
                         }/>
                          <Route path={'profile/homework'} element={
                             <RequireAuth>

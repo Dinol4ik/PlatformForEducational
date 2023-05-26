@@ -6,20 +6,21 @@ import AnimationLayout from "../AnimationLayout";
 import SomeLessonAPI from "../../API/Lessons/SomeLessonApi";
 import LinkItem from "../Navigation/LinkItem";
 import {TimeIcon, UnlockIcon} from "@chakra-ui/icons";
+import NavigationLink from "../../UI/NavigationLink";
 
 const LessonsItem = () => {
     let marker = 0
     const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
     const boxShadow = useColorModeValue('', '0 0 2px whitesmoke')
     const [is_staff, setStaff] = useState(JSON.parse(localStorage.getItem("profileName")).is_staff)
-    const idLesson = useParams()
+    const params = useParams()
     const [from, setFrom] = useState()
     useEffect((lesson) => {
         fetchSomeLessons()
     }, [])
 
     async function fetchSomeLessons() {
-        const lesson = await SomeLessonAPI.getSomeLessonsInCurse(idLesson.id);
+        const lesson = await SomeLessonAPI.getSomeLessonsInCurse(params.id);
         setFrom(lesson)
     }
 
@@ -49,6 +50,11 @@ const LessonsItem = () => {
 
         return (
             <AnimationLayout>
+                <NavigationLink
+                    to={'/profile/subject/' + params.idSubject + "/" + params.idCourse}
+                    type={'back'}>
+                    К выбору уроков
+                </NavigationLink>
                 <Grid templateColumns='250px 1fr' gap={6}>
                     <GridItem
                         h={'max-content'}

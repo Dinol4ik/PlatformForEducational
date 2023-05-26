@@ -1,10 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {AspectRatio, Box, Container, Flex, Grid, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+    AspectRatio,
+    Box,
+    Container,
+    Flex,
+    Grid,
+    Image,
+    Link,
+    Progress,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
 import {Link as ReactLink} from 'react-router-dom'
 import CurseInProfile from "../../API/CurseInProfile";
 import AnimationLayout from "../AnimationLayout";
 import StatisticApi from "../../API/TaskApi/StatisticApi";
 import Title from "../Title";
+import NavigationLink from "../../UI/NavigationLink";
 
 const SvgImage = ({name, ...props}) => {
     return (
@@ -16,6 +28,7 @@ const SvgImage = ({name, ...props}) => {
 
 const Profile = (props) => {
     const bgSubject = useColorModeValue('rgba(0, 0, 0, .09)', '#383838')
+    const bgColorForProgress = useColorModeValue('rgba(0, 0, 0, .2)', 'rgba(255, 255, 255, .2)')
     const colorSubject = useColorModeValue('black', 'white')
     const [profileInCurse, setProfileInCurse] = useState()
     const [profileStatistic, setProfileStatistic] = useState()
@@ -83,11 +96,18 @@ const Profile = (props) => {
             }
             <Text fontSize={'4xl'} fontWeight={'semi-bold'} mt={10}>Моя статистика</Text>
             {profileStatistic &&
-                <Link as={ReactLink} to={'statistic'}>
-                    <Text>
-                        РЕШЕНО ЗАДАЧ - {Math.round(profileStatistic.statistic, 2)}%
-                    </Text>
-                </Link>
+                <>
+                    <Flex justify={'space-between'}>
+                        <Text m={0} p={0}>
+                            РЕШЕНО ЗАДАЧ - {Math.round(profileStatistic.statistic, 2)}%
+                        </Text>
+                        <NavigationLink mb={2} p={0} type={'forward'} to={'statistic'}>Подробнее</NavigationLink>
+                    </Flex>
+                    <Progress
+                        value={Math.round(profileStatistic.statistic, 2)}
+                        colorScheme={'green'}
+                        bgColor={bgColorForProgress}/>
+                </>
             }
         </AnimationLayout>
     );

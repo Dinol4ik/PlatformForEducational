@@ -10,11 +10,12 @@ import {
     Text,
     useColorModeValue
 } from "@chakra-ui/react";
-import {Link as ReactLink, useParams} from 'react-router-dom'
+import {Link as ReactLink, useNavigate, useParams} from 'react-router-dom'
 import SubjectInProfile from "../API/SubjectInProfile";
 import AnimationLayout from "./AnimationLayout";
 import Loader from "./Loader";
 import LinkItem from "./Navigation/LinkItem";
+import NavigationLink from "../UI/NavigationLink";
 
 const Subject = () => {
     const [curseInProfile, setCurseInProfie] = useState()
@@ -35,6 +36,7 @@ const Subject = () => {
 
     return (
         <AnimationLayout>
+            <NavigationLink to={'/profile'} type={'back'}>Мои предметы</NavigationLink>
             <Grid templateColumns='250px 1fr' gap={6}>
                 <GridItem
                     h={'max-content'}

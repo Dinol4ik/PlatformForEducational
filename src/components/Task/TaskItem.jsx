@@ -30,7 +30,6 @@ const TaskItem = (props) => {
         fetchTask()
         fetchSolveTask()
     }, [])
-    console.log(props.id_lesson)
 
     async function fetchTask() {
         if (props.id_lesson) {
@@ -71,7 +70,7 @@ const TaskItem = (props) => {
             if (solve['id'] == id) {
                 console.log(id)
                 return <>
-                    <button style={{backgroundColor: solve['color']}}>Отправить</button>
+                    <Button type={'submit'} bgColor={solve['color']}>Отправить</Button>
                     {solve['res']}</>
             }
         }
@@ -83,7 +82,7 @@ const TaskItem = (props) => {
         })
         if (sovpalo) {
             return <Button bgColor={'green'} color={'white'}>Отправить</Button>
-        } else return <Button onClick={h}>Отправить</Button>
+        } else return <Button type={'submit'} onClick={h}>Отправить</Button>
     }
 
     return (

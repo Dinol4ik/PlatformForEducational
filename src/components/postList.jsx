@@ -9,6 +9,7 @@ const PostList = (post) => {
     const bgTitle = useColorModeValue('purple.400', 'orange.200')
     const colorTitle = useColorModeValue('white', 'black')
 
+
     useEffect(() => {
         setCourseArray([...post.post])
     }, [post])
@@ -43,7 +44,7 @@ const PostList = (post) => {
                 <Flex className="items" gap={'1em'} flexWrap={{sm: 'nowrap', base: 'wrap'}}>
                     {post.subject.map(test => (
                         <Box
-                            key={test.title}
+                            key={test.id}
                             onClick={hand}
                             cursor={'pointer'}
                             borderRadius={'10px'}
@@ -66,7 +67,7 @@ const PostList = (post) => {
                         mt={7}
                         gap={10}
                     >
-                        {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
+                        {courseArray.map(posts => <PostItem  post={posts} key={posts.id}/>)}
                     </Grid>
                 </Box>)
                 :

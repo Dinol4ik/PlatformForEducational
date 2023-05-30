@@ -68,7 +68,7 @@ const TaskItem = (props) => {
     function analysTask(id) {
         if (solve) {
             if (solve['id'] == id) {
-                console.log(id)
+
                 return <>
                     <Button type={'submit'} bgColor={solve['color']}>Отправить</Button>
                     {solve['res']}</>
@@ -81,7 +81,7 @@ const TaskItem = (props) => {
             }
         })
         if (sovpalo) {
-            return <Button bgColor={'green'} color={'white'}>Отправить</Button>
+            return <Button type={'submit'} bgColor={'green'} color={'white'}>Отправить</Button>
         } else return <Button type={'submit'} onClick={h}>Отправить</Button>
     }
 

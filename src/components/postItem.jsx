@@ -15,6 +15,7 @@ import {
 import AddCurseInProfile from "../API/AddCurseInProfile";
 import {AnimatePresence, motion} from "framer-motion";
 import {useNavigate} from "react-router-dom";
+import AllUsersInCourse from "../API/Lessons/homeWork/AllUsersInCourse";
 
 const PostItem = (props) => {
     const [active, setActive] = useState(false)
@@ -23,13 +24,32 @@ const PostItem = (props) => {
     const courseAbout = props.post.about
     const courseInf = [...props.post.information.split('/')]
     const coursePrice = props.post.price
-
+    const adress = window.location.href.indexOf('admin')
     const bgGradient = useColorModeValue('white', '#383838')
 
     function modalView() {
         setActive(true)
     }
 
+///////////////////////// admin panel
+    function foo() {
+        if (adress !== -1) {
+              function fetchUsersForHomeWork() {
+                const result = AllUsersInCourse.getUsersInCurse(props.post.id)
+                return result
+            }
+            const userInCourse = fetchUsersForHomeWork()
+
+             return <MyModal showModal={active} user={userInCourse} post={props.post} onClick={() => {
+                setActive(false)
+            }}/>
+        } else return <MyModal showModal={active} post={props.post} onClick={() => {
+                setActive(false)
+            }}/>
+    }
+
+
+//////////////////////////////////
     return (
         <Box pos={'relative'}>
             <Box
@@ -75,15 +95,16 @@ const PostItem = (props) => {
                         />
                     </UnorderedList>
                     <Box flex={1} w={'100%'} display={'flex'} alignItems={'flex-end'}>
-                        <Text textAlign={'center'} w={'100%'} _hover={{cursor: 'pointer'}}>Купить</Text>
+                        {adress !== -1
+                            ? <Text textAlign={'center'} w={'100%'} _hover={{cursor: 'pointer'}}>открыть</Text>
+                            : <Text textAlign={'center'} w={'100%'} _hover={{cursor: 'pointer'}}>Купить</Text>
+                        }
                     </Box>
                 </Flex>
             </Box>
             {/*                */}
             {/* Модальное окно */}
-            <MyModal showModal={active} post={props.post} onClick={() => {
-                setActive(false)
-            }}/>
+            {foo()}
         </Box>
     )
 };

@@ -27,7 +27,7 @@ const LinkItem = ({to, children, ...props}) => {
 const NavBar = () => {
     return (
         <Box
-            pos={'fixed'} top={0} left={0} right={0}
+             top={0} left={0} right={0}
             bgColor={useColorModeValue('#dce3e6', '#0c131c')}
             maxW={'100%'}
             h={'max-content'}

@@ -23,6 +23,8 @@ import RequireStaff from "./hoc/requirerStaff";
 import CreateHomeTask from "./components/staff/createHomeTask";
 import HomeWork from "./components/UserProfile/HomeWork";
 import ListHomeTask from "./components/Lessons/listHomeTask";
+import AdminScreen from "./components/Administrator/adminScreen";
+import InformationAboutAllCourses from "./components/Administrator/informationAboutAllCourses";
 
 
 function App() {
@@ -128,6 +130,16 @@ function App() {
                          <Route path={'homework/lesson/:id'} element={
                             <RequireStaff>
                                 <ListHomeTask/>
+                            </RequireStaff>
+                        }/>
+                        <Route path={'admin'} element={
+                            <RequireStaff>
+                                <AdminScreen/>
+                            </RequireStaff>
+                        }/>
+                        <Route path={'admin/information'} element={
+                            <RequireStaff>
+                                <InformationAboutAllCourses/>
                             </RequireStaff>
                         }/>
                         <Route path={'taskList/theme/:id'} element={<TaskItem/>}/>

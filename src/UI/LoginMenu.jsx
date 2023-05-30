@@ -1,7 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ThemeToggleButton from "./ThemeToggleButton";
-import {Box, Link, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
-import {ChevronDownIcon, ChevronUpIcon} from "@chakra-ui/icons";
+import {
+    Box,
+    Divider,
+    IconButton,
+    Link,
+    Menu,
+    MenuButton,
+    MenuGroup,
+    MenuItem,
+    MenuList,
+    useColorModeValue
+} from "@chakra-ui/react";
+import {ChevronDownIcon, ChevronUpIcon, HamburgerIcon, MoonIcon, SunIcon} from "@chakra-ui/icons";
 import {AuthContext} from '../context/index'
 import {Link as ReactLink, useNavigate} from 'react-router-dom'
 
@@ -42,27 +53,44 @@ const LoginMenu = () => {
                 ?
                 <Menu borderRadius={'2em'}>
                     <MenuButton onClick={changeMyIcon}>
-                        {localStorage.getItem('profileName')
-                            ? JSON.parse(localStorage.getItem('profileName')).first_name + ' ' + JSON.parse(localStorage.getItem('profileName')).last_name
-                            : 'Войти'
-                        }
-                        {(icon === 'close')
-                            ? <ChevronDownIcon/>
-                            : <ChevronUpIcon/>}
+                        <Box display={{base: 'none', md: 'block'}}>
+                            {localStorage.getItem('profileName')
+                                ? JSON.parse(localStorage.getItem('profileName')).first_name + ' ' + JSON.parse(localStorage.getItem('profileName')).last_name
+                                : 'Войти'
+                            }
+                            {(icon === 'close')
+                                ? <ChevronDownIcon/>
+                                : <ChevronUpIcon/>}
+                        </Box>
+                        <IconButton icon={<HamburgerIcon boxSizing={3}/>} aria-label={'menu'}
+                                    display={{base: 'block', md: 'none'}}/>
                     </MenuButton>
-                    <MenuList p={0} overflow={'hidden'}>
-                        <MenuItem as={ReactLink} to='/profile' w={'100%'} h={'100%'}>
-                                Личный кабинет
-                        </MenuItem>
-                        <MenuItem as={ReactLink} to='/taskList' w={'100%'}>
+                    <MenuList p={0}>
+                        <MenuGroup title={'Навигация'} display={{base: 'block', md: 'none'}}>
+                            <MenuItem as={ReactLink} to='/schedule' w={'100%'} h={'100%'}
+                                      display={{base: 'block', md: 'none'}}>
+                                Календарь
+                            </MenuItem>
+                            <MenuItem as={ReactLink} to='/taskList' w={'100%'} h={'100%'}
+                                      display={{base: 'block', md: 'none'}}>
                                 Задачи
-                        </MenuItem>
-                        <MenuItem w={'100%'} as={ReactLink} to='/profile/homework'>
-                            Домашние задания
-                        </MenuItem>
-                        <MenuItem w={'100%'} as={'a'} key='1' onClick={disconnect}>
-                            Выйти
-                        </MenuItem>
+                            </MenuItem>
+                            <Divider display={{base: 'block', md: 'none'}} w={'100%'} marginX={'auto'}/>
+                        </MenuGroup>
+                        <MenuGroup title={'Профиль'} display={{base: 'block', md: 'none'}}>
+                            <MenuItem as={ReactLink} to='/profile' w={'100%'} h={'100%'}>
+                                Личный кабинет
+                            </MenuItem>
+                            <MenuItem as={ReactLink} to='/taskList' w={'100%'}>
+                                Задачи
+                            </MenuItem>
+                            <MenuItem w={'100%'} as={ReactLink} to='/profile/homework'>
+                                Домашние задания
+                            </MenuItem>
+                            <MenuItem w={'100%'} as={'a'} key='1' onClick={disconnect}>
+                                Выйти
+                            </MenuItem>
+                        </MenuGroup>
                     </MenuList>
                 </Menu>
                 :

@@ -40,11 +40,16 @@ const PostList = (post) => {
                     Выберите направление и курс
                 </Text>
             </Flex>
-            <Flex justify={'center'} marginX={'auto'}>
-                <Flex className="items" gap={'1em'} flexWrap={{sm: 'nowrap', base: 'wrap'}}>
-                    {post.subject.map(test => (
+            <Flex justify={'center'} marginX={{base: 0, md: 'auto'}} w={'100%'}>
+                <Flex
+                    className="items"
+                    gap={'1em'}
+                    flexDir={{base: 'column', sm: 'row'}}
+                    w={{base: '100%', sm: 'max-content'}}
+                >
+                    {post.subject.map(subject => (
                         <Box
-                            key={test.id}
+                            key={subject.id}
                             onClick={hand}
                             cursor={'pointer'}
                             borderRadius={'10px'}
@@ -52,8 +57,9 @@ const PostList = (post) => {
                             color={colorTitle}
                             id=''
                             p={3}
+                            w={{base: '100%', sm: 'max-content'}}
                         >
-                            {test.title}
+                            {subject.title}
                         </Box>
                     ))}
                 </Flex>
@@ -61,9 +67,10 @@ const PostList = (post) => {
             {(courseArray.length > 0) ?
                 (<Box>
                     <Grid
+                        paddingX={2}
                         maxW={'container.xl'}
-                        marginX={'auto'}
-                        templateColumns={'repeat(auto-fit, minmax(250px, 1fr))'}
+                        marginX={{base: 8, md: 4, lg: 0}}
+                        templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}
                         mt={7}
                         gap={10}
                     >

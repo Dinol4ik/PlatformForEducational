@@ -61,8 +61,8 @@ const Subject = () => {
                             boxShadow={boxShadow}
                             minH={'70vh'}
                         >
-                            <Text fontSize={'xl'} display={'inline'}>Купленные курсы по предмету -&nbsp;
-                                <Text as={'span'} fontWeight={'bold'} display={'inline'}>Предмет</Text>
+                            <Text fontSize={'xl'} display={'inline'}>курсы по предмету -&nbsp;
+                                <Text as={'span'} fontWeight={'bold'} display={'inline'}>{curseInProfile.title}</Text>
                             </Text>
                             <Grid templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'} mt={4} gap={4}>
                                 {curseInProfile.curses.map((curses, id) => {

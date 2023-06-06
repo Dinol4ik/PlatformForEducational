@@ -24,11 +24,10 @@ const MyModal = ({showModal, post, ...props}) => {
             AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), post.id)
             navigate('/profile')
         }
-            props.user.then(value=>{if (value.length>0)setUser(value)})
 
 ////// admin-modal
         if (adress !== -1) {
-
+props.user.then(value=>{if (value.length>0)setUser(value)})
             return (
                 <>
                     {showModal && (

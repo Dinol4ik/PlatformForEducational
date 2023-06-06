@@ -19,6 +19,7 @@ import LinkItem from "../Navigation/LinkItem";
 import NavigationLink from "../../UI/NavigationLink";
 
 const LessonsList = () => {
+
     const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
     const bgColorGridItem = useColorModeValue('rgba(0, 0, 0, .1)', 'rgba(255, 255, 255, .2)')
     const boxShadow = useColorModeValue('', '0 0 2px whitesmoke')
@@ -36,7 +37,7 @@ const LessonsList = () => {
 
     return (
         <AnimationLayout>
-            <NavigationLink to={'/profile/subject/' + idCourse.idSubject} type={'back'}>Купленные курсы</NavigationLink>
+            <NavigationLink to={'/profile/subject/' + idCourse.idSubject} type={'back'}>курсы</NavigationLink>
             <Grid templateColumns='250px 1fr' gap={6}>
                 <GridItem
                     h={'max-content'}

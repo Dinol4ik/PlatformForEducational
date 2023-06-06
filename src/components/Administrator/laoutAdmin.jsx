@@ -1,15 +1,14 @@
 import React from 'react';
 import LeftBarInProfile from "../Navigation/LeftBar";
 import PostList from "../postList";
+import {Box, Flex} from "@chakra-ui/react";
 
 const LaoutAdmin = ({children}) => {
     return (
-        <div>
-            <div style={{display: "flex"}}>
-                <div><LeftBarInProfile select_one={'Курсы'} select_two={'что то еще'}/></div>
-                <div style={{width:"100%"}}>{children}</div>
-            </div>
-        </div>
+        <Flex gap={10}>
+            <LeftBarInProfile select_one={'Главная'} select_two={'Статистика'}/>
+            <div style={{width: "100%"}}>{children}</div>
+        </Flex>
     );
 };
 

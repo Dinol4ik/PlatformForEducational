@@ -5,11 +5,13 @@ import PostList from "../postList";
 import SubjectApi from "../../API/subjectApi";
 import CursesAPI from "../../API/CursesAPI";
 import LaoutAdmin from "./laoutAdmin";
+import AnimationLayout from "../AnimationLayout";
 
 const AdminScreen = () => {
     const [posts, setPost] = useState([])
     const [subjects, setSubject] = useState([])
     const [user, setUsers] = useState()
+
     useEffect(() => {
         fetchSubject()
         fetchApp()
@@ -34,11 +36,9 @@ const AdminScreen = () => {
 
     // console.log(user)
     return (
-        <div>
-           <LaoutAdmin><PostList post={posts} subject={subjects}/></LaoutAdmin>
-
-
-        </div>
+        // <LaoutAdmin>
+            <PostList post={posts} subject={subjects}/>
+        // </LaoutAdmin>
     );
 };
 

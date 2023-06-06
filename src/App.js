@@ -62,7 +62,7 @@ function App() {
         const profileName = await UserNameAPI.getUserName();
         if (profileName) {
             localStorage.setItem('UserProfileId', profileName.profile)
-            localStorage.setItem('profileName',JSON.stringify(profileName))
+            localStorage.setItem('profileName', JSON.stringify(profileName))
         }
 
     }
@@ -105,19 +105,19 @@ function App() {
                             </RequireAuth>
                         }/>
                         <Route path={'profile/subject/:idSubject/:id'} element={
-                           <RequireAuth>
-                               <LessonsList/>
-                           </RequireAuth>
+                            <RequireAuth>
+                                <LessonsList/>
+                            </RequireAuth>
                         }/>
                         <Route path={'profile/subject/:idSubject/:idCourse/:id'} element={
-                           <RequireAuth>
-                               <LessonsItem/>
-                           </RequireAuth>
+                            <RequireAuth>
+                                <LessonsItem/>
+                            </RequireAuth>
                         }/>
                         <Route path={'taskList'} element={
                             <TaskList/>
                         }/>
-                         <Route path={'profile/homework'} element={
+                        <Route path={'profile/homework'} element={
                             <RequireAuth>
                                 <HomeWork/>
                             </RequireAuth>
@@ -127,7 +127,7 @@ function App() {
                                 <CreateHomeTask/>
                             </RequireStaff>
                         }/>
-                         <Route path={'homework/lesson/:id'} element={
+                        <Route path={'homework/lesson/:id'} element={
                             <RequireStaff>
                                 <ListHomeTask/>
                             </RequireStaff>

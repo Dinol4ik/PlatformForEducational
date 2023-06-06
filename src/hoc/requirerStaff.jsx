@@ -1,4 +1,4 @@
-import {useLocation, Navigate} from "react-router-dom";
+import {useLocation, Navigate, useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 const RequireStaff = ({children}) => {
@@ -7,7 +7,9 @@ const RequireStaff = ({children}) => {
     if (!staff){
         return <Navigate to='/'/>
     }
-    return children;
+    else{
+        return children;
+    }
 };
 
 export default RequireStaff;

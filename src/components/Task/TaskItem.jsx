@@ -76,7 +76,8 @@ const TaskItem = (props) => {
         }
         let sovpalo = 0
         result.map(e => {
-            if (e.task['id'] == id) {
+            console.log(e)
+            if (e.task['id'] == id && e.profile == localStorage.getItem('UserProfileId')) {
                 sovpalo = 1
             }
         })
@@ -91,7 +92,7 @@ const TaskItem = (props) => {
                 <Flex flexDir={'column'} marginY={10}>
                     {task
                         ? task.theme.map((val, index) => (
-                            <Box bgColor={bgColor} marginX={20} mb={10} p={5}>
+                            <Box key={val.id} bgColor={bgColor} marginX={10} mb={10} p={5}>
                                 <Text fontWeight={'bold'}>
                                     Задача №{index + 1}
                                 </Text>
@@ -102,7 +103,7 @@ const TaskItem = (props) => {
                                         {val.title}
                                     </GridItem>
                                     <GridItem area={'img'} display={'flex'} justifyContent={'center'}>
-                                        {val.img_task && <Image src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
+                                        {val.img_task && <Image  src={val.img_task} boxSize={'250px'} alt={'картинка'}/>
                                         }
 
                                     </GridItem>
@@ -115,6 +116,7 @@ const TaskItem = (props) => {
                                         </form>
                                     </GridItem>
                                 </Grid>
+                                <Box style={{opacity:'30%',fontSize:"15px"}}>Если ответ имеет дробную часть, записывать через точку например 0.43</Box>
                             </Box>))
                         : <div>Подгрузка</div>
                     }

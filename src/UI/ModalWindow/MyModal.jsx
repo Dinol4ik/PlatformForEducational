@@ -8,7 +8,7 @@ import login from "../../components/login";
 const MyModal = ({showModal, post, ...props}) => {
         const courseTitle = post.title
         const courseAbout = post.about
-        const [user,setUser] = useState([])
+        const [user, setUser] = useState([])
 
         const courseInf = [...post.information.split('/')]
         const coursePrice = post.price
@@ -26,12 +26,14 @@ const MyModal = ({showModal, post, ...props}) => {
         }
 
 
-            // props.user.then(value=>{if (value.length>0)setUser(value)})
+        // props.user.then(value=>{if (value.length>0)setUser(value)})
 
 
 ////// admin-modal
         if (adress !== -1) {
-props.user.then(value=>{if (value.length>0)setUser(value)})
+            props.user.then(value => {
+                if (value.length > 0) setUser(value)
+            })
             return (
                 <>
                     {showModal && (
@@ -46,12 +48,14 @@ props.user.then(value=>{if (value.length>0)setUser(value)})
                                   maxH={'60vh'} w={'50vw'} p={5} borderRadius={'1em'}>
                                 <div>
                                     <Text fontSize={'xl'} fontWeight={'bold'}>
-                                    Пользователи в курсе
-                                </Text>
+                                        Пользователи в курсе
+                                    </Text>
                                     <UnorderedList fontSize={'md'} w={'100%'} textAlign={'left'} m={0} paddingX={5}
                                                    maxH={'150px'}
                                                    overflowY={'hidden'} pos={'relative'} minH={'100px'} h={'100%'}>
-                                        {user&&user.map((val)=>{return<ListItem>{val.profile.name}</ListItem>})}
+                                        {user && user.map((val) => {
+                                            return <ListItem>{val.profile.name}</ListItem>
+                                        })}
                                         {/*{courseInf.map((value, index) =>*/}
                                         {/*    (value !== "") &&*/}
                                         {/*    <ListItem key={index}>{value}</ListItem>*/}
@@ -107,7 +111,7 @@ props.user.then(value=>{if (value.length>0)setUser(value)})
                                 <Box flex={1} display={'flex'} alignItems={'flex-end'} w={'100%'}>
                                     <Flex flexDir={'column'} w={'100%'}>
                                         <Text>
-                                            Ценdsaа: <Badge colorScheme={'green'} fontSize={'md'}>{coursePrice}</Badge>
+                                            Цена: <Badge colorScheme={'green'} fontSize={'md'}>{coursePrice}</Badge>
                                         </Text>
                                         <Box
                                             marginX={'auto'}

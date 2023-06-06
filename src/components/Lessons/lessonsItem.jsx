@@ -1,6 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Link as ReactLink, useLocation, useParams} from "react-router-dom";
-import {Box, Container, Flex, Grid, GridItem, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Container,
+    Flex,
+    Grid,
+    GridItem,
+    Image,
+    Input,
+    Link,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
 import Loader from "../Loader";
 import AnimationLayout from "../AnimationLayout";
 import SomeLessonAPI from "../../API/Lessons/SomeLessonApi";
@@ -8,9 +20,10 @@ import LinkItem from "../Navigation/LinkItem";
 import {TimeIcon, UnlockIcon} from "@chakra-ui/icons";
 import NavigationLink from "../../UI/NavigationLink";
 import LessonsApi from "../../API/Lessons/LessonsApi";
+import axios from "axios";
 
 const LessonsItem = () => {
-    let marker = 0
+    const [status, setStatus] = useState('waiting')
     const [userInCourse, setUserInCourse] = useState()
     const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
     const boxShadow = useColorModeValue('', '0 0 2px whitesmoke')
@@ -27,12 +40,11 @@ const LessonsItem = () => {
         setUserInCourse(result)
     }
 
+
     async function fetchSomeLessons() {
         const lesson = await SomeLessonAPI.getSomeLessonsInCurse(params.id);
         setFrom(lesson)
     }
-
-    console.log(userInCourse)
 
     const borderColor = useColorModeValue('black', 'white')
     if (from) {
@@ -40,7 +52,6 @@ const LessonsItem = () => {
         const date_plus_two = new Date(from.date_time)
         date_plus_two.setHours(date_plus_two.getHours() + 2)
         const date_plus_two_format = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
-        console.log(date_plus_two_format)
         const nowDate = new Date()
         const nowMonth = nowDate.toLocaleString('ru', {month: 'long', day: 'numeric'})
         const nowHour = nowDate.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
@@ -48,17 +59,7 @@ const LessonsItem = () => {
         const hour = date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
         // const date_plus_two = date.setHours(date.getHours()+2)
         // const date_plus_two1 = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
-        chekOut()
 
-        function chekOut() {
-            if (nowHour > date_plus_two_format && nowMonth < month) {
-                marker = 1
-                console.log(marker)
-
-            }
-        }
-
-        console.log()
         return (
             <AnimationLayout>
                 <NavigationLink
@@ -83,7 +84,7 @@ const LessonsItem = () => {
                     </GridItem>
                     <GridItem>
                         {
-                            userInCourse['result'] === 'true'
+                            userInCourse && userInCourse['result'] === 'true'
                                 ? from
                                     ? <>
                                         <Text m={0}>
@@ -95,29 +96,29 @@ const LessonsItem = () => {
                                         <Text>
                                             Время урока: <Text as={'span'} fontWeight={'semibold'}>{hour}</Text>
                                         </Text>
-                                        <Box maxW={'400px'}>
+                                        <Box>
                                             {from.video
                                                 ? <video width="400" height="300" controls="controls" preload="auto"
                                                          controlsList="nodownload">
                                                     <source src={from.video}/>
                                                 </video>
-                                                : (nowHour >= hour && nowHour <= date_plus_two_format && nowMonth >= month)
-                                                    ? <Box maxW={'400px'}>
-                                                        <iframe
-                                                            src="https://player.twitch.tv/?channel=dinol_bot&parent=127.0.0.1&muted=true"
-                                                            height="720"
-                                                            width="1000"
-                                                            allowFullScreen>
+                                                : nowDate >= date
+                                                    ? <Box style={{height: "50%"}}>
+                                                        <iframe style={{position: 'relative'}}
+                                                                src="https://player.twitch.tv/?channel=dinol_bot&parent=localhost&muted=true"
+                                                                height="300px"
+                                                                width="70%"
+                                                                allowFullScreen>
                                                         </iframe>
                                                     </Box>
-                                                    : marker
+                                                    : (nowDate > date)
                                                         ? <Box>Стрим закончился!</Box>
                                                         : <Box>Стрим скоро начнется!</Box>
 
                                             }
                                         </Box>
                                         {is_staff === true
-                                            ? <Link
+                                            ? <><Link
                                                 display={'flex'}
                                                 alignItems={'baseline'}
                                                 as={ReactLink}
@@ -132,6 +133,8 @@ const LessonsItem = () => {
                                                 <UnlockIcon display={'inline'} boxSize={'12px'} mr={1}/>
                                                 <Text display={'inline'}>Открыть генератор заданий</Text>
                                             </Link>
+                                            </>
+
                                             : <div>
                                                 <div>
                                                     {from.video
@@ -163,7 +166,7 @@ const LessonsItem = () => {
                                         'border-radius': '3px',
                                         'cursor': 'pointer',
                                         'transition': 'background 0.2s linear 0s',
-                                                    //hover {
+                                        //hover {
                                         //     background: rgb(9, 166, 251);
                                         // }
                                     }}> Купить</Link>

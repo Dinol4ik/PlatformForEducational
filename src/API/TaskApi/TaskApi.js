@@ -1,8 +1,9 @@
 import axios from "axios";
+import {API_URL} from "../URLsite";
 
 export default class TaskApi {
     static async getAllTask(){
-        const responseTask = await axios.get('http://127.0.0.1:8000/api/v1/task')
+        const responseTask = await axios.get(`${API_URL}/v1/task`)
         return responseTask.data
     }
 

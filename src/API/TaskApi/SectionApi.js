@@ -1,8 +1,9 @@
 import axios from "axios";
+import {API_URL} from "../URLsite";
 
 export default class SectionApi{
     static async getAllSection(){
-        const responseSubj = await axios.get('http://127.0.0.1:8000/api/v1/section')
+        const responseSubj = await axios.get(`${API_URL}/v1/section`)
         return responseSubj.data
     }
 }

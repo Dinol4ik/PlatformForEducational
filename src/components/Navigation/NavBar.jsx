@@ -24,13 +24,16 @@ const LinkItem = ({to, children, ...props}) => {
     )
 }
 
+
 const NavBar = () => {
     return (
         <Box
-             top={0} left={0} right={0}
-            bgColor={useColorModeValue('#dce3e6', '#0c131c')}
+            pos={'fixed'}
+            top={0} left={0} right={0}
+            bgColor={useColorModeValue('#dce3e699', '#0c131c99')}
             maxW={'100%'}
             h={'max-content'}
+            css={{ backdropFilter: 'blur(10px)' }}
             zIndex={100}>
             <Container
                 as={'nav'}
@@ -43,7 +46,7 @@ const NavBar = () => {
                 maxW={'6xl'}
             >
                 <Box as='h1' mr={10}>
-                    <Heading as={ReactLink} to={'/'} letterSpacing={'tighter'}>Наш сайт</Heading>
+                    <Heading as={ReactLink} to={'/'}>Наш сайт</Heading>
                 </Box>
                 <Stack
                     direction='row'
@@ -51,9 +54,10 @@ const NavBar = () => {
                     width='auto'
                     alignItems="center"
                     flexGrow={1}
-                    mt={0}>
-                    <LinkItem as={ReactLink} to="/schedule">Календарь</LinkItem>
-                    <LinkItem as={ReactLink} to={'/taskList'}>Задачи</LinkItem>
+                    mt={0}
+                >
+                    <LinkItem as={ReactLink} to="/schedule" display={{base: 'none', md: 'block'}}>Календарь</LinkItem>
+                    <LinkItem as={ReactLink} to={'/taskList'} display={{base: 'none', md: 'block'}}>Задачи</LinkItem>
                     <LoginMenu/>
                 </Stack>
             </Container>

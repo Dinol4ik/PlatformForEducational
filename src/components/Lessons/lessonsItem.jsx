@@ -58,6 +58,7 @@ const LessonsItem = () => {
             }
         }
 
+        console.log()
         return (
             <AnimationLayout>
                 <NavigationLink
@@ -82,7 +83,7 @@ const LessonsItem = () => {
                     </GridItem>
                     <GridItem>
                         {
-                            userInCourse === false
+                            userInCourse['result'] === 'true'
                                 ? from
                                     ? <>
                                         <Text m={0}>

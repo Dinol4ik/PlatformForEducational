@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Box, Container, Heading, Link, Stack, useColorModeValue,} from '@chakra-ui/react'
 import LoginMenu from "../../UI/LoginMenu";
 import {Link as ReactLink} from "react-router-dom"
@@ -19,18 +19,7 @@ const LinkItem = ({to, children, ...props}) => {
     )
 }
 
-const auth = localStorage.getItem('auth')
-
-async function isStaff() {
-    const staff = await JSON.parse(localStorage.getItem('profileName')).is_staff
-}
-
 const NavBar = () => {
-    const {isAuth} = useContext(AuthContext)
-
-    if(isAuth) {
-        setTimeout(isStaff, 100)
-    }
 
     return (
         <Box
@@ -64,12 +53,6 @@ const NavBar = () => {
                 >
                     <LinkItem as={ReactLink} to="/schedule" display={{base: 'none', md: 'block'}}>Календарь</LinkItem>
                     <LinkItem as={ReactLink} to={'/taskList'} display={{base: 'none', md: 'block'}}>Задачи</LinkItem>
-                    {
-                        isStaff() && isAuth &&
-                        <LinkItem as={ReactLink} to={'/admin/information'} display={{base: 'none', md: 'block'}}>
-                            Статистика сайта
-                        </LinkItem>
-                    }
                     <LoginMenu/>
                 </Stack>
             </Container>

@@ -36,9 +36,9 @@ const AdminScreen = () => {
 
     // console.log(user)
     return (
-        // <LaoutAdmin>
+        <LaoutAdmin>
             <PostList post={posts} subject={subjects}/>
-        // </LaoutAdmin>
+        </LaoutAdmin>
     );
 };
 

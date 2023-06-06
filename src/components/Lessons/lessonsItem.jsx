@@ -83,91 +83,95 @@ const LessonsItem = () => {
                     </GridItem>
                     <GridItem>
                         {
-                            userInCourse['result'] === 'true'
-                                ? from
-                                    ? <>
-                                        <Text m={0}>
-                                            Тема урока: <Text as={'span'} fontWeight={'semibold'}>{from.title}</Text>
-                                        </Text>
-                                        <Text m={0}>
-                                            Дата урока: <Text as={'span'} fontWeight={'semibold'}>{month}</Text>
-                                        </Text>
-                                        <Text>
-                                            Время урока: <Text as={'span'} fontWeight={'semibold'}>{hour}</Text>
-                                        </Text>
-                                        <Box maxW={'400px'}>
-                                            {from.video
-                                                ? <video width="400" height="300" controls="controls" preload="auto"
-                                                         controlsList="nodownload">
-                                                    <source src={from.video}/>
-                                                </video>
-                                                : (nowHour >= hour && nowHour <= date_plus_two_format && nowMonth >= month)
-                                                    ? <Box maxW={'400px'}>
-                                                        <iframe
-                                                            src="https://player.twitch.tv/?channel=dinol_bot&parent=127.0.0.1&muted=true"
-                                                            height="720"
-                                                            width="1000"
-                                                            allowFullScreen>
-                                                        </iframe>
-                                                    </Box>
-                                                    : marker
-                                                        ? <Box>Стрим закончился!</Box>
-                                                        : <Box>Стрим скоро начнется!</Box>
+                            userInCourse
+                                ?
+                                userInCourse['result'] === 'true'
+                                    ? from
+                                        ? <>
+                                            <Text m={0}>
+                                                Тема урока: <Text as={'span'} fontWeight={'semibold'}>{from.title}</Text>
+                                            </Text>
+                                            <Text m={0}>
+                                                Дата урока: <Text as={'span'} fontWeight={'semibold'}>{month}</Text>
+                                            </Text>
+                                            <Text>
+                                                Время урока: <Text as={'span'} fontWeight={'semibold'}>{hour}</Text>
+                                            </Text>
+                                            <Box maxW={'400px'}>
+                                                {from.video
+                                                    ? <video width="400" height="300" controls="controls" preload="auto"
+                                                             controlsList="nodownload">
+                                                        <source src={from.video}/>
+                                                    </video>
+                                                    : (nowHour >= hour && nowHour <= date_plus_two_format && nowMonth >= month)
+                                                        ? <Box maxW={'400px'}>
+                                                            <iframe
+                                                                src="https://player.twitch.tv/?channel=dinol_bot&parent=127.0.0.1&muted=true"
+                                                                height="720"
+                                                                width="1000"
+                                                                allowFullScreen>
+                                                            </iframe>
+                                                        </Box>
+                                                        : marker
+                                                            ? <Box>Стрим закончился!</Box>
+                                                            : <Box>Стрим скоро начнется!</Box>
 
-                                            }
-                                        </Box>
-                                        {is_staff === true
-                                            ? <Link
-                                                display={'flex'}
-                                                alignItems={'baseline'}
-                                                as={ReactLink}
-                                                state={{
-                                                    'course_id': from['curse'].id,
-                                                    'lesson_id': from.id,
-                                                    'lesson_title': from.title,
-                                                    'lesson_date_time': from.date_time,
-                                                }}
-                                                to={'/create/homeTask'}
-                                            >
-                                                <UnlockIcon display={'inline'} boxSize={'12px'} mr={1}/>
-                                                <Text display={'inline'}>Открыть генератор заданий</Text>
-                                            </Link>
-                                            : <div>
-                                                <div>
-                                                    {from.video
-                                                        ? <Link as={ReactLink} to={'/profile/homework'}>Домашнее
-                                                            задание</Link>
-                                                        : <div>Домашнее задание появится после стрима!</div>
-                                                    }
+                                                }
+                                            </Box>
+                                            {is_staff === true
+                                                ? <Link
+                                                    display={'flex'}
+                                                    alignItems={'baseline'}
+                                                    as={ReactLink}
+                                                    state={{
+                                                        'course_id': from['curse'].id,
+                                                        'lesson_id': from.id,
+                                                        'lesson_title': from.title,
+                                                        'lesson_date_time': from.date_time,
+                                                    }}
+                                                    to={'/create/homeTask'}
+                                                >
+                                                    <UnlockIcon display={'inline'} boxSize={'12px'} mr={1}/>
+                                                    <Text display={'inline'}>Открыть генератор заданий</Text>
+                                                </Link>
+                                                : <div>
+                                                    <div>
+                                                        {from.video
+                                                            ? <Link as={ReactLink} to={'/profile/homework'}>Домашнее
+                                                                задание</Link>
+                                                            : <div>Домашнее задание появится после стрима!</div>
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }
-                                    </>
-                                    :
-                                    <Loader/>
-                                : <div style={{textAlign: "center"}}>
-                                    <h1>Отсутсвует подписка на курс</h1>
-                                    <Link as={ReactLink} to='/' style={{
-                                        'border': 'none',
-                                        'outline': 'none',
-                                        'font-family': 'Open Sans, sans-serif',
-                                        'display': 'inline-block',
-                                        'font-weight': '600',
-                                        'color': 'rgb(255, 255, 255)',
-                                        ' font-size': '16px',
-                                        'line-height': '20px',
-                                        'padding': '22px',
-                                        'text-decoration': 'none',
-                                        'text-align': 'center',
-                                        'background': 'var(--accent,#0399E9)',
-                                        'border-radius': '3px',
-                                        'cursor': 'pointer',
-                                        'transition': 'background 0.2s linear 0s',
-                                                    //hover {
-                                        //     background: rgb(9, 166, 251);
-                                        // }
-                                    }}> Купить</Link>
-                                </div>
+                                            }
+                                        </>
+                                        :
+                                        <Loader/>
+                                    : <div style={{textAlign: "center"}}>
+                                        <h1>Отсутсвует подписка на курс</h1>
+                                        <Link as={ReactLink} to='/' style={{
+                                            'border': 'none',
+                                            'outline': 'none',
+                                            'font-family': 'Open Sans, sans-serif',
+                                            'display': 'inline-block',
+                                            'font-weight': '600',
+                                            'color': 'rgb(255, 255, 255)',
+                                            ' font-size': '16px',
+                                            'line-height': '20px',
+                                            'padding': '22px',
+                                            'text-decoration': 'none',
+                                            'text-align': 'center',
+                                            'background': 'var(--accent,#0399E9)',
+                                            'border-radius': '3px',
+                                            'cursor': 'pointer',
+                                            'transition': 'background 0.2s linear 0s',
+                                            ':hover':
+                                                'background: rgb(9, 166, 251)'
+
+                                        }}> Купить</Link>
+                                    </div>
+                                :
+                                <Loader />
                         }
                     </GridItem>
                 </Grid>

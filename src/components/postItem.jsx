@@ -56,6 +56,7 @@ const PostItem = (props) => {
                 display={active ? 'none' : 'block'}
                 overflowY={'hidden'}
                 w={'100%'}
+                maxW={'300px'}
                 marginX={'auto'}
                 p={5}
                 onClick={modalView}

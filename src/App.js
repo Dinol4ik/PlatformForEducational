@@ -128,9 +128,9 @@ function App() {
                             </RequireStaff>
                         }/>
                         <Route path={'homework/lesson/:id'} element={
-                            <RequireStaff>
+                            <RequireAuth>
                                 <ListHomeTask/>
-                            </RequireStaff>
+                            </RequireAuth>
                         }/>
                         <Route path={'admin'} element={
                             <RequireStaff>

@@ -9,6 +9,7 @@ import SolveTask from "../../API/TaskApi/SolveTask";
 import AnimationLayout from "../AnimationLayout";
 import Loader from "../Loader";
 import {Box, Button, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
+import {HOST_URL} from "../../API/URLsite";
 
 const ListHomeTask = () => {
     const [homeTask, setHomeTask] = useState()
@@ -39,7 +40,7 @@ const ListHomeTask = () => {
     }
 
     function submit(event) {
-        const res = axios.post('http://127.0.0.1:8000/analys', {
+        const res = axios.post(`${HOST_URL}/analys`, {
             "answer": event.target.answer.value,
             "idTask": event.target.idTask.value,
             "idProfile": localStorage.getItem('UserProfileId')
@@ -58,22 +59,23 @@ const ListHomeTask = () => {
 
     function analysTask(id) {
         if (solve) {
-            if (solve['id'] === id) {
-                console.log(id)
+            if (solve['id'] == id) {
+
                 return <>
-                    <button style={{backgroundColor: solve['color']}}>Отправить</button>
+                    <Button type={'submit'} bgColor={solve['color']}>Отправить</Button>
                     {solve['res']}</>
             }
         }
         let sovpalo = 0
         result.map(e => {
-            if (e.task['id'] === id) {
+            console.log(e)
+            if (e.task['id'] == id && e.profile == localStorage.getItem('UserProfileId')) {
                 sovpalo = 1
             }
         })
         if (sovpalo) {
-            return <Button bgColor={'green'} color={'white'}>Отправить</Button>
-        } else return <Button onClick={h}>Отправить</Button>
+            return <Button type={'submit'} bgColor={'green'} color={'white'}>Отправить</Button>
+        } else return <Button type={'submit'} onClick={h}>Отправить</Button>
     }
 
     return (
@@ -87,7 +89,7 @@ const ListHomeTask = () => {
                                     key={id + 1000}
                                     marginX={'auto'} mb={10} p={5}
                                     bgColor={bgColor}
-                                    maxW={'3xl'}
+                                    maxW={'4xl'}
                                     templateAreas={`"img title"
                                                     "img answer"`}>
                                     <GridItem area={'title'}>

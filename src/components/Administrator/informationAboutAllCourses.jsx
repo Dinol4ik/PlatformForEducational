@@ -43,8 +43,6 @@ const InformationAboutAllCourses = () => {
         });
         setAllMoney(mon)
     }
-    console.log(allMoney)
-    console.log(course)
     // if(idCourse){
     //       fetchMastHaveCourse(idCourse)
     //       console.log(course)

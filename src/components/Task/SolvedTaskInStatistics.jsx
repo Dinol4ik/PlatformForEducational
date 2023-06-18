@@ -4,6 +4,7 @@ import axios from "axios";
 import Loader from "../Loader";
 import {Box, Button, Grid, GridItem, Image, Input, Text, useColorModeValue} from "@chakra-ui/react";
 import AnimationLayout from "../AnimationLayout";
+import {HOST_URL} from "../../API/URLsite";
 
 const SolvedTaskInStatistics = () => {
     const [solve, setSolve] = useState()
@@ -22,7 +23,7 @@ const SolvedTaskInStatistics = () => {
     }
 
     function submit(event) {
-        const res = axios.post('http://127.0.0.1:8000/analys', {
+        const res = axios.post(`${HOST_URL}/analys`, {
             "answer": event.target.answer.value,
             "idTask": event.target.idTask.value,
             "idProfile": localStorage.getItem('UserProfileId')

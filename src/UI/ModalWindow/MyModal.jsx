@@ -4,12 +4,13 @@ import AddCurseInProfile from "../../API/AddCurseInProfile";
 import {useNavigate} from "react-router-dom";
 import AllUsersInCourse from "../../API/Lessons/homeWork/AllUsersInCourse";
 import login from "../../components/login";
+import ProfileId from "../../API/profileAPI";
+import CurseInProfile from "../../API/CurseInProfile";
 
 const MyModal = ({showModal, post, ...props}) => {
         const courseTitle = post.title
         const courseAbout = post.about
         const [user, setUser] = useState([])
-
         const courseInf = [...post.information.split('/')]
         const coursePrice = post.price
         const navigate = useNavigate()
@@ -21,13 +22,30 @@ const MyModal = ({showModal, post, ...props}) => {
 
 
         function buyCourse() {
-            AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), post.id)
-            navigate('/profile')
+            const profile = CurseInProfile.getInfoAboutCurseInProfiel();
+            profile.then(event => {
+                console.log(event)
+                if (event.curses.length>0){
+
+                event.curses.map(val => {
+                    if (val.id === post.id) {
+                       document.getElementById('btnBuy').textContent = 'Курс уже куплен'
+                    } else {
+                        AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), post.id)
+                        navigate('/profile')
+                    }
+                })}
+                else
+                {
+                    AddCurseInProfile.addCurse(localStorage.getItem('UserProfileId'), post.id)
+                        navigate('/profile')
+                }
+            })
+
         }
 
 
         // props.user.then(value=>{if (value.length>0)setUser(value)})
-
 
 ////// admin-modal
         if (adress !== -1) {
@@ -93,7 +111,9 @@ const MyModal = ({showModal, post, ...props}) => {
                         >
                             <Flex pos={'absolute'} top={'50%'} left={'50%'} transform={'translate(-50%, -50%)'}
                                   flexDir={'column'} align={'center'} h={'100%'} fontSize={'md'} bgColor={bgColor}
-                                  maxH={'60vh'} w={'50vw'} p={5} borderRadius={'1em'}>
+                                  maxH={'60vh'} w={'50vw'} p={5} borderRadius={'1em'}
+                                  onClick={event => {event.stopPropagation()}}
+                            >
                                 <Text fontSize={'xl'} fontWeight={'bold'}>
                                     {courseTitle}
                                 </Text>
@@ -114,6 +134,7 @@ const MyModal = ({showModal, post, ...props}) => {
                                             Цена: <Badge colorScheme={'green'} fontSize={'md'}>{coursePrice}</Badge>
                                         </Text>
                                         <Box
+                                            id="btnBuy"
                                             marginX={'auto'}
                                             cursor={'pointer'}
                                             p={'.75em 2em'}

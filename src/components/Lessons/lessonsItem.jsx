@@ -21,19 +21,24 @@ import {TimeIcon, UnlockIcon} from "@chakra-ui/icons";
 import NavigationLink from "../../UI/NavigationLink";
 import LessonsApi from "../../API/Lessons/LessonsApi";
 import axios from "axios";
+import Start_end_stream from "../../API/Lessons/Start_end_stream";
+import Chat from "../chat/chat";
 
 const LessonsItem = () => {
-    const [status, setStatus] = useState('waiting')
-    const [userInCourse, setUserInCourse] = useState()
+    const [textButton, setTextButton] = useState('')
+    const [status, setStatus] = useState('')
+    const [userInCourse, setUserInCourse] = useState([])
     const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
     const boxShadow = useColorModeValue('', '0 0 2px whitesmoke')
     const [is_staff, setStaff] = useState(JSON.parse(localStorage.getItem("profileName")).is_staff)
     const params = useParams()
     const [from, setFrom] = useState()
-    useEffect((lesson) => {
+    useEffect(() => {
         fetchSomeLessons()
-        chekUser(params.idCourse)
     }, [])
+    useEffect(()=>{
+        chekUser(params.idCourse)
+    },[])
 
     async function chekUser(id_course) {
         const result = await LessonsApi.checkUserInCourse(id_course)
@@ -44,22 +49,56 @@ const LessonsItem = () => {
     async function fetchSomeLessons() {
         const lesson = await SomeLessonAPI.getSomeLessonsInCurse(params.id);
         setFrom(lesson)
+        setStatus(lesson.stream_status)
+        if (lesson.stream_status == "offline") {
+            setTextButton('Начать трансляцию')
+
+        } else if (lesson.stream_status == "end") {
+            setTextButton('Трансляция закончилась')
+        } else {
+            setTextButton('Закончить трансляцию')
+        }
     }
 
-    const borderColor = useColorModeValue('black', 'white')
+    function submitVideo(event) {
+        console.log(event.target[0].files[0])
+        const video = event.target[0].files[0]
+        const update_video = Start_end_stream.loadVideo(from, video)
+        update_video.then(e => console.log(e))
+        event.preventDefault()
+    }
+
+    async function streamStatus(stream) {
+        // stream.target.id =2
+        // console.log(stream.target)
+        // console.log(stream.target.id)
+        if (stream.target.id == 1) {
+            setTextButton('Завершить трансляцию')
+            const status = "online"
+            const update_status = await Start_end_stream.getSomeLessonsInCurse(from, status)
+            setStatus('online')
+            console.log(status)
+            stream.target.id = 2
+        } else {
+            setTextButton('Трансляция закончилась')
+            const status = "end"
+            const update_status = await Start_end_stream.getSomeLessonsInCurse(from, status)
+            setStatus('end')
+            stream.target.id = 1
+        }
+    }
     if (from) {
         const date = new Date(from.date_time)
-        const date_plus_two = new Date(from.date_time)
-        date_plus_two.setHours(date_plus_two.getHours() + 2)
-        const date_plus_two_format = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
-        const nowDate = new Date()
-        const nowMonth = nowDate.toLocaleString('ru', {month: 'long', day: 'numeric'})
-        const nowHour = nowDate.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
+        // const date_plus_two = new Date(from.date_time)
+        // date_plus_two.setHours(date_plus_two.getHours() + 2)
+        // const date_plus_two_format = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
+        // const nowDate = new Date()
+        // const nowMonth = nowDate.toLocaleString('ru', {month: 'long', day: 'numeric'})
+        // const nowHour = nowDate.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
         const month = date.toLocaleString('ru', {month: 'long', day: 'numeric'});
         const hour = date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
         // const date_plus_two = date.setHours(date.getHours()+2)
         // const date_plus_two1 = date_plus_two.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
-
         return (
             <AnimationLayout>
                 <NavigationLink
@@ -84,7 +123,7 @@ const LessonsItem = () => {
                     </GridItem>
                     <GridItem>
                         {
-                            userInCourse && userInCourse['result'] === 'true'
+                             userInCourse['result'] === 'true'
                                 ? from
                                     ? <>
                                         <Text m={0}>
@@ -97,23 +136,28 @@ const LessonsItem = () => {
                                             Время урока: <Text as={'span'} fontWeight={'semibold'}>{hour}</Text>
                                         </Text>
                                         <Box>
-                                            {from.video
-                                                ? <video width="400" height="300" controls="controls" preload="auto"
-                                                         controlsList="nodownload">
-                                                    <source src={from.video}/>
-                                                </video>
-                                                : nowDate >= date
-                                                    ? <Box style={{height: "50%"}}>
+
+                                            {from.video && status
+                                                ? <div>
+                                                    <video width="400" height="300" controls="controls" preload="auto"
+                                                           controlsList="nodownload">
+                                                        <source src={from.video}/>
+                                                    </video>
+                                                </div>
+                                                : status && status === 'online'
+                                                    ? <Box style={{height: "50%", display:"flex"}}>
+                                                        {console.log(status)}
                                                         <iframe style={{position: 'relative'}}
                                                                 src="https://player.twitch.tv/?channel=dinol_bot&parent=localhost&muted=true"
                                                                 height="300px"
-                                                                width="70%"
+                                                                width="50%"
                                                                 allowFullScreen>
                                                         </iframe>
+                                                        <div><Chat/></div>
                                                     </Box>
-                                                    : (nowDate > date)
-                                                        ? <Box>Стрим закончился!</Box>
-                                                        : <Box>Стрим скоро начнется!</Box>
+                                                    : (status && status === 'end')
+                                                        ? <Box>Стрим закончился! {console.log(status)}</Box>
+                                                        : <Box>Стрим скоро начнется! {console.log(status)}</Box>
 
                                             }
                                         </Box>
@@ -133,6 +177,13 @@ const LessonsItem = () => {
                                                 <UnlockIcon display={'inline'} boxSize={'12px'} mr={1}/>
                                                 <Text display={'inline'}>Открыть генератор заданий</Text>
                                             </Link>
+                                                <Button id={textButton == 'Начать трансляцию' ? 1 : 2}
+                                                        onClick={streamStatus}>{textButton}</Button>
+                                                {textButton == "Трансляция закончилась" &&
+                                                    <form onSubmit={submitVideo} enctype="multipart/form-data">
+                                                        <Input type="file" accept="video/*"/>
+                                                        <Button type="submit">Загрузить видео</Button>
+                                                    </form>}
                                             </>
 
                                             : <div>

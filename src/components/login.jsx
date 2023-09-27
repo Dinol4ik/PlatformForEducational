@@ -6,6 +6,7 @@ import {Box, Flex, Link} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
 import {motion} from "framer-motion";
 import Loader from "./Loader";
+import {HOST_URL} from "../API/URLsite";
 
 const Login = () => {
     const {setIsAuth} = useContext(AuthContext);
@@ -89,7 +90,7 @@ const Login = () => {
                         p={'1.75em 4em'}
                         fontSize={'28px'}
                         onClick={goLoader}
-                        href='https://oauth.vk.com/authorize?client_id=51587230&display=page&redirect_uri=http://64.226.89.126:8000/token&scope=friends,email&response_type=code&v=5.131'
+                        href={`https://oauth.vk.com/authorize?client_id=51587230&display=page&redirect_uri=${HOST_URL}/token&scope=friends,email&response_type=code&v=5.131`}
                         _hover={{textDecoration: 'none'}}>
                         <motion.svg width="40" height="23" viewBox="0 0 38 23" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

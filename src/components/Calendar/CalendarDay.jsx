@@ -40,12 +40,11 @@ const CalendarDay = (props) => {
             }
         }
     )
-    console.log(props.lessons)
     return (
         <>
             {sovpadenie
                 ?
-                <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'} {...props}>
+                <GridItem position={'relative'} minH={130} pb={2} boxShadow={'base'} {...props}>
                     <Box
                         as={'span'}
                         position={'absolute'} top={1} left={1}
@@ -77,7 +76,7 @@ const CalendarDay = (props) => {
                     }))}
                 </GridItem>
                 :
-                <GridItem position={'relative'} minH={70} pb={2} boxShadow={'base'} {...props}>
+                <GridItem position={'relative'} minH={130} pb={2} boxShadow={'base'} {...props}>
                     <Box
                         as={'span'}
                         position={'absolute'} top={1} left={1}
@@ -86,16 +85,7 @@ const CalendarDay = (props) => {
                     >
                         {props.date}
                     </Box>
-                    <Card marginX={3} ml={5} mt={2}>
-                        <CardHeader marginX={2} mt={1} p={0}>
-                            <Flex fontSize={'12px'} fontWeight={'500'} align={'base-line'}>
-                                <Badge colorScheme='green' mr={1}/>
-                            </Flex>
-                        </CardHeader>
-                        <CardBody paddingX={2} paddingY={1}>
-                            <Text fontSize='12px'></Text>
-                        </CardBody>
-                    </Card>
+
                 </GridItem>
             }
         </>

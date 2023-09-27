@@ -5,7 +5,7 @@ import {ChevronLeftIcon, ChevronRightIcon} from "@chakra-ui/icons";
 import LessonAPI from "../../API/lessonAPI";
 import AnimationLayout from "../AnimationLayout";
 
-const date = new Date()
+let date = new Date()
 const named_day = {0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт', 4: 'пт', 5: 'сб', 6: 'вс'}
 
 const month_name = {
@@ -108,38 +108,68 @@ const Calendar = () => {
     const [colStart, setColStart] = useState(firstDayInMonth.getDay())
 
     const changeMonthBack = () => {
-        console.log(idToMonth[currentMonth])
-        if (idToMonth[currentMonth] < 0)
-            setCurrentMonth(month_name["12"])
-        else
+        if (idToMonth[currentMonth] > 0) {
+            console.log(date,'if')
             setCurrentMonth(month_name[idToMonth[currentMonth] - 1])
-
-        const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] - 1, 1)
-        setColStart(newFirstDayInMonth.getDay())
-        setMaxDayInMonth(count_day_in_month[month_name[idToMonth[currentMonth] - 1]])
+            // if (idToMonth[currentMonth] <= 0) {
+            //     setCurrentMonth(month_name["11"])
+            //     console.log(idToMonth[currentMonth])
+            // } else
+            // {
+            //     setCurrentMonth(month_name[idToMonth[currentMonth] - 1])
+            //     console.log(idToMonth[currentMonth])
+            // }
+            const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] - 1, 1)
+            setColStart(newFirstDayInMonth.getDay())
+            setMaxDayInMonth(count_day_in_month[month_name[idToMonth[currentMonth] - 1]])
+        } else {
+            const newYear = date.getFullYear()-1
+            date.setFullYear(newYear)
+            console.log(date)
+            console.log(date, 'else')
+            const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] - 1, 1)
+            setCurrentMonth(month_name[newFirstDayInMonth.getMonth()])
+        }
     }
 
     const changeMonthNext = () => {
-        console.log(idToMonth[currentMonth])
-        if (idToMonth[currentMonth] > 10)
-            setCurrentMonth(month_name["0"])
-        else
+        if (idToMonth[currentMonth] < 11) {
             setCurrentMonth(month_name[idToMonth[currentMonth] + 1])
+            // if (idToMonth[currentMonth] >= 11)
+            // {
+            //     setCurrentMonth(month_name["0"])
+            //     console.log(idToMonth[currentMonth])
+            // }
+            // else
+            // {
+            //     setCurrentMonth(month_name[idToMonth[currentMonth] + 1])
+            //     console.log(idToMonth[currentMonth])
+            // }
 
-        const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] + 1, 1)
-        setColStart(newFirstDayInMonth.getDay())
-        setMaxDayInMonth(count_day_in_month[month_name[idToMonth[currentMonth] + 1]])
+            const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] + 1, 1)
+            setColStart(newFirstDayInMonth.getDay())
+            setMaxDayInMonth(count_day_in_month[month_name[idToMonth[currentMonth] + 1]])
+        }
+        else
+        {
+            const newYear = date.getFullYear()+1
+            date.setFullYear(newYear)
+            console.log(date)
+            console.log(date, 'else')
+            const newFirstDayInMonth = new Date(date.getFullYear(), idToMonth[currentMonth] + 1, 1)
+            setCurrentMonth(month_name[newFirstDayInMonth.getMonth()])
+        }
     }
 
     return (
-        <AnimationLayout>
+        <AnimationLayout width={'100%'} >
             {lessons &&
                 <>
-                    <Box maxW="container.xl" marginX={"auto"}>
+                    <Box maxW="100%" marginX={"auto"}>
                         <Heading fontSize={'28px'}>
                             Календарь занятий
                         </Heading>
-                        <Grid templateColumns='repeat(7, 1fr)' templateRows='repeat(2, 1fr)' gap={1}>
+                        <Grid templateColumns='repeat(7, 1fr)' templateRows='repeat(2, 1fr)' gap={3}>
                             <Month
                                 month={currentMonth}
                                 monthBack={changeMonthBack}

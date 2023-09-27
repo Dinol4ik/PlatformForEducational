@@ -25,6 +25,8 @@ import HomeWork from "./components/UserProfile/HomeWork";
 import ListHomeTask from "./components/Lessons/listHomeTask";
 import AdminScreen from "./components/Administrator/adminScreen";
 import InformationAboutAllCourses from "./components/Administrator/informationAboutAllCourses";
+import Chat from "./components/chat/chat";
+import LessonsListForAdmin from "./components/Administrator/lessonsListForAdmin";
 
 
 function App() {
@@ -140,6 +142,11 @@ function App() {
                         <Route path={'admin/information'} element={
                             <RequireStaff>
                                 <InformationAboutAllCourses/>
+                            </RequireStaff>
+                        }/>
+                         <Route path={'/admin/reload-chat'} element={
+                            <RequireStaff>
+                                <LessonsListForAdmin/>
                             </RequireStaff>
                         }/>
                         <Route path={'taskList/theme/:id'} element={<TaskItem/>}/>

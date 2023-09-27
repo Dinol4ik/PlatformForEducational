@@ -37,6 +37,7 @@ const LeftBarInProfile = (props) => {
             >
                 <LinkItem to={'/admin'} title={props.select_one}/>
                 <LinkItem to={'/admin/information'} title={props.select_two}/>
+                <LinkItem to={'/admin/reload-chat'} title={props.select_three}/>
             </Flex>
         </Box>
     );

@@ -52,7 +52,6 @@ const HomeWork = () => {
     function needSolveTask(homeWork, value) {
         let count = homeWork.home_task.length
         let trueCount = 0
-        console.log(homeWork.home_task)
         solveTask.map((v) => {
             console.log(v.task.id);
             if (homeWork.home_task.includes(`${v.task.id}`)) {
@@ -76,6 +75,7 @@ const HomeWork = () => {
                             return <>{value.lessons.map(homeWork => {
                                 return (homeWork.home_task.length > 0 &&
                                     <GridItem>
+                                        {console.log(value.lessons)}
                                         {needSolveTask(homeWork, value)}
                                     </GridItem>)
                             })}</>

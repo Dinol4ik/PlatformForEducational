@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import PostItem from "./postItem";
-import {Box, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
-import Loader from "./Loader";
+import {CloseIcon} from "@chakra-ui/icons";
 
 const PostList = (post) => {
-    const [courseArray, setCourseArray] = useState([...post.post])
+
     const bgTitle = useColorModeValue('purple.400', 'orange.200')
     const colorTitle = useColorModeValue('white', 'black')
 
+    const colorScheme = useColorModeValue('purple', 'orange')
+    const [courseArray, setCourseArray] = useState([...post.post])
 
     useEffect(() => {
         setCourseArray([...post.post])
@@ -16,52 +18,65 @@ const PostList = (post) => {
 
     function hand(e) {
         const a = document.querySelector('.items')
-        let testovii = []
+        let courses = []
         for (let i = 0; i < a.children.length; i++) {
             a.children.item(i).id = ''
         }
         if (e.target.id !== 'active') {
             (post.post.map(ed => {
                     if (ed.subject.title === e.target.outerText) {
-                        testovii.push(ed)
+                        courses.push(ed)
                     }
                 }
             ))
             e.target.id = 'active'
-            setCourseArray(testovii)
-            testovii = []
+            setCourseArray(courses)
+            courses = []
         } else e.target.id = ''
+    }
+
+    function reset(e) {
+        const a = document.querySelector('.items')
+        for (let i = 0; i < a.children.length; i++) {
+            e.target.id = ''
+        }
+        setCourseArray([...post.post])
     }
 
     return (
         <AnimationLayout>
-            <Flex align={'center'} justify={'center'}>
-                <Text fontSize={'4xl'}>
-                    Выберите направление и курс
-                </Text>
-            </Flex>
-            <Flex justify={'center'} marginX={{base: 0, md: 'auto'}} w={'100%'}>
-                <Flex
-                    className="items"
-                    gap={'1em'}
-                    flexDir={{base: 'column', sm: 'row'}}
-                    w={{base: '100%', sm: 'max-content'}}
-                >
-                    {post.subject.map(subject => (
-                        <Box
-                            key={subject.id}
-                            onClick={hand}
-                            cursor={'pointer'}
-                            borderRadius={'10px'}
-                            bgColor={bgTitle}
-                            color={colorTitle}
-                            id=''
-                            p={3}
-                            w={{base: '100%', sm: 'max-content'}}
-                        >
-                            {subject.title}
-                        </Box>
-                    ))}
+            <Text fontSize={'4xl'} display={'flex'} align={'center'} justifyContent={'center'}>
+                Выберите направление и курс
+            </Text>
+            <Flex
+                className="items"
+                flexDir={{base: 'column', sm: 'row'}}
+                justify={{base: 'none', sm: 'center'}}
+                wrap={'wrap'}
+                gap={'1em'}
+            >
+                {post.subject.map(subject => {
+                    return <Button
+                        key={subject.id}
+                        onClick={hand}
+                        bgColor={bgTitle}
+                        color={colorTitle}
+                        mx={{base: 10, sm: 0}}
+                        id=''
+                    >
+                        {subject.title}
+                    </Button>
+                })}
+                <Flex justifyContent={'center'}>
+                    <Button
+                        leftIcon={<CloseIcon/>}
+                        aria-label={'Reset filter'}
+                        colorScheme={colorScheme}
+                        onClick={reset}
+                        maxW={'max-content'}
+                    >
+                        Сброс фильтров
+                    </Button>
                 </Flex>
             </Flex>
             {(courseArray.length > 0) ?
@@ -74,7 +89,7 @@ const PostList = (post) => {
                         mt={7}
                         gap={10}
                     >
-                        {courseArray.map(posts => <PostItem  post={posts} key={posts.id}/>)}
+                        {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
                     </Grid>
                 </Box>)
                 :
@@ -84,6 +99,6 @@ const PostList = (post) => {
             }
         </AnimationLayout>
     )
-};
+}
 
 export default PostList;

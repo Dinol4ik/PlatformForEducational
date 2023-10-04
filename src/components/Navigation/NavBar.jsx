@@ -41,7 +41,7 @@ const NavBar = () => {
                 maxW={'6xl'}
             >
                 <Box as='h1' mr={10}>
-                    <Heading as={ReactLink} to={'/'}>Наш сайт</Heading>
+                    <Heading as={ReactLink} to={'/'}>EGEBoost</Heading>
                 </Box>
                 <Stack
                     direction='row'

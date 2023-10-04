@@ -97,20 +97,18 @@ const Profile = (props) => {
             <Text fontSize={'4xl'} fontWeight={'semi-bold'} mt={10} mb={7}>Моя статистика</Text>
             {profileStatistic &&
                 <>
-                    <Flex gap={6}>
-                        <Text m={0} p={0}>
-                            Решено задач - {Math.round(profileStatistic.statistic, 2)}%
-                        </Text>
-                        <NavigationLink mb={0} p={0} type={'forward'} to={'statistic'}>Подробнее</NavigationLink>
-                    </Flex>
+                    <Text mb={0}>Решено задач: </Text>
                     <Flex w={'100%'} align={'center'}>
-                        <Text m={2}>0%</Text>
+                        <Text m={2}>{Math.round(profileStatistic.statistic, 2)}%</Text>
                         <Progress
                             value={Math.round(profileStatistic.statistic, 2)}
                             colorScheme={'green'}
                             w={'100%'}
+                            mr={'3em'}
                             bgColor={bgColorForProgress}/>
-                        <Text m={2}>100%</Text>
+                    </Flex>
+                    <Flex gap={6}>
+                        <NavigationLink mb={0} p={0} type={'forward'} to={'statistic'}>Подробнее</NavigationLink>
                     </Flex>
                 </>
             }

@@ -1,5 +1,4 @@
-import {useLocation, Navigate, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {Navigate} from "react-router-dom";
 
 const RequireStaff = ({children}) => {
     const staff = JSON.parse(localStorage.getItem('profileName')).is_staff

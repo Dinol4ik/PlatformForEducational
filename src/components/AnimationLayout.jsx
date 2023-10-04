@@ -31,7 +31,7 @@ const AnimationLayout = ({children, ...props}) => {
             exit="hidden"
             {...props}
         >
-            <Container maxW={{...props.width?"100%":'6xl'}} p={'8px'}>
+            <Container maxW={'6xl'}>
                 {children}
             </Container>
         </motion.div>

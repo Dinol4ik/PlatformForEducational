@@ -1,31 +1,30 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import ThemeToggleButton from "./ThemeToggleButton";
 import {
     Box,
     Divider,
-    IconButton,
     Link,
     Menu,
     MenuButton,
     MenuGroup,
     MenuItem,
     MenuList,
-    useColorModeValue
+    useColorModeValue, Button
 } from "@chakra-ui/react";
-import {ChevronDownIcon, ChevronUpIcon, HamburgerIcon, MoonIcon, SunIcon} from "@chakra-ui/icons";
+import {CalendarIcon, ChevronDownIcon, ChevronUpIcon, EditIcon, HamburgerIcon} from "@chakra-ui/icons";
 import {AuthContext} from '../context/index'
 import {Link as ReactLink, useNavigate} from 'react-router-dom'
+import {MdOutlineAccountCircle} from 'react-icons/md'
+import {PiNotebookBold} from "react-icons/pi";
 
 const LoginMenu = () => {
-    const [icon, setIcon] = useState('close')
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate();
     const {setToken} = useContext(AuthContext)
-    let loginColor = ''
-
-    useEffect(() => {
-        loginColor = (localStorage.getItem('chakra-ui-color-mode') === 'light') ? 'black' : 'white'
-    })
+    let userName = JSON.parse(localStorage.getItem('profileName'))?.first_name;
+    let userLastName = JSON.parse(localStorage.getItem('profileName'))?.last_name;
+    const colorSchemeWithValue = useColorModeValue('purple.500', 'orange.200')
+    const colorText = useColorModeValue('white', 'black')
 
     function disconnect() {
         setIsAuth(false)
@@ -39,75 +38,105 @@ const LoginMenu = () => {
         navigate("/")
     }
 
-    function changeMyIcon() {
-        if (icon === 'close')
-            setIcon('up')
-        else
-            setIcon('close')
-    }
+    // useEffect(() => {
+    //     userName = JSON.parse(localStorage.getItem('profileName'))?.first_name;
+    //     userLastName = JSON.parse(localStorage.getItem('profileName'))?.last_name;
+    // }, [localStorage.key('profileName')]);
 
     return (
         <Box display={'flex'} w={'100%'} justifyContent={'flex-end'} maxH={10}>
             <ThemeToggleButton/>
-            {isAuth
-                ?
+            {isAuth &&
                 <Menu borderRadius={'2em'}>
-                    <MenuButton onClick={changeMyIcon}>
-                        <Box display={{base: 'none', md: 'block'}}>
-                            {localStorage.getItem('profileName')
-                                ? JSON.parse(localStorage.getItem('profileName')).first_name + ' ' + JSON.parse(localStorage.getItem('profileName')).last_name
-                                : 'Войти'
-                            }
-                            {(icon === 'close')
-                                ? <ChevronDownIcon/>
-                                : <ChevronUpIcon/>}
-                        </Box>
-                        <IconButton icon={<HamburgerIcon boxSizing={3}/>} aria-label={'menu'}
-                                    display={{base: 'block', md: 'none'}}/>
-                    </MenuButton>
-                    <MenuList p={0}>
-                        <MenuGroup title={'Навигация'} display={{base: 'block', md: 'none'}}>
-                            <MenuItem as={ReactLink} to='/schedule' w={'100%'} h={'100%'}
-                                      display={{base: 'block', md: 'none'}}>
-                                Календарь
-                            </MenuItem>
-                            <MenuItem as={ReactLink} to='/taskList' w={'100%'} h={'100%'}
-                                      display={{base: 'block', md: 'none'}}>
-                                Задачи
-                            </MenuItem>
-                            <Divider display={{base: 'block', md: 'none'}} w={'100%'} marginX={'auto'}/>
-                        </MenuGroup>
-                        <MenuGroup title={'Профиль'} display={{base: 'block', md: 'none'}}>
-                            <MenuItem as={ReactLink} to='/profile' w={'100%'} h={'100%'}>
-                                Личный кабинет
-                            </MenuItem>
-                            <MenuItem as={ReactLink} to='/taskList' w={'100%'}>
-                                Задачи
-                            </MenuItem>
-                            <MenuItem w={'100%'} as={ReactLink} to='/profile/homework'>
-                                Домашние задания
-                            </MenuItem>
-                            <MenuItem w={'100%'} as={'a'} key='1' onClick={disconnect}>
-                                Выйти
-                            </MenuItem>
-                        </MenuGroup>
-                    </MenuList>
+                    {({isOpen}) => (
+                        <>
+                            <MenuButton
+                                as={Button}
+                                _expanded={{bg: colorSchemeWithValue}}
+                                _hover={{bg: colorSchemeWithValue}}
+                                bg={colorSchemeWithValue}
+                                color={colorText}
+                                p={{base: '0', md: '16px'}}
+                            >
+                                {(userName) && (
+                                    <Box display={{base: 'none', md: 'flex'}} alignItems={'flex-end'}>
+                                        {userName + ' ' + userLastName}
+                                        {isOpen ? <ChevronUpIcon/> : <ChevronDownIcon/>}
+                                    </Box>
+                                )}
+                                <HamburgerIcon display={{base: 'flex', md: 'none'}} w={'100%'}/>
+                            </MenuButton>
+                            <MenuList>
+                                <MenuGroup title={'Навигация'} display={{base: 'flex', md: 'none'}}>
+                                    <MenuItem
+                                        as={ReactLink}
+                                        w={'100%'}
+                                        to={'/schedule'}
+                                        icon={<CalendarIcon/>}
+                                        display={{base: 'block', md: 'none'}}
+                                    >
+                                        Календарь
+                                    </MenuItem>
+                                    <MenuItem
+                                        as={ReactLink}
+                                        w={'100%'}
+                                        to={'/taskList'}
+                                        icon={<EditIcon/>}
+                                        display={{base: 'block', md: 'none'}}
+                                    >
+                                        Задачи
+                                    </MenuItem>
+                                    <Divider w={'100%'} marginX={'auto'} display={{base: 'block', md: 'none'}}/>
+                                </MenuGroup>
+                                <MenuGroup title={'Профиль'} display={{base: 'flex', md: 'none'}}>
+                                    <MenuItem
+                                        as={ReactLink}
+                                        icon={<MdOutlineAccountCircle/>}
+                                        w={'100%'}
+                                        to={'/profile'}
+                                    >
+                                        Личный кабинет
+                                    </MenuItem>
+                                    <MenuItem
+                                        as={ReactLink}
+                                        icon={<PiNotebookBold/>}
+                                        w={'100%'}
+                                        to={'/profile/homework'}
+                                    >
+                                        Домашние задания
+                                    </MenuItem>
+                                    <MenuItem
+                                        as={'a'}
+                                        key='1'
+                                        onClick={disconnect}
+                                        justifyContent={'center'}
+                                    >
+                                        Выйти
+                                    </MenuItem>
+                                </MenuGroup>
+                            </MenuList>
+                        </>
+                    )}
                 </Menu>
-                :
+            }
+
+            {!isAuth &&
                 <Link
                     as={ReactLink}
                     to={'/login'}
+                    display={'block'}
+                    bg={colorSchemeWithValue}
+                    color={colorText}
                     pt={2} paddingX={4}
                     paddingY={2}
-                    borderRadius={'1em'}
-                    color={loginColor}
-                    _hover={{backgroundColor: '#1D8CC7', color: 'white'}}
+                    borderRadius={'.4em'}
                 >
                     Войти
                 </Link>
             }
         </Box>
-    );
+    )
+        ;
 };
 
 export default LoginMenu;

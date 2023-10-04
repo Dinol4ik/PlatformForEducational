@@ -16,6 +16,7 @@ import AnimationLayout from "./AnimationLayout";
 import Loader from "./Loader";
 import LinkItem from "./Navigation/LinkItem";
 import NavigationLink from "../UI/NavigationLink";
+import SubjectLayout from "./Lessons/SubjectLayout";
 
 const Subject = () => {
     const [curseInProfile, setCurseInProfie] = useState()
@@ -37,68 +38,52 @@ const Subject = () => {
     return (
         <AnimationLayout>
             <NavigationLink to={'/profile'} type={'back'}>Мои предметы</NavigationLink>
-            <Grid templateColumns='250px 1fr' gap={6}>
-                <GridItem
-                    h={'max-content'}
-                    pos={'sticky'} top={'6em'}
-                    borderRadius={'1em'}
-                    bgColor={bgColor}
-                    boxShadow={boxShadow}
-                    overflow={'hidden'}
-                >
-                    <Flex flexDir={'column'} align={'left'}>
-                        <LinkItem as={ReactLink} to={'/'} title={'Видео уроки'}/>
-                        <LinkItem as={ReactLink} to={'/profile/homework'} title={'Домашние задания'}/>
-                        <LinkItem as={ReactLink} to={'/taskList'} title={'Каталог задач'}/>
-                    </Flex>
-                </GridItem>
-                <GridItem>
-                    {curseInProfile
-                        ? <Box
-                            p={4}
-                            borderRadius={'1em'}
-                            bgColor={bgColor}
-                            boxShadow={boxShadow}
-                            minH={'70vh'}
-                        >
-                            <Text fontSize={'xl'} display={'inline'}>курсы по предмету -&nbsp;
-                                <Text as={'span'} fontWeight={'bold'} display={'inline'}>{curseInProfile.title}</Text>
-                            </Text>
-                            <Grid templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'} mt={4} gap={4}>
-                                {curseInProfile.curses.map((curses, id) => {
-                                    return (
-                                        <GridItem
-                                            _hover={{backgroundColor: bgColorGridItem}}
-                                            borderRadius={'10px'}
-                                            key={id}
-                                            paddingX={'auto'}
-                                            h={'max-content'}
-                                            display={'flex'}
-                                            justifyContent={'center'}
-                                            marginX={'auto'}
-                                        >
-                                            <Link as={ReactLink} to={'' + curses.id}
-                                                  _hover={{textDecoration: 'none'}}>
-                                                <AspectRatio ratio={1} maxW={'200px'} marginX={'auto'}>
-                                                    <Image
-                                                        src={process.env.PUBLIC_URL + `/${folderName}`}
-                                                        alt={'Тут была папка'}
-                                                    />
-                                                </AspectRatio>
-                                                <Text fontSize={'md'} textAlign={'justify'} marginX={2}>
-                                                    {curses.title}
-                                                </Text>
-                                            </Link>
-                                        </GridItem>
-                                    )
-                                })}
-                            </Grid>
-                        </Box>
-                        :
-                        <Loader/>
-                    }
-                </GridItem>
-            </Grid>
+            <SubjectLayout>
+                {curseInProfile
+                    ? <Box
+                        p={4}
+                        borderRadius={'1em'}
+                        bgColor={bgColor}
+                        boxShadow={boxShadow}
+                        minH={'70vh'}
+                    >
+                        <Text fontSize={'xl'} display={'inline'}>Курсы по предмету -&nbsp;
+                            <Text as={'span'} fontWeight={'bold'} display={'inline'}>{curseInProfile.title}</Text>
+                        </Text>
+                        <Grid templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'} mt={4} gap={4}>
+                            {curseInProfile.curses.map((curses, id) => {
+                                return (
+                                    <GridItem
+                                        _hover={{backgroundColor: bgColorGridItem}}
+                                        borderRadius={'10px'}
+                                        key={id}
+                                        paddingX={'auto'}
+                                        h={'max-content'}
+                                        display={'flex'}
+                                        justifyContent={'center'}
+                                        marginX={'auto'}
+                                    >
+                                        <Link as={ReactLink} to={'' + curses.id}
+                                              _hover={{textDecoration: 'none'}}>
+                                            <AspectRatio ratio={1} maxW={'150px'} marginX={'auto'}>
+                                                <Image
+                                                    src={process.env.PUBLIC_URL + `/${folderName}`}
+                                                    alt={'Тут была папка'}
+                                                />
+                                            </AspectRatio>
+                                            <Text fontSize={'md'} textAlign={'justify'} marginX={2}>
+                                                {curses.title}
+                                            </Text>
+                                        </Link>
+                                    </GridItem>
+                                )
+                            })}
+                        </Grid>
+                    </Box>
+                    :
+                    <Loader/>
+                }
+            </SubjectLayout>
         </AnimationLayout>
     );
 };

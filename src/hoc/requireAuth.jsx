@@ -1,6 +1,4 @@
-import {useLocation, Navigate} from "react-router-dom";
-import {useContext} from "react";
-import {AuthContext} from "../context";
+import {Navigate} from "react-router-dom";
 
 const RequireAuth = ({children}) => {
     const auth = localStorage.getItem('auth')

@@ -58,15 +58,16 @@ function App() {
         setPost(post)
     }
 
-    // localStorage.setItem('chakra-ui-color-mode', 'light')
-
     async function fetchProfileName() {
-        const profileName = await UserNameAPI.getUserName();
+        const profileName = await UserNameAPI.getUserName()
+            // .then(() => {
+            //     localStorage.setItem('UserProfileId', profileName.profile);
+            //     localStorage.setItem('profileName', JSON.stringify(profileName));
+            // })
         if (profileName) {
             localStorage.setItem('UserProfileId', profileName.profile)
             localStorage.setItem('profileName', JSON.stringify(profileName))
         }
-
     }
 
     async function fetchSubject() {
@@ -85,7 +86,7 @@ function App() {
 
         }}>
             <ChakraProvider>
-                {/*<AnimatePresence mode={'wait'}> Ломает переходы по ссылкам!!!!!*/}
+                {/*<AnimatePresence mode={'wait'}>*/}
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<Layot/>}>
                         <Route index element={<PostList post={posts} subject={subjects}/>}/>
@@ -96,14 +97,14 @@ function App() {
                                 <Profile/>
                             </RequireAuth>
                         }/>
-                        <Route path={'profile/subject/:id'} element={
-                            <RequireAuth>
-                                <Subject/>
-                            </RequireAuth>
-                        }/>
                         <Route path={'profile/statistic'} element={
                             <RequireAuth>
                                 <SolvedTaskInStatistics/>
+                            </RequireAuth>
+                        }/>
+                        <Route path={'profile/subject/:id'} element={
+                            <RequireAuth>
+                                <Subject/>
                             </RequireAuth>
                         }/>
                         <Route path={'profile/subject/:idSubject/:id'} element={
@@ -144,7 +145,7 @@ function App() {
                                 <InformationAboutAllCourses/>
                             </RequireStaff>
                         }/>
-                         <Route path={'/admin/reload-chat'} element={
+                        <Route path={'/admin/reload-chat'} element={
                             <RequireStaff>
                                 <LessonsListForAdmin/>
                             </RequireStaff>

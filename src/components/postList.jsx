@@ -1,47 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import PostItem from "./postItem";
-import {Box, Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, Grid, Text, useColorModeValue, useRadioGroup} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
-import {CloseIcon} from "@chakra-ui/icons";
+import RadioButton from "./Courses/radioButton";
 
 const PostList = (post) => {
 
-    const bgTitle = useColorModeValue('purple.400', 'orange.200')
-    const colorTitle = useColorModeValue('white', 'black')
-
-    const colorScheme = useColorModeValue('purple', 'orange')
     const [courseArray, setCourseArray] = useState([...post.post])
+    const [currentCourse, setCurrentCourse] = useState('Сброс фильтров')
+
+    let options = []
+    post.subject.map((subject) => {
+        options.push(subject.title)
+    });
+    options = [...options, 'Сброс фильтров']
+
+    const {getRootProps, getRadioProps} = useRadioGroup({
+        name: 'subjects',
+        defaultValue: currentCourse,
+        onChange: setCurrentCourse,
+    })
+
+    const group = getRootProps()
 
     useEffect(() => {
         setCourseArray([...post.post])
     }, [post])
 
-    function hand(e) {
-        const a = document.querySelector('.items')
-        let courses = []
-        for (let i = 0; i < a.children.length; i++) {
-            a.children.item(i).id = ''
+    useEffect(() => {
+        const newCourseArr = []
+        if (currentCourse === 'Сброс фильтров') {
+            return setCourseArray([...post.post])
         }
-        if (e.target.id !== 'active') {
-            (post.post.map(ed => {
-                    if (ed.subject.title === e.target.outerText) {
-                        courses.push(ed)
-                    }
+        post.post.map(
+            course => {
+                if (course.subject.title === currentCourse) {
+                    newCourseArr.push(course)
                 }
-            ))
-            e.target.id = 'active'
-            setCourseArray(courses)
-            courses = []
-        } else e.target.id = ''
-    }
-
-    function reset(e) {
-        const a = document.querySelector('.items')
-        for (let i = 0; i < a.children.length; i++) {
-            e.target.id = ''
-        }
-        setCourseArray([...post.post])
-    }
+            }
+        )
+        setCourseArray(newCourseArr)
+    }, [currentCourse]);
 
     return (
         <AnimationLayout>
@@ -54,30 +53,17 @@ const PostList = (post) => {
                 justify={{base: 'none', sm: 'center'}}
                 wrap={'wrap'}
                 gap={'1em'}
+                {...group}
             >
-                {post.subject.map(subject => {
-                    return <Button
-                        key={subject.id}
-                        onClick={hand}
-                        bgColor={bgTitle}
-                        color={colorTitle}
-                        mx={{base: 10, sm: 0}}
-                        id=''
-                    >
-                        {subject.title}
-                    </Button>
+                {options.map((value) => {
+                    const radio = getRadioProps({value})
+                    const isReset = value === 'Сброс фильтров'
+                    return (
+                        <RadioButton key={value} isReset={isReset} {...radio}>
+                            {value}
+                        </RadioButton>
+                    )
                 })}
-                <Flex justifyContent={'center'}>
-                    <Button
-                        leftIcon={<CloseIcon/>}
-                        aria-label={'Reset filter'}
-                        colorScheme={colorScheme}
-                        onClick={reset}
-                        maxW={'max-content'}
-                    >
-                        Сброс фильтров
-                    </Button>
-                </Flex>
             </Flex>
             {(courseArray.length > 0) ?
                 (<Box>

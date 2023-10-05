@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PostItem from "./postItem";
-import {Box, Flex, Grid, Text, useColorModeValue, useRadioGroup} from "@chakra-ui/react";
+import {Box, Flex, Grid, Text, useRadioGroup} from "@chakra-ui/react";
 import AnimationLayout from "./AnimationLayout";
 import RadioButton from "./Courses/radioButton";
 
@@ -17,7 +17,6 @@ const PostList = (post) => {
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: 'subjects',
-        defaultValue: currentCourse,
         onChange: setCurrentCourse,
     })
 
@@ -32,13 +31,11 @@ const PostList = (post) => {
         if (currentCourse === 'Сброс фильтров') {
             return setCourseArray([...post.post])
         }
-        post.post.map(
-            course => {
-                if (course.subject.title === currentCourse) {
-                    newCourseArr.push(course)
-                }
+        post.post.map(course => {
+            if (course.subject.title === currentCourse) {
+                newCourseArr.push(course)
             }
-        )
+        })
         setCourseArray(newCourseArr)
     }, [currentCourse]);
 
@@ -65,23 +62,21 @@ const PostList = (post) => {
                     )
                 })}
             </Flex>
-            {(courseArray.length > 0) ?
-                (<Box>
-                    <Grid
-                        paddingX={2}
-                        maxW={'container.xl'}
-                        marginX={{base: 8, md: 4, lg: 0}}
-                        templateColumns={'repeat(auto-fit, minmax(200px, 1fr))'}
-                        mt={7}
-                        gap={10}
-                    >
-                        {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
-                    </Grid>
-                </Box>)
+            {(courseArray.length > 0)
+                ?
+                <Grid
+                    maxW={'container.xl'}
+                    marginX={{base: 4, md: 2, lg: 0}}
+                    templateColumns={'repeat(auto-fit, minmax(240px, 1fr))'}
+                    mt={7}
+                    gap={10}
+                >
+                    {courseArray.map(posts => <PostItem post={posts} key={posts.id}/>)}
+                </Grid>
                 :
-                (<Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
+                <Flex align={'center'} justify={'center'} mt={10} w={'100%'}>
                     <Text>Нет курсов по этому предмету</Text>
-                </Flex>)
+                </Flex>
             }
         </AnimationLayout>
     )

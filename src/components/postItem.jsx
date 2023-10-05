@@ -2,19 +2,12 @@ import React, {useState} from 'react';
 import MyModal from "../UI/ModalWindow/MyModal";
 import {
     Box,
-    Card,
-    CardBody,
-    CardHeader, Divider,
+Divider,
     Flex,
-    Heading,
-    List, ListItem,
+    ListItem,
     Text, UnorderedList,
-    useColorMode,
     useColorModeValue
 } from "@chakra-ui/react";
-import AddCurseInProfile from "../API/AddCurseInProfile";
-import {AnimatePresence, motion} from "framer-motion";
-import {useNavigate} from "react-router-dom";
 import AllUsersInCourse from "../API/Lessons/homeWork/AllUsersInCourse";
 
 const PostItem = (props) => {
@@ -47,21 +40,18 @@ const PostItem = (props) => {
                 setActive(false)
             }}/>
     }
-
-
 //////////////////////////////////
+
     return (
         <Box pos={'relative'}>
             <Box
                 display={active ? 'none' : 'block'}
                 overflowY={'hidden'}
-                w={'100%'}
-                maxW={'300px'}
+                maxW={'280px'}
                 marginX={'auto'}
                 p={5}
                 onClick={modalView}
-                h={'100%'}
-                maxH={'450px'}
+                h={'450px'}
                 bgColor={useColorModeValue('white', '#383838')}
                 borderRadius={10}
                 pos={'relative'}

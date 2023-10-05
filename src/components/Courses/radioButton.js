@@ -13,22 +13,17 @@ export default function RadioButton({isReset, ...props}) {
     return (
         <Box as='label'>
             <input {...input} />
-            {/*<Box {...checkbox} >*/}
-            {/*    {props.children}*/}
-            {/*</Box>*/}
             <Flex
                 {...checkbox}
                 align={'center'}
+                justify={isReset ? 'center' : 'normal'}
                 cursor='pointer'
                 px={6}
                 py={4}
                 borderRadius='md'
                 boxShadow='md'
-                minW={'max-content'}
-                mx={{base: 10, sm: 0}}
                 bgColor={bgButton}
                 color={colorButton}
-                id={isReset ? 'reset' : ''}
 
                 _hover={{transform: 'scale(1.05)'}}
                 _checked={{transform: 'scale(1.05)', bgColor: bgButtonChecked, color: colorButton}}

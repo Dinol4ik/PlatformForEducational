@@ -1,55 +1,87 @@
-import {motion, AnimatePresence} from "framer-motion";
-import React, {useState} from "react";
-import {
-    Box, Collapse,
-    Flex,
-    Grid,
-    GridItem,
-    IconButton,
-    useColorModeValue, useDisclosure
-} from "@chakra-ui/react";
-import LinkItem from "../Navigation/LinkItem";
-import {Link as ReactLink} from "react-router-dom";
-import {ChevronRightIcon} from "@chakra-ui/icons";
+import React from "react";
+import {Link as ReactLink, Outlet, useParams} from 'react-router-dom'
+import {Box, Flex, Link, List, ListItem, Text, useColorModeValue} from "@chakra-ui/react";
+import NavigationLink from "../../UI/NavigationLink";
 
-export default function SubjectLayout({children, ...props}) {
-    // const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
-    // const {isOpen, onToggle} = useDisclosure(true)
+const MyListItem = ({title, href}) => {
+    const hoverBgColor = useColorModeValue('rgba(0, 0, 0, .1)', 'rgba(255, 255, 255, .3)')
+    const hoverColor = useColorModeValue('', '')
 
     return (
-        <Grid templateColumns={'1fr'} gap={{base: 2, md: 6}}>
-            {/*<Box*/}
-            {/*    h={'max-content'}*/}
-            {/*    pos={'fixed'}*/}
-            {/*    top={'10rem'}*/}
-            {/*    left={'-0.5rem'}*/}
-            {/*    zIndex={10}*/}
-            {/*    overflow={'hidden'}*/}
-            {/*>*/}
-            {/*    <IconButton*/}
-            {/*        colorScheme='blue'*/}
-            {/*        display={{base: 'flex', md: 'none'}}*/}
-            {/*        aria-label={'show menu'}*/}
-            {/*        borderRightRadius={'5rem'}*/}
-            {/*        icon={<ChevronRightIcon/>}*/}
-            {/*        onClick={onToggle}*/}
-            {/*    />*/}
-            {/*    <Collapse in={isOpen} animateOpacity >*/}
-            {/*        <Flex*/}
-            {/*            flexDir={'column'}*/}
-            {/*            align={'left'}*/}
-            {/*            bgColor={{base: '#dce3e699', md: bgColor}}*/}
-            {/*            w={'max-content'}*/}
-            {/*        >*/}
-            {/*            <LinkItem as={ReactLink} to={'/'} title={'Видео уроки'}/>*/}
-            {/*            <LinkItem as={ReactLink} to={'/profile/homework'} title={'Домашние задания'}/>*/}
-            {/*            <LinkItem as={ReactLink} to={'/taskList'} title={'Каталог задач'}/>*/}
-            {/*        </Flex>*/}
-            {/*    </Collapse>*/}
-            {/*</Box>*/}
-            <GridItem>
-                {children}
-            </GridItem>
-        </Grid>
+        <ListItem
+            _hover={{backgroundColor: hoverBgColor, color: hoverColor,}}
+            borderRadius={'.7em'}
+            bgColor={'rgba(0, 0, 0, .05)'}
+        >
+            <Link as={ReactLink} href={href} _hover={{textDecoration: 'none'}}>
+                <Text p={2} m={0} ml={{base: 0, md: 5}} w={{base: 'fit-content', md: '150px'}}>
+                    {title}
+                </Text>
+            </Link>
+        </ListItem>
+    )
+}
+
+export default function SubjectLayout() {
+    const params = useParams()
+    const navigate = {
+        one: {
+            href: '/profile',
+            title: 'Мои предметы'
+        },
+        two: {
+            href: '/profile/subject/' + params?.idSubject,
+            title: 'Курсы'
+        },
+        three: {
+            href: '/profile/subject/' + params?.idSubject + "/" + params?.idCourse,
+            title: 'К выбору уроков'
+        },
+    }
+
+    const bgColor = useColorModeValue('rgba(0, 0, 0, .05)', '#0c131c')
+    const boxShadow = useColorModeValue('0 0 2px', '0 0 2px whitesmoke')
+
+    const location = window.location.href.toString()
+    let res = location.match("^https?\\:\\/\\/[a-zA-Z:0-9]+\\/profile\\/subject\\/([0-9]+)(\\/([0-9]+))?(\\/([0-9]+))?")
+    let setNavigate
+
+    if(res[5] !== undefined){
+        setNavigate = navigate.three
+    } else if(res[3] !== undefined){
+        setNavigate = navigate.two
+    } else
+        setNavigate = navigate.one
+
+    return (
+        <Flex
+            mt={'6em'}
+            gap={10}
+            direction={{base: 'column', sm: 'row'}}
+        >
+            <Flex
+                alignItems={'start'}
+                justify={'center'}
+                minH={'100%'}
+                bgColor={bgColor}
+                borderRightRadius={'1em'}
+                boxShadow={boxShadow}
+                display={{base: 'none', sm: 'flex'}}
+            >
+                <List pos={'sticky'} top={'6em'} spacing={3} p={2} m={0}>
+                    <MyListItem href={'#'} title={'Какая-то ссылка'}/>
+                    <MyListItem href={'#'} title={'Другая ссылка'}/>
+                    <MyListItem href={'#'} title={'Третья для примера'}/>
+                    <MyListItem href={'#'} title={'...'}/>
+                </List>
+            </Flex>
+            <Box w={'100%'} mr={7}>
+                <NavigationLink to={setNavigate.href} type={'back'}>{setNavigate.title}</NavigationLink>
+
+                {/* Остальной контент */}
+                <Outlet/>
+
+            </Box>
+        </Flex>
     );
 };

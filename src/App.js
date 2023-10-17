@@ -27,6 +27,7 @@ import AdminScreen from "./components/Administrator/adminScreen";
 import InformationAboutAllCourses from "./components/Administrator/informationAboutAllCourses";
 import Chat from "./components/chat/chat";
 import LessonsListForAdmin from "./components/Administrator/lessonsListForAdmin";
+import SubjectLayout from "./components/Lessons/SubjectLayout";
 
 
 function App() {
@@ -60,10 +61,10 @@ function App() {
 
     async function fetchProfileName() {
         const profileName = await UserNameAPI.getUserName()
-            // .then(() => {
-            //     localStorage.setItem('UserProfileId', profileName.profile);
-            //     localStorage.setItem('profileName', JSON.stringify(profileName));
-            // })
+        // .then(() => {
+        //     localStorage.setItem('UserProfileId', profileName.profile);
+        //     localStorage.setItem('profileName', JSON.stringify(profileName));
+        // })
         if (profileName) {
             localStorage.setItem('UserProfileId', profileName.profile)
             localStorage.setItem('profileName', JSON.stringify(profileName))
@@ -102,21 +103,23 @@ function App() {
                                 <SolvedTaskInStatistics/>
                             </RequireAuth>
                         }/>
-                        <Route path={'profile/subject/:id'} element={
-                            <RequireAuth>
-                                <Subject/>
-                            </RequireAuth>
-                        }/>
-                        <Route path={'profile/subject/:idSubject/:id'} element={
-                            <RequireAuth>
-                                <LessonsList/>
-                            </RequireAuth>
-                        }/>
-                        <Route path={'profile/subject/:idSubject/:idCourse/:id'} element={
-                            <RequireAuth>
-                                <LessonsItem/>
-                            </RequireAuth>
-                        }/>
+                        <Route path={'profile/subject'} element={<SubjectLayout/>}>
+                            <Route path={':id'} element={
+                                <RequireAuth>
+                                    <Subject/>
+                                </RequireAuth>
+                            }/>
+                            <Route path={':idSubject/:id'} element={
+                                <RequireAuth>
+                                    <LessonsList/>
+                                </RequireAuth>
+                            }/>
+                            <Route path={':idSubject/:idCourse/:id'} element={
+                                <RequireAuth>
+                                    <LessonsItem/>
+                                </RequireAuth>
+                            }/>
+                        </Route>
                         <Route path={'taskList'} element={
                             <TaskList/>
                         }/>

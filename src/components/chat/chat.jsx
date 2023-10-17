@@ -46,11 +46,11 @@ const Chat = () => {
         // const message = JSON.parse(localStorage.getItem("profileName")).first_name + ": " + event.target.elements.message.value;
         const message = {
             user: JSON.parse(localStorage.getItem("profileName")).first_name,
-            message:  event? event.target.elements.message.value :"Добро пожаловать!"
+            message:  event.target.elements.message.value 
         }
 
         socket.send(JSON.stringify(message));
-        event.target.elements.message.value = '';
+        // event.target.elements.message.value = '';
     };
     console.log(messages)
     return (

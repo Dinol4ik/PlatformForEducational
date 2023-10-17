@@ -5,6 +5,7 @@ import {Link, Text, useColorModeValue} from "@chakra-ui/react";
 
 const NavigationLink = ({type, to, children, ...props}) => {
     const boxSizing = '25px'
+    const hoverColor = useColorModeValue('rgba(255, 255, 255, .5)', '#0c131c')
 
     return (
         <Link
@@ -15,7 +16,8 @@ const NavigationLink = ({type, to, children, ...props}) => {
             paddingX={4}
             paddingY={2}
             mb={5}
-            _hover={useColorModeValue('rgba(0, 0, 0, .5)', '#0c131c')}
+            w={'max-content'}
+            _hover={hoverColor}
             {...props}
         >
             {type === 'back' &&

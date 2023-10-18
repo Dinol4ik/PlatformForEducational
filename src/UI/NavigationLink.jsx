@@ -13,11 +13,12 @@ const NavigationLink = ({type, to, children, ...props}) => {
             to={to}
             display={'flex'}
             alignItems={'center'}
-            paddingX={4}
-            paddingY={2}
-            mb={5}
+            bgColor={'rgba(0, 0, 0, .1)'}
+            _hover={{backgroundColor: 'rgba(0, 0, 0, .25)'}}
+            px={3} py={2}
+            borderRadius={'8px'}
+            mb={2}
             w={'max-content'}
-            _hover={hoverColor}
             {...props}
         >
             {type === 'back' &&

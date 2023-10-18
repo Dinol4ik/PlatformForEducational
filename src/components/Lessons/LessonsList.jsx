@@ -38,7 +38,7 @@ const LessonsList = () => {
     }, [])
 
     return (
-        <Box p={4} borderRadius={'1em'} bgColor={bgColor} boxShadow={boxShadow} minH={'70vh'}>
+        <Box p={4} borderRadius={'1em'} bgColor={bgColor} boxShadow={boxShadow} minH={'70vh'} mx={{base: 4, sm: 0}}>
             <Text fontSize={'xl'}>
                 Уроки по выбранному курсу
             </Text>

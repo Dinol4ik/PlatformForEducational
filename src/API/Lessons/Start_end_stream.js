@@ -10,6 +10,8 @@ export default class Start_end_stream {
             "home_task":Lesson.home_task,
             "stream_status":status
         })
+        console.log(Lesson)
+        console.log(status)
         return responseSomeLessons.data
     }
     static async loadVideo(Lesson,video) {

@@ -60,13 +60,15 @@ const LessonsItem = () => {
     async function streamStatus(stream) {
         if (stream.target.id === 1) {
             setTextButton('Завершить трансляцию')
-            setStatus('online')
+            const status = 'online'
             await Start_end_stream.getSomeLessonsInCurse(from, status)
+            setStatus('online')
             stream.target.id = 2
         } else {
             setTextButton('Трансляция закончилась')
-            setStatus('end')
+            const status = 'end'
             await Start_end_stream.getSomeLessonsInCurse(from, status)
+            setStatus('end')
             stream.target.id = 1
         }
     }
@@ -76,7 +78,7 @@ const LessonsItem = () => {
     const hour = date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})
 
     return (
-        <Flex minH={'70vh'} flexDir={'column'}>
+        <Flex h={'100%'} flexDir={'column'} p={2}>
             {userInCourse['result'] === 'true'
                 ?
                 from &&
@@ -87,20 +89,20 @@ const LessonsItem = () => {
                     <>
                         {status && status === 'online' &&
                             <TwitchPlayer
-                                src={"https://player.twitch.tv/?channel=dinol_bot&parent=localhost&muted=true"}/>
+                                src={"https://player.twitch.tv/?channel=ilame&parent=localhost&muted=true"}/>
                         }
                         {status && status === 'end' &&
-                            <Text>Стрим закончился!</Text>
+                            <Text fontWeight={'semibold'} textAlign={'center'}>Стрим закончился!</Text>
                         }
                         {from?.video && status &&
                             <Video src={from.video}/>
                         }
                         {status && status !== 'online' && status !== 'end' &&
-                            <Text>Стрим скоро начнется!</Text>
+                            <Text fontWeight={'semibold'} textAlign={'center'}>Стрим скоро начнется!</Text>
                         }
                     </>
                     {/* Если разработчик, то выложить ДЗ */}
-                    <Box flex={1} display={'flex'} alignItems={'flex-end'} mt={3}>
+                    <Box display={'flex'} flexDir={'column'} mt={3}>
                         {is_staff &&
                             <Flex flexDir={'column'} gap={3} mb={2}>
                                 <Link
@@ -114,7 +116,7 @@ const LessonsItem = () => {
                                     to={'/create/homeTask'}
                                     bgColor={'rgba(0, 0, 0, .1)'}
                                     _hover={{backgroundColor: 'rgba(0, 0, 0, .25)'}}
-                                    px={3} py={2}
+                                    px={3} py={2} w={'max-content'}
                                     borderRadius={'8px'}
                                 >
                                     <UnlockIcon display={'inline'} boxSize={'12px'} mr={1}/>
@@ -124,6 +126,7 @@ const LessonsItem = () => {
                                     id={textButton === 'Начать трансляцию' ? 1 : 2}
                                     onClick={streamStatus}
                                     colorScheme={colorScheme}
+                                    w={'max-content'}
                                 >
                                     {textButton}
                                 </Button>
@@ -132,7 +135,7 @@ const LessonsItem = () => {
                         {/* Если разработчик, и трансляция закончилась, то выложить видео */}
                         {is_staff && status === 'end' &&
                             <FormControl border={'1px solid black'} w={'100%'} maxW={'350px'} borderRadius={'1em'}
-                                         p={2} as='fieldset'>
+                                         mt={2} p={2} as='fieldset'>
                                 <FormLabel as='legend'>
                                     Загрузить файл с видео
                                 </FormLabel>

@@ -90,8 +90,10 @@ export default function SubjectLayout() {
                             onClick={handleToggle}
                 />
             </Flex>
-            <Box w={'100%'} mr={{base: 0, sm: 6, md: 7, lg: 8}}>
-                <NavigationLink to={setNavigate.href} type={'back'}>{setNavigate.title}</NavigationLink>
+            <Box w={'100%'} minH={'70vh'} h={'100%'} mr={{base: 0, sm: 6, md: 7, lg: 8}}>
+                <NavigationLink to={setNavigate.href} type={'back'} ml={{base: 2, sm: 0}}>
+                    {setNavigate.title}
+                </NavigationLink>
 
                 {/* Остальной контент */}
                 <Outlet/>
